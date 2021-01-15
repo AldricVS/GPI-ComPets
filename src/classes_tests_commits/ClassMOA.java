@@ -1,7 +1,7 @@
 package classes_tests_commits;
 
 public class ClassMOA {
-	//GATEAU Chloé
+	private static final String AUTHOR = "GATEAU Chloé";
 
 }
  
