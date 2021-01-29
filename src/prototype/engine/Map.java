@@ -9,19 +9,22 @@ public class Map {
 	public Map() {
 		this.largeur = Config.LARGEUR;
 		this.longueur = Config.LONGUEUR;
+		
 		map = new int [largeur][longueur];
-
+		
 		for(int indexLargeur=0; indexLargeur<largeur;indexLargeur++) {
 			for(int indexLongeur=0; indexLongeur<longueur;indexLongeur++) {
 				map[indexLargeur][indexLongeur]=Config.NORMAL_CASE;
 			}
 		}
 		
-		//position des case spé
-		map[1][2]=Config.BAD_CASE;
+		//position des case spï¿½
+		map[0][2]=Config.BAD_CASE;
 		map[2][1]=Config.BAD_CASE;
-		map[1][1]=Config.GOOD_CASE;
+		map[0][0]=Config.GOOD_CASE;
 		map[2][2]=Config.GOOD_CASE;
+		map[1][1]=Config.GOOD_CASE;
+		map[2][0]=Config.BAD_CASE;
 	}
 
 	public int getLargeur() {
@@ -34,6 +37,10 @@ public class Map {
 
 	public int getValues(int coordX, int coordY) {
 		return map[coordX][coordY];
+	}
+
+	public int[][] getMap() {
+		return map;
 	}
 	
 	

@@ -6,7 +6,11 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -20,12 +24,18 @@ public class ButtonsPanel extends JPanel {
 	private JButton punishButton = new JButton("Punish");
 	private JButton rewardButton = new JButton("Reward");
 
+
 	public ButtonsPanel(MainGui context) {
 		this.context = context;
+		
+		
+		
 		setLayout(new GridLayout(0, 2));
 		setPreferredSize(PANEL_DIMENSION);
 		add(rewardButton);
 		add(punishButton);
+		punishButton.addActionListener(new ActionPunish());
+		rewardButton.addActionListener(new ActionReward());
 	}
 	
 	class ActionPunish implements ActionListener{
