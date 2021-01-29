@@ -47,8 +47,6 @@ public class MainPanel extends JPanel {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
-//		int[][] mapArray = map.getMap();
-
 		int[][] mapArray = map.getMap();
 
 		int boxWidth = WIDTH / mapArray.length;
@@ -80,12 +78,5 @@ public class MainPanel extends JPanel {
 		int coordY = dog.getCoordY();
 		
 		g.drawImage(dogImage, coordX * boxWidth, coordY * boxHeight, boxWidth, boxHeight, null);
-
-//		Graphics2D g2d = (Graphics2D) g;
-//		g2d.setColor(Color.black);
-//		g2d.setStroke(new BasicStroke(3));
-//		g2d.drawLine(coordX * boxWidth, coordY * boxHeight, (coordX + 1) * boxWidth, (coordY + 1) * boxHeight);
-//		g2d.drawLine(coordX * boxWidth, (coordY + 1) * boxHeight, (coordX + 1) * boxWidth, coordY * boxHeight);
 	}
-
 }
