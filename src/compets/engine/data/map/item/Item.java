@@ -1,8 +1,15 @@
 package compets.engine.data.map.item;
 
+import compets.engine.data.map.Box;
+import compets.engine.data.map.Position;
+
 /**
  * @author Maxence
  */
-public class Item {
+public class Item extends Box{
+	
+	public Item(Position position) {
+		super(position);
+	}
 
 }
