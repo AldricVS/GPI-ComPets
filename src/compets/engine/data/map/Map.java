@@ -5,20 +5,29 @@ package compets.engine.data.map;
  */
 public class Map {
 
-	private static Box map[][];
+	private Box map[][];
 	private int rowCount;
 	private int columnCount;
 	
 	public Map(int rowCount, int columnCount) {
 		this.rowCount = rowCount;
 		this.columnCount = columnCount;
-		map = new Box[rowCount][columnCount];
+		this.map = new Box[rowCount][columnCount];
+	}
+	
+	public Map() {
+		this(15,  15);
+		// TODO créer une carte complète
 	}
 
 	public Box[][] getMap() {
 		return map;
 	}
 
+	public Box getBoxAtPosition(Position position) {
+		return map[position.getX()][position.getY()];
+	}
+	
 	public int getRowCount() {
 		return rowCount;
 	}
