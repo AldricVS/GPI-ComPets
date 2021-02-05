@@ -5,17 +5,17 @@ package compets.engine.data.map;
  */
 public class Map {
 
-	private int map[][];
+	private static Box map[][];
 	private int rowCount;
 	private int columnCount;
 	
 	public Map(int rowCount, int columnCount) {
 		this.rowCount = rowCount;
 		this.columnCount = columnCount;
-		this.map = new int[rowCount][columnCount];
+		map = new Box[rowCount][columnCount];
 	}
 
-	public int[][] getMap() {
+	public Box[][] getMap() {
 		return map;
 	}
 

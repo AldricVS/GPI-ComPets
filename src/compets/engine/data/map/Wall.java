@@ -3,9 +3,10 @@ package compets.engine.data.map;
 /**
  * @author Maxence
  */
-public class Wall {
+public class Wall extends Box{
 
-	public Wall() {
+	public Wall(Position position) {
+		super(position);
 	}
 
 }

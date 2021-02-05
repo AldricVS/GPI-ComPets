@@ -1,14 +1,14 @@
 package compets.engine.data.map.item;
 
+import compets.engine.data.map.Position;
+
 /**
  * @author Maxence
  */
-public class NeutralItem {
+public class NeutralItem extends Item{
 
-	/**
-	 * 
-	 */
-	public NeutralItem() {
+	public NeutralItem(Position position) {
+		super(position);
 	}
 
 }
