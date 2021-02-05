@@ -3,6 +3,7 @@ package compets.engine.process;
 import java.util.Random;
 
 import compets.engine.data.animal.Animal;
+import compets.engine.data.map.Box;
 import compets.engine.data.map.Map;
 import compets.engine.data.map.Position;
 
@@ -24,6 +25,8 @@ public class AnimalManager {
 		int xMax = map.getColumnCount();
 		int yMax = map.getRowCount();		
 		
+		 Box[][] map2 = map.getMap();
+		
 		Position currentPos = animal.getPosition();
 		
 		int currentXPos= currentPos.getX();
@@ -32,20 +35,25 @@ public class AnimalManager {
 		int newXPos = rand.nextInt(3) - 1;
 		int newYPos = rand.nextInt(3) - 1;
 		
-		//verification des bordures
-		if (currentXPos + newXPos < 0) 
+		//Vérification des bordures pour un déplacement horizontal
+//		bool isWall = map[currentXPos + newXPos][currentYPos].verifWall();
+		
+		if (currentXPos + newXPos < 0) //|| isWall
 			animal.setPosition(currentPos);
 		
-		else if (currentXPos + newXPos > (xMax - 1))
+		else if (currentXPos + newXPos > (xMax - 1)) //|| isWall
 			currentPos.setX(xMax - 1);
 		
 		else
 			currentPos.setX(currentXPos + newXPos);
 
-		if (currentYPos + newYPos < 0)
+		//Vérification des bordures pour un déplacement vertical
+//		bool isWall = map[currentXPos][currentYPos + newYPos].verifWall();
+		
+		if (currentYPos + newYPos < 0)	//|| isWall
 			animal.setPosition(currentPos);
 		
-		else if (currentYPos + newYPos > (yMax - 1)) 
+		else if (currentYPos + newYPos > (yMax - 1)) //|| isWall
 			currentPos.setY(yMax - 1);
 		 
 		else 
