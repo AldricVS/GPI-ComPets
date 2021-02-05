@@ -23,24 +23,29 @@ public class Map {
 		// TODO créer une carte complète
 		for (int row = 0; row < rowCount; row++) {
 			for (int column = 0; column < columnCount; column++) {
+				Position position = new Position(row, column);
 				switch ((row + column)%5) {
 				default:
 				case 1:
 				case 2:
-					map[row][column] = new EmptyBox(new Position(row, column));
+					setBoxOnMap(new EmptyBox(position), position);
 					break;
 				case 3:
-					map[row][column] = new Wall(new Position(row, column));
+					setBoxOnMap(new GoodItem(position), position);
 					break;
 				case 4:
-					map[row][column] = new GoodItem(new Position(row, column));
+					setBoxOnMap(new Wall(position), position);
 					break;
 				case 5:
-					map[row][column] = new BadItem(new Position(row, column));
+					setBoxOnMap(new BadItem(position), position);
 					break;
 				}
 			}
 		}
+	}
+
+	private void setBoxOnMap(Box box, Position position) {
+		map[position.getX()][position.getY()] = box;
 	}
 
 	public Box[][] getMap() {
