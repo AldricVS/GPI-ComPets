@@ -60,4 +60,8 @@ public class AnimalManager {
 			currentPos.setY(currentYPos + newYPos);
 
 	}
+
+	public Animal getAnimal() {
+		return animal;
+	}
 }
