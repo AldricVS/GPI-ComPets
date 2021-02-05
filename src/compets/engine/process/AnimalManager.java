@@ -21,11 +21,8 @@ public class AnimalManager {
 	 * Définit les règles de déplacement de l'animal
 	 */
 	public void moveAnimal() {
-		/***DIMENSIONS DE LA CARTE EN DUR******/
-		int xMax = 15;
-		int yMax = 15;
-		/***************************************/
-		
+		int xMax = map.getColumnCount();
+		int yMax = map.getRowCount();		
 		
 		Position currentPos = animal.getPosition();
 		
