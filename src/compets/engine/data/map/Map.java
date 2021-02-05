@@ -2,6 +2,7 @@ package compets.engine.data.map;
 
 import compets.engine.data.map.item.BadItem;
 import compets.engine.data.map.item.GoodItem;
+import compets.engine.data.map.item.NeutralItem;
 
 /**
  * @author Maxence
@@ -24,9 +25,10 @@ public class Map {
 		for (int row = 0; row < rowCount; row++) {
 			for (int column = 0; column < columnCount; column++) {
 				Position position = new Position(row, column);
-				switch ((row + column)%5) {
+				switch ((row + column)%6) {
 				default:
 				case 1:
+					setBoxOnMap(new NeutralItem(position), position);
 				case 2:
 					setBoxOnMap(new EmptyBox(position), position);
 					break;
