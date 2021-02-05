@@ -6,7 +6,7 @@ import compets.engine.data.map.Position;
 /**
  * @author Maxence
  */
-public class Item extends Box{
+public abstract class Item extends Box{
 	
 	public Item(Position position) {
 		super(position);

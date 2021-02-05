@@ -1,9 +1,11 @@
 package compets.engine.data.map;
 
+import compets.engine.process.visitor.BoxVisitor;
+
 /**
  * @author Maxence
  */
-public class Box {
+public abstract class Box {
 
 	private Position position;
 	
@@ -19,4 +21,6 @@ public class Box {
 		this.position = position;
 	}
 
+	public abstract <T> T accept(BoxVisitor<T> visitor);
+	
 }
