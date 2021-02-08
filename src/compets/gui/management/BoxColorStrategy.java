@@ -13,7 +13,7 @@ import compets.engine.data.map.item.NeutralItem;
  * 
  * @author Aldric Vitali Silvestre <aldric.vitali@outlook.fr>
  */
-public interface ColorStrategy {
+public interface BoxColorStrategy {
 	
 	public void setColor(Graphics graphics, EmptyBox emptyBox);
 	public void setColor(Graphics graphics, Wall wall);

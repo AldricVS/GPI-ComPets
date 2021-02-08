@@ -26,17 +26,45 @@ public class PaintBoxVisitor implements BoxVisitor<Void> {
 	 */
 	private Rectangle rectangle;
 
-	private ColorStrategy colorStrategy;
+	private BoxColorStrategy colorStrategy;
+
+	public PaintBoxVisitor() {
+		colorStrategy = new BasicBoxColorStartegy();
+	}
 
 	public PaintBoxVisitor(Graphics graphics, Rectangle rectangle) {
 		this.graphics = graphics;
 		this.rectangle = rectangle;
-		colorStrategy = new BasicColorStartegy();
+		colorStrategy = new BasicBoxColorStartegy();
 	}
 
-	public PaintBoxVisitor(Graphics graphics, Rectangle rectangle, ColorStrategy colorStrategy) {
+	public PaintBoxVisitor(Graphics graphics, Rectangle rectangle, BoxColorStrategy colorStrategy) {
 		this.graphics = graphics;
 		this.rectangle = rectangle;
+		this.colorStrategy = colorStrategy;
+	}
+
+	public Graphics getGraphics() {
+		return graphics;
+	}
+
+	public Rectangle getRectangle() {
+		return rectangle;
+	}
+
+	public BoxColorStrategy getColorStrategy() {
+		return colorStrategy;
+	}
+
+	public void setGraphics(Graphics graphics) {
+		this.graphics = graphics;
+	}
+
+	public void setRectangle(Rectangle rectangle) {
+		this.rectangle = rectangle;
+	}
+
+	public void setColorStrategy(BoxColorStrategy colorStrategy) {
 		this.colorStrategy = colorStrategy;
 	}
 
@@ -81,10 +109,10 @@ public class PaintBoxVisitor implements BoxVisitor<Void> {
 		int height = rectangle.getHeight();
 
 		//draw the box with the color defined above
-		graphics.drawRect(position.getX() * width, position.getY() * height, width, height);
+		graphics.fillRect(position.getX() * width, position.getY() * height, width, height);
 
 		// draw the grid
 		graphics.setColor(ColorConstants.GRID_COLOR);
-		graphics.drawRect(position.getX() * width + 1, position.getY() * height + 1, width - 1, height - 1);
+		graphics.drawRect(position.getX() * width, position.getY() * height, width, height);
 	}
 }

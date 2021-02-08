@@ -21,7 +21,7 @@ import compets.engine.data.map.item.NeutralItem;
  * 
  * @author Aldric Vitali Silvestre <aldric.vitali@outlook.fr>
  */
-public class BasicColorStartegy implements ColorStrategy {
+public class BasicBoxColorStartegy implements BoxColorStrategy {
 	private static final Color EMPTY_BOX_COLOR = Color.GRAY;
 	private static final Color WALL_COLOR = new Color(139,69,19);
 	private static final Color GOOD_ITEM_COLOR = new Color(0,128,0);
