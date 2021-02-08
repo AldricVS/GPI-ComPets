@@ -1,4 +1,4 @@
-package compets.gui;
+package compets.gui.elements;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -17,6 +17,7 @@ import compets.engine.data.map.item.BadItem;
 import compets.engine.data.map.item.GoodItem;
 import compets.engine.data.map.item.NeutralItem;
 import compets.engine.process.AnimalManager;
+import compets.gui.ColorConstants;
 
 public class MainPanel extends JPanel {
 

@@ -1,4 +1,4 @@
-package compets.gui;
+package compets.gui.elements;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;

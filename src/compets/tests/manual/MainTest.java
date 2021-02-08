@@ -1,6 +1,6 @@
 package compets.tests.manual;
 
-import compets.gui.MainGui;
+import compets.gui.elements.MainGui;
 
 public class MainTest {
 
