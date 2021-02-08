@@ -48,6 +48,7 @@ public class Prop {
 	 */
 	public Prop(String imagePath) throws IOException {
 		loadImage(imagePath);
+		this.rectangle = new Rectangle(new Position(0, 0), 1, 1);
 	}
 
 	private void loadImage(String imagePath) throws IOException {

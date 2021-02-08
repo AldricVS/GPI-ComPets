@@ -3,6 +3,8 @@ package compets.gui.elements;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
@@ -12,6 +14,7 @@ import compets.engine.data.map.Box;
 import compets.engine.data.map.EmptyBox;
 import compets.engine.data.map.Map;
 import compets.engine.data.map.Position;
+import compets.engine.data.map.Prop;
 import compets.engine.data.map.Rectangle;
 import compets.engine.data.map.Wall;
 import compets.engine.data.map.item.BadItem;
@@ -52,8 +55,23 @@ public class MainPanel extends JPanel {
 		boxHeight = getHeight() / numberOfColumns;
 
 		drawBoxes(g, mapArray);
+		ArrayList<Prop> props = map.getProps();
+		drawProps(g, props);
 		drawAnimal(g);
 
+	}
+
+	private void drawProps(Graphics g, ArrayList<Prop> props) {
+		for (Prop prop : props) {
+			Rectangle rectangle = prop.getRectangle();
+			Image image = prop.getImage();
+			Position position = rectangle.getPosition();
+			int propWidth = rectangle.getWidth() * boxWidth;
+			int propHeight = rectangle.getHeight() * boxHeight;
+			int propPositionX = position.getX();
+			int propPositionY = position.getY();
+			g.drawImage(image, propPositionX * boxWidth, propPositionY * boxHeight, propWidth, propHeight, null);
+		}
 	}
 
 	private void drawBoxes(Graphics g, Box[][] mapArray) {
@@ -61,9 +79,9 @@ public class MainPanel extends JPanel {
 		int numberOfColumns = mapArray[0].length;
 		paintVisitor.setGraphics(g);
 		Rectangle rectangle = new Rectangle(null, boxWidth, boxHeight);
-		for (int col = 0; col < numberOfColumns; col++) {
-			for (int line = 0; line < numberOfLines; line++) {
-				Box currentBox = mapArray[col][line];
+		for (int line = 0; line < numberOfColumns; line++) {
+			for (int col = 0; col < numberOfLines; col++) {
+				Box currentBox = mapArray[line][col];
 				Position position = currentBox.getPosition();
 				rectangle.setPosition(position);
 				paintVisitor.setRectangle(rectangle);
