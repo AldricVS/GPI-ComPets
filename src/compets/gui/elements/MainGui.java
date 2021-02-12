@@ -81,6 +81,7 @@ public class MainGui extends JFrame implements Runnable{
 
 	@Override
 	public void run() {
+		boolean isOddStep = true;
 		while(true) {
 			try {
 				Thread.sleep(TURN_DELAY);
@@ -88,7 +89,13 @@ public class MainGui extends JFrame implements Runnable{
 				e.printStackTrace();
 			}
 			if(isPlaying) {
-				animalManager.moveAnimal();
+				if(isOddStep) {
+					animal.resetState();
+					animalManager.moveAnimal();
+				}else {
+					animalManager.interact();
+				}
+				isOddStep = !isOddStep;
 				repaint();
 			}
 		}
