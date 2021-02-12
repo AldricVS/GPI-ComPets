@@ -33,7 +33,7 @@ public class AnimalManager {
 	/**
 	 * Définit les règles de déplacement de l'animal
 	 */
-	public void moveAnimal() {
+	public void chooseNextMove() {
 		int xMax = map.getColumnCount();
 		int yMax = map.getRowCount();
 
@@ -74,6 +74,8 @@ public class AnimalManager {
 		}
 	}
 
+	public void moveAnimal(Position p) {}
+	
 	/**
 	 * Définit les intéractions possible par l'animal en fonction de la case sur
 	 * laquelle il se trouve
@@ -92,25 +94,33 @@ public class AnimalManager {
 		// Mauvaise action par l'animal
 		if (map.getBoxAtPosition(currentPos) instanceof BadItem) {
 			if (actionChoice > obedience) {
-				animal.setStates(States.BAD_ACTION);
+				changeState(States.BAD_ACTION);
 			}
 		}
 
 		// Bonne action par l'animal
 		else if (map.getBoxAtPosition(currentPos) instanceof GoodItem) {
 			if (actionChoice <= obedience) {
-				animal.setStates(States.GOOD_ACTION);
+				changeState(States.GOOD_ACTION);
 			}
 		}
 
 		// Possibilité du choix de l'intéraction par l'animal (bonne ou mauvaise)
 		else if (map.getBoxAtPosition(currentPos) instanceof NeutralItem) {
 			if (actionChoice < obedience-20) {
-				animal.setStates(States.GOOD_ACTION);
+				changeState(States.GOOD_ACTION);
 			} else if (actionChoice >= obedience-20) {
-				animal.setStates(States.BAD_ACTION);
+				changeState(States.BAD_ACTION);
 			}
 		}
+	}
+	
+	/**
+	 * Permet de changer l'etat de l'animal
+	 * @param s le nouvelle état dans lequel il prendra
+	 */
+	public void changeState(States s) {
+		animal.setStates(s);
 //		System.out.println(animal.getStates());
 	}
 	
