@@ -31,50 +31,46 @@ public class AnimalManager {
 	}
 
 	/**
-	 * Définit les règles de déplacement de l'animal
+	 * Définit la nouvelle position que l'animal prendra après son déplacement
 	 */
-	public void chooseNextMove() {
+	public Position chooseNextMove() {
 		int xMax = map.getColumnCount();
 		int yMax = map.getRowCount();
 
-		Position currentPos = animal.getPosition();
-
+		Position currentPos = animal.getPosition(); 
+		Position posToMove = currentPos; //position que l'animal devra prendre, par défault currentPos
+		
 		int currentXPos = currentPos.getX();
 		int currentYPos = currentPos.getY();
 
 		int newXPos = rand.nextInt(3) - 1;
 		int newYPos = rand.nextInt(3) - 1;
 
-		Position nextPos = new Position(currentXPos + newXPos, currentYPos + newYPos);// Position future de l'animal
-
-		// Vérification des bordures pour un déplacement horizontal
-		if (currentXPos + newXPos < 0 || map.getBoxAtPosition(nextPos) instanceof Wall) {
-			animal.setPosition(currentPos); // bloque l'animal si il veut sortir de la carte ou aller sur un mur
+		
+		// Vérification des bordures/murs pour un déplacement horizontal
+		Position nextPos = new Position(currentXPos + newXPos, currentYPos);// Position future de l'animal
+		
+		if (currentXPos + newXPos > 0 && currentXPos + newXPos < (xMax - 1) ) {
+				if(!(map.getBoxAtPosition(nextPos) instanceof Wall)) {
+					posToMove.setX(currentXPos + newXPos);
+				}
 		}
 
-		else if (currentXPos + newXPos > (xMax - 1) || map.getBoxAtPosition(nextPos) instanceof Wall) {
-			animal.setPosition(currentPos);
+		// Vérification des bordures/murs pour un déplacement vertical
+		nextPos = new Position(currentXPos, currentYPos+newYPos);
+		
+		if (currentYPos + newYPos > 0 && currentYPos + newYPos < (yMax - 1) ) { //si on est pas au bord
+				if(!(map.getBoxAtPosition(nextPos) instanceof Wall)) { //si ce n'est pas un mur
+					posToMove.setY(currentYPos + newYPos);
+				}
 		}
-
-		else {
-			currentPos.setX(currentXPos + newXPos);
-		}
-
-		// Vérification des bordures pour un déplacement vertical
-		if (currentYPos + newYPos < 0 || map.getBoxAtPosition(nextPos) instanceof Wall) {
-			animal.setPosition(currentPos);
-		}
-
-		else if (currentYPos + newYPos > (yMax - 1) || map.getBoxAtPosition(nextPos) instanceof Wall) {
-			animal.setPosition(currentPos);
-		}
-
-		else {
-			currentPos.setY(currentYPos + newYPos);
-		}
+		
+		return posToMove;
 	}
 
-	public void moveAnimal(Position p) {}
+	public void moveAnimal(Position p) {
+		animal.setPosition(p);
+	}
 	
 	/**
 	 * Définit les intéractions possible par l'animal en fonction de la case sur
