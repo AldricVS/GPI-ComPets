@@ -7,15 +7,15 @@ import org.junit.Test;
 
 import compets.engine.data.animal.Animal;
 import compets.engine.data.animal.States;
+import compets.engine.data.map.EmptyBox;
 import compets.engine.data.map.Map;
 import compets.engine.data.map.Position;
-import compets.engine.data.map.item.BadItem;
 import compets.engine.process.AnimalManager;
 
 /**
  * @author Maxence
  */
-public class AnimalInteractBadItem {
+public class AnimalInteractionEmptyTest {
 	
 	private static Map map;
 	private static Position position;
@@ -27,14 +27,18 @@ public class AnimalInteractBadItem {
 		map = new Map(1, 1);
 		
 		position = new Position(0, 0);
-		map.getMap()[position.getX()][position.getY()] = new BadItem(position);
+		map.getMap()[position.getX()][position.getY()] = new EmptyBox(position);
 		
 		animal = new Animal(position);
 		manager = new AnimalManager(animal, map);
-		
-		manager.interact();
 	}
 
+	@Test
+	public void cantInteract() {
+		manager.interact();
+		assertEquals(States.NEUTRAL, animal.getStates());
+	}
+	
 	@Test
 	public void dontGetReward() {
 		assertFalse(manager.reward());
@@ -42,11 +46,7 @@ public class AnimalInteractBadItem {
 	
 	@Test
 	public void getPunish() {
-		assertTrue(manager.punish());
+		assertFalse(manager.punish());
 	}
 
-	@Test
-	public void isABadBoy() {
-		assertEquals(States.BAD_ACTION, animal.getStates());
-	}
 }

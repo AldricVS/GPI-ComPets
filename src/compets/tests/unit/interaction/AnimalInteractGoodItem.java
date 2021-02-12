@@ -30,8 +30,9 @@ public class AnimalInteractGoodItem {
 		map.getMap()[position.getX()][position.getY()] = new GoodItem(position);
 		
 		animal = new Animal(position);
-		animal.setStates(States.GOOD_ACTION);
 		manager = new AnimalManager(animal, map);
+		
+		manager.interact();
 	}
 
 	@Test
@@ -42,6 +43,11 @@ public class AnimalInteractGoodItem {
 	@Test
 	public void dontGetPunish() {
 		assertFalse(manager.punish());
+	}
+	
+	@Test
+	public void isAGoodBoy() {
+		assertEquals(States.GOOD_ACTION, animal.getStates());
 	}
 
 }
