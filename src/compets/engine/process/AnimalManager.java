@@ -97,10 +97,10 @@ public class AnimalManager {
 		Gauge jauge = bh.getActionGauge();
 
 		boolean choice = false;
-		if (map.getBoxAtPosition(currentPos) instanceof BadItem) {
+		if (map.getBoxAtPosition(currentPos) instanceof BadItem && animal.getStates()==States.BAD_ACTION) {
 			jauge.increment();
 			choice = true;
-		} else if (map.getBoxAtPosition(currentPos) instanceof GoodItem) {
+		} else if (map.getBoxAtPosition(currentPos) instanceof GoodItem && animal.getStates()==States.GOOD_ACTION) {
 			jauge.decrement();
 			choice = false;
 		}
@@ -115,11 +115,11 @@ public class AnimalManager {
 		Gauge jauge = bh.getActionGauge();
 
 		boolean choice = false;
-		if (map.getBoxAtPosition(currentPos) instanceof BadItem) { // si le chien est sur case de mauvaise action
+		if (map.getBoxAtPosition(currentPos) instanceof BadItem && animal.getStates()==States.BAD_ACTION) { // si le chien est sur case de mauvaise action
 			jauge.decrement();
-			choice = true;
-		} else if (map.getBoxAtPosition(currentPos) instanceof GoodItem) {
 			choice = false;
+		} else if (map.getBoxAtPosition(currentPos) instanceof GoodItem && animal.getStates()== States.GOOD_ACTION) {
+			choice = true;
 			jauge.increment();
 		}
 
