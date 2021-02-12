@@ -3,11 +3,12 @@ package compets.engine.process;
 import java.util.Random;
 
 import compets.engine.data.animal.Animal;
-import compets.engine.data.map.Box;
+import compets.engine.data.animal.Behavior;
+import compets.engine.data.animal.Gauge;
 import compets.engine.data.map.Map;
 import compets.engine.data.map.Position;
 
-public class AnimalManager {
+public class AnimalManager{
 	private Animal animal;
 	private Map map;
 
@@ -24,9 +25,7 @@ public class AnimalManager {
 	public void moveAnimal() {
 		int xMax = map.getColumnCount();
 		int yMax = map.getRowCount();		
-		
-		 Box[][] map2 = map.getMap();
-		
+				
 		Position currentPos = animal.getPosition();
 		
 		int currentXPos= currentPos.getX();
@@ -36,29 +35,62 @@ public class AnimalManager {
 		int newYPos = rand.nextInt(3) - 1;
 		
 		//Vérification des bordures pour un déplacement horizontal
-//		bool isWall = map[currentXPos + newXPos][currentYPos].verifWall();
 		
-		if (currentXPos + newXPos < 0) //|| isWall
+		if (currentXPos + newXPos < 0 || map.getBoxAtPosition(currentPos).getClass().isInstance("Wall")) 
 			animal.setPosition(currentPos);
 		
-		else if (currentXPos + newXPos > (xMax - 1)) //|| isWall
+		else if (currentXPos + newXPos > (xMax - 1) || map.getBoxAtPosition(currentPos).getClass().isInstance("Wall"))
 			currentPos.setX(xMax - 1);
 		
 		else
 			currentPos.setX(currentXPos + newXPos);
 
 		//Vérification des bordures pour un déplacement vertical
-//		bool isWall = map[currentXPos][currentYPos + newYPos].verifWall();
 		
-		if (currentYPos + newYPos < 0)	//|| isWall
+		if (currentYPos + newYPos < 0 || map.getBoxAtPosition(currentPos).getClass().isInstance("Wall"))
 			animal.setPosition(currentPos);
 		
-		else if (currentYPos + newYPos > (yMax - 1)) //|| isWall
+		else if (currentYPos + newYPos > (yMax - 1) || map.getBoxAtPosition(currentPos).getClass().isInstance("Wall"))
 			currentPos.setY(yMax - 1);
 		 
 		else 
 			currentPos.setY(currentYPos + newYPos);
 
+	}
+	
+	public boolean punish() {
+		Position currentPos = this.animal.getPosition();
+		Behavior bh = this.animal.getBehavior();
+		Gauge jauge = bh.getActionGauge();
+		
+		boolean choice = false;
+		if (map.getBoxAtPosition(currentPos).getClass().isInstance("BadItem")) {
+			jauge.increment();
+			choice = true;
+		} else if (map.getBoxAtPosition(currentPos).getClass().isInstance("GoodItem")) {
+			jauge.decrement();
+			choice = false;
+		}
+		
+		return choice;
+
+	}
+
+	public boolean reward() {
+		Position currentPos = this.animal.getPosition();
+		Behavior bh = this.animal.getBehavior();
+		Gauge jauge = bh.getActionGauge();
+		
+		boolean choice = false;
+		if (map.getBoxAtPosition(currentPos).getClass().isInstance("BadItem")) { // si le chien est sur case de mauvaise action
+			jauge.decrement();
+			choice = true;
+		} else if (map.getBoxAtPosition(currentPos).getClass().isInstance("GoodItem")) {
+			choice = false;
+			jauge.increment();
+		}
+
+		return choice;
 	}
 
 	public Animal getAnimal() {
