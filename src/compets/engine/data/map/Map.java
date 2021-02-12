@@ -1,5 +1,6 @@
 package compets.engine.data.map;
 
+import java.awt.Image;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -85,6 +86,48 @@ public class Map {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void addGoodProp(Rectangle rectangle, Image image) throws IOException {
+		Position position = rectangle.getPosition();
+		int width = rectangle.getWidth();
+		int height = rectangle.getHeight();
+		for(int col = 0; col < width; col++) {
+			for(int line = 0; line < height; line++) {
+				position = new Position(line + position.getY(), col + position.getX());
+				setBoxOnMap(new GoodItem(position), position);
+			}
+		}
+		Prop prop = new Prop(image, rectangle);
+		props.add(prop);
+	}
+	
+	public void addBadProp(Rectangle rectangle, Image image) throws IOException {
+		Position position = rectangle.getPosition();
+		int width = rectangle.getWidth();
+		int height = rectangle.getHeight();
+		for(int col = 0; col < width; col++) {
+			for(int line = 0; line < height; line++) {
+				position = new Position(line + position.getY(), col + position.getX());
+				setBoxOnMap(new BadItem(position), position);
+			}
+		}
+		Prop prop = new Prop(image, rectangle);
+		props.add(prop);
+	}
+	
+	public void addNeutralProp(Rectangle rectangle, Image image) throws IOException {
+		Position position = rectangle.getPosition();
+		int width = rectangle.getWidth();
+		int height = rectangle.getHeight();
+		for(int col = 0; col < width; col++) {
+			for(int line = 0; line < height; line++) {
+				position = new Position(line + position.getY(), col + position.getX());
+				setBoxOnMap(new NeutralItem(position), position);
+			}
+		}
+		Prop prop = new Prop(image, rectangle);
+		props.add(prop);
 	}
 
 	private void setBoxOnMap(Box box, Position position) {
