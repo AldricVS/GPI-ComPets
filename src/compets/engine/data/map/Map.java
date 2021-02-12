@@ -1,8 +1,12 @@
 package compets.engine.data.map;
 
 import java.awt.Image;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 import compets.engine.data.map.item.BadItem;
 import compets.engine.data.map.item.GoodItem;
@@ -34,26 +38,29 @@ public class Map {
 				setBoxOnMap(new EmptyBox(position), position);
 			}
 		}
-
-		// bed (neutral item) at center
-		for (int i = 0; i < 2; i++) {
-			for (int j = 0; j < 2; j++) {
-				position = new Position(i + 6, j + 6);
-				setBoxOnMap(new NeutralItem(position), position);
-			}
+		
+		try {
+			Image bedImage = loadImage("images/Bed.png");
+			Image tableImage = loadImage("images/Table.png");
+			Image cakeImage = loadImage("images/Cake.png");
+			
+			Rectangle rectangle = new Rectangle(new Position(6, 7), 3, 3);
+			addGoodProp(rectangle, bedImage);
+			
+			rectangle = new Rectangle(new Position(2, 4), 3, 2);
+			addNeutralProp(rectangle, tableImage);
+			
+			rectangle = new Rectangle(new Position(10, 10), 1, 1);
+			addBadProp(rectangle, cakeImage);
+			
+			//Cake (bad item) at bottom
+			position = new Position(10, 10);
+			setBoxOnMap(new BadItem(position), position);
+		}catch(IOException exception) {
+			System.err.println("Cannot load map : " + exception.getMessage());
 		}
 		
-		//table (good item) at top
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 2; j++) {
-				position = new Position(i + 2, j + 4);
-				setBoxOnMap(new GoodItem(position), position);
-			}
-		}
 		
-		//Cake (bad item) at bottom
-		position = new Position(10, 10);
-		setBoxOnMap(new BadItem(position), position);
 		
 		//walls arround map
 		for(int line = 0; line < 15; line += 14) {
@@ -68,33 +75,23 @@ public class Map {
 				setBoxOnMap(new Wall(position), position);
 			}
 		}
-			
-		// add corresponding props
-		try {
-			Rectangle rectangle = new Rectangle(new Position(6, 6), 2, 2);
-			Prop prop = new Prop("images/Bed.png", rectangle);
-			props.add(prop);
-			
-			rectangle = new Rectangle(new Position(2, 4), 3, 2);
-			prop = new Prop("images/Table.png", rectangle);
-			props.add(prop);
-			
-			rectangle = new Rectangle(new Position(10, 10), 1, 1);
-			prop = new Prop("images/Cake.png", rectangle);
-			props.add(prop);
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 	
-	public void addGoodProp(Rectangle rectangle, Image image) throws IOException {
-		Position position = rectangle.getPosition();
+	private Image loadImage(String imagePath) throws IOException {
+		File imageFile = new File(imagePath);
+		if (!imageFile.exists()) {
+			throw new FileNotFoundException(imagePath + " does not exists");
+		}
+		return ImageIO.read(imageFile);
+	}
+	
+	public void addGoodProp(Rectangle rectangle, Image image){
+		Position rectPosition = rectangle.getPosition();
 		int width = rectangle.getWidth();
 		int height = rectangle.getHeight();
 		for(int col = 0; col < width; col++) {
 			for(int line = 0; line < height; line++) {
-				position = new Position(line + position.getY(), col + position.getX());
+				Position position = new Position(col + rectPosition.getX(), line + rectPosition.getY());
 				setBoxOnMap(new GoodItem(position), position);
 			}
 		}
@@ -102,13 +99,13 @@ public class Map {
 		props.add(prop);
 	}
 	
-	public void addBadProp(Rectangle rectangle, Image image) throws IOException {
-		Position position = rectangle.getPosition();
+	public void addBadProp(Rectangle rectangle, Image image){
+		Position rectPosition = rectangle.getPosition();
 		int width = rectangle.getWidth();
 		int height = rectangle.getHeight();
 		for(int col = 0; col < width; col++) {
 			for(int line = 0; line < height; line++) {
-				position = new Position(line + position.getY(), col + position.getX());
+				Position position = new Position(col + rectPosition.getX(), line + rectPosition.getY());
 				setBoxOnMap(new BadItem(position), position);
 			}
 		}
@@ -116,13 +113,13 @@ public class Map {
 		props.add(prop);
 	}
 	
-	public void addNeutralProp(Rectangle rectangle, Image image) throws IOException {
-		Position position = rectangle.getPosition();
+	public void addNeutralProp(Rectangle rectangle, Image image){
+		Position rectPosition = rectangle.getPosition();
 		int width = rectangle.getWidth();
 		int height = rectangle.getHeight();
 		for(int col = 0; col < width; col++) {
 			for(int line = 0; line < height; line++) {
-				position = new Position(line + position.getY(), col + position.getX());
+				Position position = new Position(col + rectPosition.getX(), line + rectPosition.getY());
 				setBoxOnMap(new NeutralItem(position), position);
 			}
 		}
