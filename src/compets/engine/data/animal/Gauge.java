@@ -4,8 +4,8 @@ package compets.engine.data.animal;
  * @author Maxence
  */
 public class Gauge {
-	private static final int MIN_GAUGE = 0;
-	private static final int MAX_GAUGE = 100;
+	public static final int MIN_GAUGE = 50;
+	public static final int MAX_GAUGE = 100;
 
 	private int gauge;
 	
