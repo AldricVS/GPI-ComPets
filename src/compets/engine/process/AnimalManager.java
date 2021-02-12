@@ -13,6 +13,12 @@ import compets.engine.data.map.item.BadItem;
 import compets.engine.data.map.item.GoodItem;
 import compets.engine.data.map.item.NeutralItem;
 
+/**
+ * Cette classe permet de gérer le déroulement du jeu
+ * 
+ * @author Nathan VIRAYIE
+ *
+ */
 public class AnimalManager {
 	private Animal animal;
 	private Map map;
@@ -25,7 +31,7 @@ public class AnimalManager {
 	}
 
 	/**
-	 * D�finit les r�gles de d�placement de l'animal
+	 * Définit les règles de déplacement de l'animal
 	 */
 	public void moveAnimal() {
 		int xMax = map.getColumnCount();
@@ -39,48 +45,60 @@ public class AnimalManager {
 		int newXPos = rand.nextInt(3) - 1;
 		int newYPos = rand.nextInt(3) - 1;
 
-		Position nextPos = new Position(currentXPos + newXPos, currentYPos + newYPos);
+		Position nextPos = new Position(currentXPos + newXPos, currentYPos + newYPos);// Position future de l'animal
 
-		// V�rification des bordures pour un d�placement horizontal
-
+		// Vérification des bordures pour un déplacement horizontal
 		if (currentXPos + newXPos < 0 || map.getBoxAtPosition(nextPos) instanceof Wall) {
-			animal.setPosition(currentPos);
+			animal.setPosition(currentPos); // bloque l'animal si il veut sortir de la carte ou aller sur un mur
 		}
 
 		else if (currentXPos + newXPos > (xMax - 1) || map.getBoxAtPosition(nextPos) instanceof Wall) {
-			currentPos.setX(xMax - 1);
+			animal.setPosition(currentPos);
 		}
 
 		else {
 			currentPos.setX(currentXPos + newXPos);
 		}
-		// V�rification des bordures pour un d�placement vertical
-
+		
+		// Vérification des bordures pour un déplacement vertical
 		if (currentYPos + newYPos < 0 || map.getBoxAtPosition(nextPos) instanceof Wall) {
 			animal.setPosition(currentPos);
-		} else if (currentYPos + newYPos > (yMax - 1) || map.getBoxAtPosition(nextPos) instanceof Wall) {
-			currentPos.setY(yMax - 1);
-		} else {
+		} 
+		
+		else if (currentYPos + newYPos > (yMax - 1) || map.getBoxAtPosition(nextPos) instanceof Wall) {
+			animal.setPosition(currentPos);
+		} 
+		
+		else {
 			currentPos.setY(currentYPos + newYPos);
 		}
 	}
 
+	/**
+	 * Définit les intéractions possible par l'animal en fonction de la case sur
+	 * laquelle il se trouve
+	 * 
+	 * Ces derniers seront réalisé en fonction du dressage reçu.
+	 */
 	public void interact() {
 		Position currentPos = this.animal.getPosition();
 		int actionChoise = rand.nextInt(3);
 
+		// Mauvaise action par l'animal
 		if (map.getBoxAtPosition(currentPos) instanceof BadItem) {
 			if (actionChoise == 1) {
 				animal.setStates(States.BAD_ACTION);
 			}
 		}
 
+		// Bonne action par l'animal
 		else if (map.getBoxAtPosition(currentPos) instanceof GoodItem) {
 			if (actionChoise == 1) {
 				animal.setStates(States.GOOD_ACTION);
 			}
 		}
 
+		// Possibilité du choix de l'intéraction par l'animal (bonne ou mauvaise)
 		else if (map.getBoxAtPosition(currentPos) instanceof NeutralItem) {
 			if (actionChoise == 1) {
 				animal.setStates(States.GOOD_ACTION);
@@ -91,16 +109,25 @@ public class AnimalManager {
 		System.out.println(animal.getStates());
 	}
 
+	/**
+	 * Renvoi vrai si l'animal a été puni en faisant une mauvaise action. Renvoi
+	 * faux sinon.
+	 * 
+	 * @return
+	 */
 	public boolean punish() {
 		Position currentPos = this.animal.getPosition();
 		Behavior bh = this.animal.getBehavior();
 		Gauge jauge = bh.getActionGauge();
 
 		boolean choice = false;
-		if (map.getBoxAtPosition(currentPos) instanceof BadItem && animal.getStates()==States.BAD_ACTION) {
+//		cas animal sur une mauvaise case et qu'il fait une mauvaise action
+		if (map.getBoxAtPosition(currentPos) instanceof BadItem && animal.getStates() == States.BAD_ACTION) {
 			jauge.increment();
 			choice = true;
-		} else if (map.getBoxAtPosition(currentPos) instanceof GoodItem && animal.getStates()==States.GOOD_ACTION) {
+		} 
+//		cas animal sur une bonne case et qu'il fait une bonne action
+		else if (map.getBoxAtPosition(currentPos) instanceof GoodItem && animal.getStates() == States.GOOD_ACTION) {
 			jauge.decrement();
 			choice = false;
 		}
@@ -109,16 +136,26 @@ public class AnimalManager {
 
 	}
 
+	/**
+	 * Renvoi vrai si l'animal a été récompenser en faisant une bonne action. Renvoi
+	 * faux sinon.
+	 * 
+	 * @return
+	 */
 	public boolean reward() {
 		Position currentPos = this.animal.getPosition();
 		Behavior bh = this.animal.getBehavior();
 		Gauge jauge = bh.getActionGauge();
 
 		boolean choice = false;
-		if (map.getBoxAtPosition(currentPos) instanceof BadItem && animal.getStates()==States.BAD_ACTION) { // si le chien est sur case de mauvaise action
+//		cas animal sur une mauvaise case et qu'il fait une mauvaise action
+		
+		if (map.getBoxAtPosition(currentPos) instanceof BadItem && animal.getStates() == States.BAD_ACTION) {
 			jauge.decrement();
 			choice = false;
-		} else if (map.getBoxAtPosition(currentPos) instanceof GoodItem && animal.getStates()== States.GOOD_ACTION) {
+		} 
+//		cas animal sur une bonne case et qu'il fait une bonne action
+		else if (map.getBoxAtPosition(currentPos) instanceof GoodItem && animal.getStates() == States.GOOD_ACTION) {
 			choice = true;
 			jauge.increment();
 		}

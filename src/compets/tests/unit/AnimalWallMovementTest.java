@@ -27,13 +27,21 @@ public class AnimalWallMovementTest {
 
 	@BeforeClass
 	public static void init() {
-		map = new Map(2, 2);
-		map.getMap()[0][0] = new EmptyBox(new Position(0, 0));
+		startingPosition = new Position(1, 1);
+		
+		map = new Map(3, 3);
+		map.getMap()[0][0] = new Wall(new Position(0, 0));
 		map.getMap()[0][1] = new Wall(new Position(0, 1));
+		map.getMap()[0][2] = new Wall(new Position(0, 2));
+		
 		map.getMap()[1][0] = new Wall(new Position(1, 0));
-		map.getMap()[1][1] = new Wall(new Position(1, 1));
+		map.getMap()[1][1] = new EmptyBox(new Position(1, 1));
+		map.getMap()[1][2] = new Wall(new Position(1, 2));
+		
+		map.getMap()[2][0] = new Wall(new Position(2, 0));
+		map.getMap()[2][1] = new Wall(new Position(2, 1));
+		map.getMap()[2][2] = new Wall(new Position(2, 1));
 
-		startingPosition = new Position(0, 0);
 		animal = new Animal(startingPosition);
 
 		manager = new AnimalManager(animal, map);
@@ -41,7 +49,9 @@ public class AnimalWallMovementTest {
 
 	@Test
 	public void tryToWalk() {
-		manager.moveAnimal();
+		for (int i = 0; i < 15; i++) {
+			manager.moveAnimal();
+		}
 	}
 
 	@AfterClass
