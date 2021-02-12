@@ -184,7 +184,6 @@ public class Map {
 				 
 			 }
 			
-			
 			rectangle = new Rectangle(new Position(11, 10), 1, 1);
 			addBadProp(rectangle, cakeImage);
 			
