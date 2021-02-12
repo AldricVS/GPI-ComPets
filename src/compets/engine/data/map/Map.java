@@ -14,6 +14,7 @@ import compets.engine.data.map.item.NeutralItem;
 
 /**
  * @author Maxence
+ * @author Chloe
  */
 public class Map {
 
