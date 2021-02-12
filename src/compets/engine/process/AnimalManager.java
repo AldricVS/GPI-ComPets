@@ -53,7 +53,7 @@ public class AnimalManager {
 		}
 
 		else if (currentXPos + newXPos > (xMax - 1) || map.getBoxAtPosition(nextPos) instanceof Wall) {
-			currentPos.setX(xMax - 1);
+			animal.setPosition(currentPos);
 		}
 
 		else {
@@ -66,7 +66,7 @@ public class AnimalManager {
 		} 
 		
 		else if (currentYPos + newYPos > (yMax - 1) || map.getBoxAtPosition(nextPos) instanceof Wall) {
-			currentPos.setY(yMax - 1);
+			animal.setPosition(currentPos);
 		} 
 		
 		else {
