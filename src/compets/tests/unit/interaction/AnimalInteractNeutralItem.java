@@ -1,4 +1,4 @@
-package compets.tests.unit;
+package compets.tests.unit.interaction;
 
 import static org.junit.Assert.*;
 
@@ -9,13 +9,13 @@ import compets.engine.data.animal.Animal;
 import compets.engine.data.animal.States;
 import compets.engine.data.map.Map;
 import compets.engine.data.map.Position;
-import compets.engine.data.map.item.BadItem;
+import compets.engine.data.map.item.NeutralItem;
 import compets.engine.process.AnimalManager;
 
 /**
  * @author Maxence
  */
-public class AnimalInteractBadItem {
+public class AnimalInteractNeutralItem {
 	
 	private static Map map;
 	private static Position position;
@@ -27,10 +27,10 @@ public class AnimalInteractBadItem {
 		map = new Map(1, 1);
 		
 		position = new Position(0, 0);
-		map.getMap()[position.getX()][position.getY()] = new BadItem(position);
+		map.getMap()[position.getX()][position.getY()] = new NeutralItem(position);
 		
 		animal = new Animal(position);
-		animal.setStates(States.BAD_ACTION);
+		animal.setStates(States.NEUTRAL);
 		manager = new AnimalManager(animal, map);
 	}
 
@@ -41,7 +41,7 @@ public class AnimalInteractBadItem {
 	
 	@Test
 	public void getPunish() {
-		assertTrue(manager.punish());
+		assertFalse(manager.punish());
 	}
 
 }
