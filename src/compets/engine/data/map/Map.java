@@ -39,6 +39,7 @@ public class Map {
 			}
 		}
 		
+		
 		try { 
 			Rectangle rectangle;
 			Image bedImage = loadImage("images/Bed.png");
