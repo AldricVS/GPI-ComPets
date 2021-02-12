@@ -6,10 +6,12 @@ public class Animal {
 	
 	private Behavior behavior;
 	private Position position;
+	private States state;
 	
 	public Animal(Position position) {
 		this.position = position;
 		this.behavior = new Behavior();
+		this.state=States.NEUTRAL;
 	}
 
 	public Behavior getBehavior() {
@@ -22,5 +24,18 @@ public class Animal {
 
 	public void setPosition(Position position) {
 		this.position = position;
+	}
+
+	public States getStates() {
+		return state;
+	}
+
+	public void setStates(States animalStates) {
+		this.state = animalStates;
+	}
+
+	public void resetState() {
+		state=States.NEUTRAL;
+		
 	}
 }
