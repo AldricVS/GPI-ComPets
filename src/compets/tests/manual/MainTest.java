@@ -9,5 +9,4 @@ public class MainTest {
 		Thread thread = new Thread(mainGui);
 		thread.start();
 	}
-
 }
