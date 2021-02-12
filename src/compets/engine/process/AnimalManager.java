@@ -38,54 +38,53 @@ public class AnimalManager {
 
 		int newXPos = rand.nextInt(3) - 1;
 		int newYPos = rand.nextInt(3) - 1;
-		
-		Position nextPos = new Position(currentXPos + newXPos,currentYPos + newYPos);
+
+		Position nextPos = new Position(currentXPos + newXPos, currentYPos + newYPos);
 
 		// Vérification des bordures pour un déplacement horizontal
 
-		if (currentXPos + newXPos < 0 || map.getBoxAtPosition(nextPos) instanceof Wall)
+		if (currentXPos + newXPos < 0 || map.getBoxAtPosition(nextPos) instanceof Wall) {
 			animal.setPosition(currentPos);
+		}
 
-		else if (currentXPos + newXPos > (xMax - 1) || map.getBoxAtPosition(nextPos) instanceof Wall)
+		else if (currentXPos + newXPos > (xMax - 1) || map.getBoxAtPosition(nextPos) instanceof Wall) {
 			currentPos.setX(xMax - 1);
+		}
 
-		else
+		else {
 			currentPos.setX(currentXPos + newXPos);
-
+		}
 		// Vérification des bordures pour un déplacement vertical
 
-		if (currentYPos + newYPos < 0 || map.getBoxAtPosition(nextPos) instanceof Wall)
+		if (currentYPos + newYPos < 0 || map.getBoxAtPosition(nextPos) instanceof Wall) {
 			animal.setPosition(currentPos);
-
-		else if (currentYPos + newYPos > (yMax - 1) || map.getBoxAtPosition(nextPos) instanceof Wall)
+		} else if (currentYPos + newYPos > (yMax - 1) || map.getBoxAtPosition(nextPos) instanceof Wall) {
 			currentPos.setY(yMax - 1);
-
-		else
+		} else {
 			currentPos.setY(currentYPos + newYPos);
-
+		}
 	}
 
 	public void interact() {
 		Position currentPos = this.animal.getPosition();
 		int actionChoise = rand.nextInt(3);
-		
+
 		if (map.getBoxAtPosition(currentPos) instanceof BadItem) {
 			if (actionChoise == 1) {
 				animal.setStates(States.BAD_ACTION);
 			}
 		}
-		
+
 		else if (map.getBoxAtPosition(currentPos) instanceof GoodItem) {
 			if (actionChoise == 1) {
 				animal.setStates(States.GOOD_ACTION);
 			}
 		}
-		
+
 		else if (map.getBoxAtPosition(currentPos) instanceof NeutralItem) {
 			if (actionChoise == 1) {
 				animal.setStates(States.GOOD_ACTION);
-			}
-			else {
+			} else {
 				animal.setStates(States.BAD_ACTION);
 			}
 		}
@@ -116,8 +115,7 @@ public class AnimalManager {
 		Gauge jauge = bh.getActionGauge();
 
 		boolean choice = false;
-		if (map.getBoxAtPosition(currentPos) instanceof BadItem) { // si le chien est sur case de mauvaise
-																					// action
+		if (map.getBoxAtPosition(currentPos) instanceof BadItem) { // si le chien est sur case de mauvaise action
 			jauge.decrement();
 			choice = true;
 		} else if (map.getBoxAtPosition(currentPos) instanceof GoodItem) {
