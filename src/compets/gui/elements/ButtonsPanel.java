@@ -82,7 +82,7 @@ public class ButtonsPanel extends JPanel{
 			String message = "";
 			MainGui context = infosPanel.getContext();
 			context.pause();
-			if(context.rewardAnimal()) {
+			if(context.punishAnimal()) {
 				message = "He understood that it was a bad thing";
 			}else {
 				message = "That was not a good thing to punish the animal";
