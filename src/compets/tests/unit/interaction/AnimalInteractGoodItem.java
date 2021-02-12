@@ -1,4 +1,4 @@
-package compets.tests.unit;
+package compets.tests.unit.interaction;
 
 import static org.junit.Assert.*;
 

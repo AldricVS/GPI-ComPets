@@ -9,6 +9,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import compets.engine.data.animal.Animal;
+import compets.engine.data.animal.States;
 import compets.engine.data.map.EmptyBox;
 import compets.engine.data.map.Map;
 import compets.engine.data.map.Position;
@@ -43,6 +44,7 @@ public class AnimalWallMovementTest {
 		map.getMap()[2][2] = new Wall(new Position(2, 1));
 
 		animal = new Animal(startingPosition);
+		animal.setStates(States.NEUTRAL);
 
 		manager = new AnimalManager(animal, map);
 	}
@@ -53,7 +55,7 @@ public class AnimalWallMovementTest {
 			manager.moveAnimal();
 		}
 	}
-
+	
 	@AfterClass
 	public static void dontBeStuckInWall() {
 		assertTrue(animal.getPosition() == startingPosition);
