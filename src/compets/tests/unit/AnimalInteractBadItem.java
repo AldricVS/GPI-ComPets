@@ -6,6 +6,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import compets.engine.data.animal.Animal;
+import compets.engine.data.animal.States;
 import compets.engine.data.map.Map;
 import compets.engine.data.map.Position;
 import compets.engine.data.map.item.BadItem;
@@ -29,6 +30,7 @@ public class AnimalInteractBadItem {
 		map.getMap()[position.getX()][position.getY()] = new BadItem(position);
 		
 		animal = new Animal(position);
+		animal.setStates(States.BAD_ACTION);
 		manager = new AnimalManager(animal, map);
 	}
 
