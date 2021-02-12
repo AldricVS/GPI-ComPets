@@ -52,7 +52,7 @@ public class AnimalWallMovementTest {
 	@Test
 	public void tryToWalk() {
 		for (int i = 0; i < 15; i++) {
-			manager.moveAnimal();
+			manager.moveAnimal(manager.chooseNextMove());
 		}
 	}
 	

@@ -91,7 +91,8 @@ public class MainGui extends JFrame implements Runnable{
 			if(isPlaying) {
 				if(isOddStep) {
 					animal.resetState();
-					animalManager.moveAnimal();
+					Position nextMove = animalManager.chooseNextMove();
+					animalManager.moveAnimal(nextMove);
 				}else {
 					animalManager.interact();
 				}

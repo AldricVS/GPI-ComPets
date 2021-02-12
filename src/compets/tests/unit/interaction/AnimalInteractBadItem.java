@@ -32,7 +32,7 @@ public class AnimalInteractBadItem {
 		animal = new Animal(position);
 		manager = new AnimalManager(animal, map);
 		
-		manager.interact();
+		manager.changeState(States.BAD_ACTION);
 	}
 
 	@Test

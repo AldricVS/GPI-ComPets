@@ -109,10 +109,10 @@ public class MainPanel extends JPanel {
 		//if cannot find the images, draw the old oval instead
 		if(animalImageUtility == null) {
 			g.setColor(ColorConstants.ANIMAL_COLOR);
-			g.fillOval(position.getX() * boxWidth, position.getY() * boxWidth, boxWidth, boxHeight);
+			g.fillOval(position.getX() * boxWidth, position.getY() * boxHeight, boxWidth, boxHeight);
 		}else {
 			Image image = animalImageUtility.getCorrespondingImage(animal);
-			g.drawImage(image, position.getX() * boxWidth, position.getY() * boxWidth, boxWidth, boxHeight, null);
+			g.drawImage(image, position.getX() * boxWidth, position.getY() * boxHeight, boxWidth, boxHeight, null);
 		}
 	}
 }
