@@ -191,6 +191,7 @@ public class Map {
 			//Cake (bad item) at bottom
 			position = new Position(11, 10);
 			setBoxOnMap(new BadItem(position), position);
+			
 		}catch(IOException exception) {
 			System.err.println("Cannot load map : " + exception.getMessage());
 		}
