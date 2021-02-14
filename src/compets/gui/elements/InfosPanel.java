@@ -22,4 +22,8 @@ public class InfosPanel extends JPanel {
 	public MainGui getContext() {
 		return context;
 	}
+	
+	public void setButtonsEnabled(boolean enabled) {
+		buttonsPanel.setButtonsEnabled(enabled);
+	}
 }

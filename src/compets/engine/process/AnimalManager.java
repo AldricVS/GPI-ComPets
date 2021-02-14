@@ -6,6 +6,8 @@ import compets.engine.data.animal.Animal;
 import compets.engine.data.animal.Behavior;
 import compets.engine.data.animal.Gauge;
 import compets.engine.data.animal.States;
+import compets.engine.data.map.Box;
+import compets.engine.data.map.EmptyBox;
 import compets.engine.data.map.Map;
 import compets.engine.data.map.Position;
 import compets.engine.data.map.Wall;
@@ -22,6 +24,7 @@ import compets.engine.data.map.item.NeutralItem;
 public class AnimalManager {
 	private Animal animal;
 	private Map map;
+	private boolean hasInteracted = true;
 
 	Random rand = new Random();
 
@@ -31,52 +34,93 @@ public class AnimalManager {
 	}
 
 	/**
-	 * Définit la nouvelle position que l'animal prendra après son déplacement
+	 * The main method to call from the gui. The animal will do something depending
+	 * on what he do before : if he moved last turn, he will try to interact with
+	 * the item under him.
+	 * 
+	 */
+	public void doSomething() {
+		resetAnimalState();
+		if (hasInteracted) {
+			// Try to move directly
+			moveAnimalToNewPosition();
+			hasInteracted = false;
+		} else {
+			// If can interact with something, do it
+			Box boxAtPosition = map.getBoxAtPosition(animal.getPosition());
+			if (!(boxAtPosition instanceof EmptyBox)) {
+				interact();
+				hasInteracted = true;
+			} else {
+				// Else, move
+				moveAnimalToNewPosition();
+			}
+		}
+	}
+
+	/**
+	 * Force the animal to move to a new random position, so that he is not stuck at
+	 * the same place during several turns
+	 */
+	public void moveAnimalToNewPosition() {
+		Position oldPosition = animal.getPosition();
+		Position newPosition;
+		do {
+			moveAnimal(chooseNextMove());
+			newPosition = animal.getPosition();
+		} while (newPosition.getX() == oldPosition.getX() && newPosition.getY() == oldPosition.getY());
+	}
+
+	/**
+	 * Choose randomly the next position the animal want to take
 	 */
 	public Position chooseNextMove() {
-		int xMax = map.getColumnCount();
-		int yMax = map.getRowCount();
+		Position currentPos = animal.getPosition();
 
-		Position currentPos = animal.getPosition(); 
-		Position posToMove = currentPos; //position que l'animal devra prendre, par défault currentPos
-		
 		int currentXPos = currentPos.getX();
 		int currentYPos = currentPos.getY();
 
-		int newXPos = rand.nextInt(3) - 1;
-		int newYPos = rand.nextInt(3) - 1;
+		int newXPos;
+		int newYPos;
 
-		
-		// Vérification des bordures/murs pour un déplacement horizontal
-		Position nextPos = new Position(currentXPos + newXPos, currentYPos);// Position future de l'animal
-		
-		if (currentXPos + newXPos > 0 && currentXPos + newXPos < (xMax - 1) ) {
-				if(!(map.getBoxAtPosition(nextPos) instanceof Wall)) {
-					posToMove.setX(currentXPos + newXPos);
-				}
-		}
+		// We want the animal to move every turn
+		do {
+			newXPos = rand.nextInt(3) - 1;
+			newYPos = rand.nextInt(3) - 1;
+		} while (newXPos == 0 && newYPos == 0);
 
-		// Vérification des bordures/murs pour un déplacement vertical
-		nextPos = new Position(currentXPos, currentYPos+newYPos);
-		
-		if (currentYPos + newYPos > 0 && currentYPos + newYPos < (yMax - 1) ) { //si on est pas au bord
-				if(!(map.getBoxAtPosition(nextPos) instanceof Wall)) { //si ce n'est pas un mur
-					posToMove.setY(currentYPos + newYPos);
-				}
-		}
-		
-		return posToMove;
+		Position nextPos = new Position(currentXPos + newXPos, currentYPos + newYPos);
+		return nextPos;
 	}
 
-	public void moveAnimal(Position p) {
-		animal.setPosition(p);
+	/**
+	 * Move the animal to the position, except if he can't (there is a wall or the
+	 * position is out of the map)
+	 * 
+	 * @param position the position where to move
+	 */
+	public void moveAnimal(Position position) {
+		int columnCount = map.getColumnCount();
+		int rowCount = map.getRowCount();
+
+		// check if the position is in the map
+		int positionX = position.getX();
+		int positionY = position.getY();
+		if (positionX > 0 && positionX < columnCount - 1 && positionY > 0 && positionY < rowCount - 1) {
+			// check if the box t the position is not a wall
+			Box boxAtPosition = map.getBoxAtPosition(position);
+			if (!(boxAtPosition instanceof Wall)) {
+				// we can safely move the animal
+				animal.setPosition(position);
+			}
+		}
 	}
-	
+
 	/**
 	 * Définit les intéractions possible par l'animal en fonction de la case sur
 	 * laquelle il se trouve
 	 * 
-	 * Ces derniers seront réalisé en fonction du dressage reçu.
+	 * Ces derniers seront réalisées en fonction du dressage reçu.
 	 */
 	public void interact() {
 		Position currentPos = this.animal.getPosition();
@@ -103,51 +147,51 @@ public class AnimalManager {
 
 		// Possibilité du choix de l'intéraction par l'animal (bonne ou mauvaise)
 		else if (map.getBoxAtPosition(currentPos) instanceof NeutralItem) {
-			if (actionChoice < obedience-20) {
+			if (actionChoice < obedience - 20) {
 				changeState(States.GOOD_ACTION);
-			} else if (actionChoice >= obedience-20) {
+			} else if (actionChoice >= obedience - 20) {
 				changeState(States.BAD_ACTION);
 			}
 		}
 	}
-	
+
 	/**
 	 * Permet de changer l'etat de l'animal
+	 * 
 	 * @param s le nouvelle état dans lequel il prendra
 	 */
-	public void changeState(States s) {
-		animal.setStates(s);
+	public void changeState(States state) {
+		animal.setState(state);
 //		System.out.println(animal.getStates());
 	}
-	
+
 	/**
-	 *Permet de réinitialiser l'etat de l'animal 
+	 * Permet de réinitialiser l'etat de l'animal
 	 */
-	public void reset() {
+	public void resetAnimalState() {
 		animal.resetState();
 	}
 
 	/**
-	 * Renvoi vrai si l'animal a été puni en faisant une mauvaise action. Renvoi
+	 * Renvoi vrai si l'animal a été puni en faisant une mauvaise action. Renvoie
 	 * faux sinon.
 	 * 
 	 * @return
 	 */
 	public boolean punish() {
-		Position currentPos = this.animal.getPosition();
 		Behavior bh = this.animal.getBehavior();
 		Gauge jauge = bh.getActionGauge();
 
 		boolean choice = false;
-//		cas animal sur une mauvaise case et qu'il fait une mauvaise action
-		if (map.getBoxAtPosition(currentPos) instanceof BadItem && animal.getStates() == States.BAD_ACTION) {
+
+		// Only with the animal state, we can know if he is doing something good or bad
+		// (no need to check on top of which Item he is)
+
+		if (animal.getStates() == States.BAD_ACTION) {
 			jauge.increment();
 			choice = true;
-		}
-//		cas animal sur une bonne case et qu'il fait une bonne action
-		else if (map.getBoxAtPosition(currentPos) instanceof GoodItem && animal.getStates() == States.GOOD_ACTION) {
+		} else if (animal.getStates() == States.GOOD_ACTION) {
 			jauge.decrement();
-//			choice = false;
 		}
 
 //		System.out.println(choice);
@@ -156,25 +200,23 @@ public class AnimalManager {
 	}
 
 	/**
-	 * Renvoi vrai si l'animal a été récompenser en faisant une bonne action. Renvoi
-	 * faux sinon.
+	 * Renvoi vrai si l'animal a été récompenser en faisant une bonne action.
+	 * Renvoie faux sinon.
 	 * 
 	 * @return
 	 */
 	public boolean reward() {
-		Position currentPos = this.animal.getPosition();
 		Behavior bh = this.animal.getBehavior();
 		Gauge jauge = bh.getActionGauge();
 
 		boolean choice = false;
-//		cas animal sur une mauvaise case et qu'il fait une mauvaise action
 
-		if (map.getBoxAtPosition(currentPos) instanceof BadItem && animal.getStates() == States.BAD_ACTION) {
+		// Only with the animal state, we can know if he is doing something good or bad
+		// (no need to check on top of which Item he is)
+		if (animal.getStates() == States.BAD_ACTION) {
 			jauge.decrement();
 //			choice = false;
-		}
-//		cas animal sur une bonne case et qu'il fait une bonne action
-		else if (map.getBoxAtPosition(currentPos) instanceof GoodItem && animal.getStates() == States.GOOD_ACTION) {
+		} else if (animal.getStates() == States.GOOD_ACTION) {
 			choice = true;
 			jauge.increment();
 		}

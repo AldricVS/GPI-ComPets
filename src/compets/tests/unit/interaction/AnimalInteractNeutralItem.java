@@ -30,7 +30,7 @@ public class AnimalInteractNeutralItem {
 		map.getMap()[position.getX()][position.getY()] = new NeutralItem(position);
 		
 		animal = new Animal(position);
-		animal.setStates(States.NEUTRAL);
+		animal.setState(States.NEUTRAL);
 		manager = new AnimalManager(animal, map);
 	}
 

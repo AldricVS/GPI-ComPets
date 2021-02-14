@@ -30,7 +30,7 @@ public class Animal {
 		return state;
 	}
 
-	public void setStates(States animalStates) {
+	public void setState(States animalStates) {
 		this.state = animalStates;
 	}
 

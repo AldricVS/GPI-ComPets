@@ -44,7 +44,7 @@ public class AnimalWallMovementTest {
 		map.getMap()[2][2] = new Wall(new Position(2, 1));
 
 		animal = new Animal(startingPosition);
-		animal.setStates(States.NEUTRAL);
+		animal.setState(States.NEUTRAL);
 
 		manager = new AnimalManager(animal, map);
 	}

@@ -7,28 +7,24 @@ import javax.swing.JFrame;
 
 import compets.config.GuiConfiguration;
 import compets.engine.data.animal.Animal;
+import compets.engine.data.animal.States;
 import compets.engine.data.map.Map;
 import compets.engine.data.map.Position;
 import compets.engine.process.AnimalManager;
 
-public class MainGui extends JFrame implements Runnable{
-	private static final int TURN_DELAY = 3000;
-	
+public class MainGui extends JFrame implements Runnable {
+	private static final int AFTER_ACTION_DELAY = 3000;
+	private static final int AFTER_MOVE_DELAY = 1000;
+
 	private static final Dimension WINDOW_DIMENSION = new Dimension(GuiConfiguration.WIDTH, GuiConfiguration.HEIGHT);
 	public static final Dimension MAIN_PANEL_DIMENSION = new Dimension(GuiConfiguration.HEIGHT, GuiConfiguration.HEIGHT);
-	
-	public static final Dimension INFOS_PANEL_DIMENSION = new Dimension(
-				(int) (GuiConfiguration.WIDTH - MAIN_PANEL_DIMENSION.getWidth()),
-				GuiConfiguration.HEIGHT
-			);
-	public static final Dimension STATS_PANEL_DIMENSION = new Dimension(
-				(int) (GuiConfiguration.WIDTH - MAIN_PANEL_DIMENSION.getWidth()),
-				(int) (GuiConfiguration.HEIGHT * GuiConfiguration.STATS_PANEL_RATIO)
-			);
-	public static final Dimension BUTTONS_PANEL_DIMENSION = new Dimension(
-				(int) (GuiConfiguration.WIDTH - MAIN_PANEL_DIMENSION.getWidth()),
-				(int) (GuiConfiguration.HEIGHT * (1.0 - GuiConfiguration.STATS_PANEL_RATIO))
-			);
+
+	public static final Dimension INFOS_PANEL_DIMENSION = new Dimension((int) (GuiConfiguration.WIDTH - MAIN_PANEL_DIMENSION.getWidth()),
+			GuiConfiguration.HEIGHT);
+	public static final Dimension STATS_PANEL_DIMENSION = new Dimension((int) (GuiConfiguration.WIDTH - MAIN_PANEL_DIMENSION.getWidth()),
+			(int) (GuiConfiguration.HEIGHT * GuiConfiguration.STATS_PANEL_RATIO));
+	public static final Dimension BUTTONS_PANEL_DIMENSION = new Dimension((int) (GuiConfiguration.WIDTH - MAIN_PANEL_DIMENSION.getWidth()),
+			(int) (GuiConfiguration.HEIGHT * (1.0 - GuiConfiguration.STATS_PANEL_RATIO)));
 
 	private MainPanel mainPanel;
 	private InfosPanel infosPanel;
@@ -36,9 +32,9 @@ public class MainGui extends JFrame implements Runnable{
 	private Animal animal = new Animal(new Position(7, 7));
 	private Map map = new Map();
 	private AnimalManager animalManager = new AnimalManager(animal, map);
-	
+
 	private boolean isPlaying = true;
-	
+
 	public MainGui() {
 		super("Compet's");
 
@@ -47,7 +43,7 @@ public class MainGui extends JFrame implements Runnable{
 		getContentPane().setLayout(new BorderLayout());
 		getContentPane().add(mainPanel, BorderLayout.CENTER);
 		getContentPane().add(infosPanel, BorderLayout.EAST);
-		
+
 		pack();
 		setVisible(true);
 		setResizable(false);
@@ -62,45 +58,48 @@ public class MainGui extends JFrame implements Runnable{
 	public Map getMap() {
 		return map;
 	}
-	
+
 	public void pause() {
 		isPlaying = false;
 	}
-	
+
 	public void play() {
 		isPlaying = true;
 	}
-	
+
 	public boolean punishAnimal() {
+		infosPanel.setButtonsEnabled(false);
 		return animalManager.punish();
 	}
-	
+
 	public boolean rewardAnimal() {
+		infosPanel.setButtonsEnabled(false);
 		return animalManager.reward();
 	}
 
 	@Override
 	public void run() {
-		boolean isOddStep = true;
-		while(true) {
+		int delay = AFTER_MOVE_DELAY;
+		while (true) {
 			try {
-				Thread.sleep(TURN_DELAY);
-			} catch (InterruptedException e) {	
+				Thread.sleep(delay);
+			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			if(isPlaying) {
-				if(isOddStep) {
-					animal.resetState();
-					Position nextMove = animalManager.chooseNextMove();
-					animalManager.moveAnimal(nextMove);
-				}else {
-					animalManager.interact();
+			if (isPlaying) {
+				infosPanel.setButtonsEnabled(true);
+				animalManager.doSomething();
+				// If the animal is not doing somthing, the delay will be longer before the next
+				// turn (in order to let user do something)
+				States state = animal.getStates();
+				if (state == States.NEUTRAL) {
+					delay = AFTER_MOVE_DELAY;
+				} else {
+					delay = AFTER_ACTION_DELAY;
 				}
-				isOddStep = !isOddStep;
 				repaint();
 			}
 		}
 	}
-	
-	
+
 }

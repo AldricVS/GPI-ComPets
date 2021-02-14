@@ -48,6 +48,11 @@ public class ButtonsPanel extends JPanel{
 		initFont();
 	}
 	
+	public void setButtonsEnabled(boolean enabled) {
+		punishButton.setEnabled(enabled);
+		rewardButton.setEnabled(enabled);
+	}
+	
 	private void initButton(JButton button) {
 		button.setPreferredSize(BUTTON_DIMENSION);
 		button.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
