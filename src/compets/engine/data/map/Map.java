@@ -84,32 +84,32 @@ public class Map {
 					 else if ( (i==1) && (j==1) ) { 
 						 // toilette 
 						 rectangle = new Rectangle(new Position(i, j), 1, 1);
-						addGoodProp(rectangle, wcImage);
+						addBadProp(rectangle, wcImage);
 					 }
 					 else if ( (j==3) && (i==1) ) { 
 						 // baignoire 
 						 rectangle = new Rectangle(new Position(i, j), 3, 1);
-						addGoodProp(rectangle, baignoireImage);
+						addNeutralProp(rectangle, baignoireImage);
 					 }
 					 else if ( (j==1) && (i==3)) {
 						//lavabo 
 						 rectangle = new Rectangle(new Position(i, j), 2, 1);
-						addGoodProp(rectangle, lavaboImage);
+						addBadProp(rectangle, lavaboImage);
 					 }
 					 else if ( (j==1) && ((i==8) || (i==11)) ) {
 							//chevet  
 							 rectangle = new Rectangle(new Position(i, j), 1, 1);
-							addGoodProp(rectangle, chevetImage);
+							addBadProp(rectangle, chevetImage);
 					}
 					 else if ( (j==1) && (i==9)) {
 							//lit 
 						 	rectangle = new Rectangle(new Position(i, j), 2, 3);
-							addGoodProp(rectangle, bedImage);
+							addNeutralProp(rectangle, bedImage);
 					}
 					 else if ( (j==3) && (i==13)) {
 							//armoir
 						 	rectangle = new Rectangle(new Position(i, j), 1, 2);
-							addGoodProp(rectangle, armoireImage);
+							addBadProp(rectangle, armoireImage);
 					}
 					 else if ( (j==1) && (i==5)) {
 							//litiere
@@ -119,22 +119,22 @@ public class Map {
 					 else if ( (j==5) && (i==1)) {
 							//frigo
 						 	rectangle = new Rectangle(new Position(i, j), 1, 1);
-							addGoodProp(rectangle, frigoImage);
+							addBadProp(rectangle, frigoImage);
 					}
 					 else if ( (j==5) && (i==2)) {
 							//cuisiniere
 						 	rectangle = new Rectangle(new Position(i, j), 1, 1);
-							addGoodProp(rectangle, cuisiniereImage);
+							addBadProp(rectangle, cuisiniereImage);
 					}
 					 else if ( (j==5) && (i==3)) {
 							//evier
 						 	rectangle = new Rectangle(new Position(i, j), 2, 1);
-							addGoodProp(rectangle, evierImage);
+							addBadProp(rectangle, evierImage);
 					}
 					else if ( ((j>4) && (j<9)) && (i==5)) {
 							//meuble
 						 	rectangle = new Rectangle(new Position(i, j), 1, 1);
-							addGoodProp(rectangle, meubleImage);
+							addBadProp(rectangle, meubleImage);
 					}
 					 else if ( (j==8) && (i==1)) {
 							//gamelle
@@ -149,22 +149,22 @@ public class Map {
 					 else if ( (j==13) && (i==6)) {
 							//jeu
 						 	rectangle = new Rectangle(new Position(i, j), 1, 1);
-							addNeutralProp(rectangle, jeuImage);
+							addGoodProp(rectangle, jeuImage);
 					}
 					 else if ( (j==8) && (i==13)) {
 							//canape
 						 	rectangle = new Rectangle(new Position(i, j), 1, 4);
-							addGoodProp(rectangle, canapeImage);
+							addNeutralProp(rectangle, canapeImage);
 					}
 					 else if ( (j==12) && (i==11)) {
 							//fauteuil
 						 	rectangle = new Rectangle(new Position(i, j), 1, 1);
-							addGoodProp(rectangle, fauteuilImage);
+							addNeutralProp(rectangle, fauteuilImage);
 					}
 					 else if ( (j==9) && (i==11)) {
 							//table basse
 						 	rectangle = new Rectangle(new Position(i, j), 1, 2);
-							addGoodProp(rectangle,tableBasseImage);
+							addNeutralProp(rectangle,tableBasseImage);
 					}
 					 else if ( (j==7) && (i==13)) {
 							//panier
@@ -174,12 +174,12 @@ public class Map {
 					 else if ( (j==7) && (i==7)) {
 							//tele
 						 	rectangle = new Rectangle(new Position(i, j), 1, 2);
-							addGoodProp(rectangle,teleImage);
+							addBadProp(rectangle,teleImage);
 					}
 					 else if ( (j==9) && (i==7)) {
 							//autre jeu
 						 	rectangle = new Rectangle(new Position(i, j), 1, 1);
-							addNeutralProp(rectangle, autreJeuImage);
+							addGoodProp(rectangle, autreJeuImage);
 					}
 					 
 				 }
