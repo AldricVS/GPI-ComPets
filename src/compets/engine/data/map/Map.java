@@ -131,9 +131,9 @@ public class Map {
 						 	rectangle = new Rectangle(new Position(i, j), 2, 1);
 							addBadProp(rectangle, evierImage);
 					}
-					else if ( ((j>4) && (j<9)) && (i==5)) {
+					else if ((j==5) && (i==5)) {
 							//meuble
-						 	rectangle = new Rectangle(new Position(i, j), 1, 1);
+						 	rectangle = new Rectangle(new Position(i, j), 1, 4);
 							addBadProp(rectangle, meubleImage);
 					}
 					 else if ( (j==8) && (i==1)) {
