@@ -65,6 +65,7 @@ public class Map {
 			Image panierImage = loadImage("images/Bed.png");
 			Image autreJeuImage = loadImage("images/Bed.png");
 			Image teleImage = loadImage("images/Bed.png");
+			Image tapisImage = loadImage("images/Bed.png");
 			
 			
 			
@@ -146,7 +147,7 @@ public class Map {
 						 	rectangle = new Rectangle(new Position(i, j), 3, 2);
 							addNeutralProp(rectangle, tableImage);
 					}
-					 else if ( (j==13) && (i==6)) {
+					 else if ( (j==13) && (i==6) || (j==4) && (i==10)) {
 							//jeu
 						 	rectangle = new Rectangle(new Position(i, j), 1, 1);
 							addGoodProp(rectangle, jeuImage);
@@ -161,12 +162,7 @@ public class Map {
 						 	rectangle = new Rectangle(new Position(i, j), 1, 1);
 							addNeutralProp(rectangle, fauteuilImage);
 					}
-					 else if ( (j==9) && (i==11)) {
-							//table basse
-						 	rectangle = new Rectangle(new Position(i, j), 1, 2);
-							addNeutralProp(rectangle,tableBasseImage);
-					}
-					 else if ( (j==7) && (i==13)) {
+					 else if ( (j==7) && (i==13) || (j==4) && (i==9)) {
 							//panier
 						 	rectangle = new Rectangle(new Position(i, j), 1, 1);
 							addGoodProp(rectangle,panierImage);
@@ -185,10 +181,15 @@ public class Map {
 				 }
 				 
 			 }
+			rectangle = new Rectangle(new Position(9, 8), 4, 4);
+			addNeutralProp(rectangle, autreJeuImage);
 			
+			
+			//table basse
+		 	rectangle = new Rectangle(new Position(11, 9), 1, 2);
+			addNeutralProp(rectangle,tableBasseImage);
 			rectangle = new Rectangle(new Position(11, 10), 1, 1);
 			addBadProp(rectangle, cakeImage);
-			
 			//Cake (bad item) at bottom
 			position = new Position(11, 10);
 			setBoxOnMap(new BadItem(position), position);
