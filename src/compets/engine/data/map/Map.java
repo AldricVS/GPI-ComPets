@@ -65,6 +65,8 @@ public class Map {
 			Image autreJeuImage = loadImage("images/jouet_2.png");
 			Image teleImage = loadImage("images/tv.png");
 			Image tapisImage = loadImage("images/tapis.png");
+			Image chocolatImage = loadImage("images/chocolat.png");
+
 			
 			
 			
@@ -188,7 +190,12 @@ public class Map {
 			//table basse
 		 	rectangle = new Rectangle(new Position(11, 9), 1, 2);
 			addNeutralProp(rectangle,tableBasseImage);
-			rectangle = new Rectangle(new Position(11, 10), 1, 1);
+			//chocolat
+			rectangle = new Rectangle(new Position(8,1), 1, 1);
+			addBadProp(rectangle,chocolatImage);
+			
+			// gateau
+			rectangle = new Rectangle(new Position(5, 7), 1, 1);
 			addBadProp(rectangle, cakeImage);
 			//Cake (bad item) at bottom
 			position = new Position(11, 10);
