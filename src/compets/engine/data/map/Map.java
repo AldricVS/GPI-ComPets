@@ -43,7 +43,7 @@ public class Map {
 		
 		try { 
 			Rectangle rectangle;
-			Image bedImage = loadImage("images/Bed.png");
+			Image bedImage = loadImage("images/lit.png");
 			Image tableImage = loadImage("images/Table.png");
 			Image cakeImage = loadImage("images/Cake.png");
 			Image wallImage = loadImage("images/Cake.png");
