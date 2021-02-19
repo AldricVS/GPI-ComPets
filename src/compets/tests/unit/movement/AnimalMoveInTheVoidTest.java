@@ -13,6 +13,8 @@ import compets.engine.data.map.Position;
 import compets.engine.process.AnimalManager;
 
 /**
+ * Make the animal walk 10 times, making sure that it doesn't go to the void
+ * 
  * @author Maxence
  */
 public class AnimalMoveInTheVoidTest {
@@ -25,7 +27,7 @@ public class AnimalMoveInTheVoidTest {
 	@BeforeClass
 	public static void init() {
 		startingPosition = new Position(0, 0);
-		
+
 		map = new Map(1, 1);
 		map.getMap()[0][0] = new EmptyBox(new Position(0, 0));
 
@@ -33,7 +35,7 @@ public class AnimalMoveInTheVoidTest {
 		animal.setState(States.NEUTRAL);
 
 		manager = new AnimalManager(animal, map);
-		
+
 		for (int i = 0; i < 10; i++) {
 			manager.moveAnimal(manager.chooseNextMove());
 		}

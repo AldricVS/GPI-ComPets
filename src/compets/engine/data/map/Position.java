@@ -29,6 +29,10 @@ public class Position {
 		this.y = y;
 	}
 
+	public boolean equals(Position position) {
+		return (position.getX() == x) && (position.getY() == y);
+	}
+
 	@Override
 	public String toString() {
 		return "Position [x=" + x + ", y=" + y + "]";

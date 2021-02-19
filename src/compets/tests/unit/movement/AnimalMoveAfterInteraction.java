@@ -43,7 +43,7 @@ public class AnimalMoveAfterInteraction {
 	@Test
 	public void walkAfterInteraction() {
 		manager.doSomething();
-		assertTrue(animal.getPosition() == emptyPosition);
+		assertTrue(animal.getPosition().equals(emptyPosition));
 	}
 
 }

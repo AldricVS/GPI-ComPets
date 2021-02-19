@@ -11,7 +11,8 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({
 	AnimalMoveInTheVoidTest.class,
 	AnimalMoveIntoWallTest.class,
-	WalkInStraightLine.class
+	WalkInStraightLine.class,
+	AnimalMoveAfterInteraction.class,
 })
 public class MovementTestSuite {
 

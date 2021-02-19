@@ -106,7 +106,7 @@ public class AnimalManager {
 		// check if the position is in the map
 		int positionX = position.getX();
 		int positionY = position.getY();
-		if (positionX > 0 && positionX < columnCount - 1 && positionY > 0 && positionY < rowCount - 1) {
+		if ((positionX >= 0 && positionX < rowCount) && (positionY >= 0 && positionY < columnCount)) {
 			// check if the box t the position is not a wall
 			Box boxAtPosition = map.getBoxAtPosition(position);
 			if (!(boxAtPosition instanceof Wall)) {
@@ -162,7 +162,6 @@ public class AnimalManager {
 	 */
 	public void changeState(States state) {
 		animal.setState(state);
-//		System.out.println(animal.getStates());
 	}
 
 	/**
