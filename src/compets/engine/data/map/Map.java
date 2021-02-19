@@ -46,26 +46,25 @@ public class Map {
 			Image bedImage = loadImage("images/lit.png");
 			Image tableImage = loadImage("images/Table.png");
 			Image cakeImage = loadImage("images/Cake.png");
-			Image wallImage = loadImage("images/Cake.png");
-			Image wcImage = loadImage("images/Bed.png");
-			Image baignoireImage = loadImage("images/Bed.png");
-			Image lavaboImage = loadImage("images/Bed.png");
-			Image chevetImage = loadImage("images/Bed.png");
-			Image armoireImage = loadImage("images/Bed.png");
-			Image litiereImage = loadImage("images/Bed.png");
-			Image frigoImage = loadImage("images/Bed.png");
-			Image cuisiniereImage = loadImage("images/Bed.png");
-			Image evierImage = loadImage("images/Bed.png");
-			Image meubleImage = loadImage("images/Bed.png");
-			Image gamelleImage = loadImage("images/Bed.png");
-			Image jeuImage = loadImage("images/Bed.png");
-			Image canapeImage = loadImage("images/Bed.png");
-			Image fauteuilImage = loadImage("images/Bed.png");
+			Image wcImage = loadImage("images/toilette.png");
+			Image baignoireImage = loadImage("images/baignoire.png");
+			Image lavaboImage = loadImage("images/lavabo.png");
+			Image chevetImage = loadImage("images/chevet.png");
+			Image armoireImage = loadImage("images/armoire.png");
+			Image litiereImage = loadImage("images/litiere.png");
+			Image frigoImage = loadImage("images/frigo.png");
+			Image cuisiniereImage = loadImage("images/cuisiniere.png");
+			Image evierImage = loadImage("images/evier.png");
+			Image meubleImage = loadImage("images/meubles_cuisine.png");
+			Image gamelleImage = loadImage("images/gamelle.png");
+			Image jeuImage = loadImage("images/jouet_1.png");
+			Image canapeImage = loadImage("images/canape.png");
+			Image fauteuilImage = loadImage("images/fauteuil.png");
 			Image tableBasseImage = loadImage("images/Bed.png");
-			Image panierImage = loadImage("images/Bed.png");
+			Image panierImage = loadImage("images/panier_animal.png");
 			Image autreJeuImage = loadImage("images/Bed.png");
-			Image teleImage = loadImage("images/Bed.png");
-			Image tapisImage = loadImage("images/Bed.png");
+			Image teleImage = loadImage("images/tv.png");
+			Image tapisImage = loadImage("images/tapis.png");
 			
 			
 			
