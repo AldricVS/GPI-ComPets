@@ -5,6 +5,8 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 import compets.tests.unit.interaction.*;
+import compets.tests.unit.movement.AnimalWalkInTheVoidTest;
+import compets.tests.unit.movement.AnimalWallMovementTest;
 
 /**
  * @author Maxence
