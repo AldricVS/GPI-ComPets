@@ -29,8 +29,13 @@ public class Position {
 		this.y = y;
 	}
 
+	/**
+	 * Compare with another Position and check if they are the same
+	 * @param position the position to compare to
+	 * @return true if they are the same, false otherwise
+	 */
 	public boolean equals(Position position) {
-		return (position.getX() == x) && (position.getY() == y);
+		return ((position.getX() == x) && (position.getY() == y));
 	}
 
 	@Override

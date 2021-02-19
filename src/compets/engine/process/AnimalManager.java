@@ -89,7 +89,7 @@ public class AnimalManager {
 		do {
 			moveAnimal(chooseNextMove());
 			newPosition = animal.getPosition();
-		} while (newPosition.getX() == oldPosition.getX() && newPosition.getY() == oldPosition.getY());
+		} while (newPosition.equals(oldPosition));
 	}
 
 	/**
@@ -121,14 +121,9 @@ public class AnimalManager {
 	 * @param position the position where to move
 	 */
 	public void moveAnimal(Position position) {
-		int columnCount = map.getColumnCount();
-		int rowCount = map.getRowCount();
-
 		// check if the position is in the map
-		int positionX = position.getX();
-		int positionY = position.getY();
-		if ((positionX >= 0 && positionX < rowCount) && (positionY >= 0 && positionY < columnCount)) {
-			// check if the box t the position is not a wall
+		if (map.isPositionOnMap(position)) {
+			// check if the box in the position is not a wall
 			Box boxAtPosition = map.getBoxAtPosition(position);
 			if (!(boxAtPosition instanceof Wall)) {
 				// we can safely move the animal
@@ -144,13 +139,11 @@ public class AnimalManager {
 	 * Ces derniers seront réalisées en fonction du dressage reçu.
 	 */
 	public void interact() {
-		Position currentPos = this.animal.getPosition();
-		Behavior bh = this.animal.getBehavior();
-		Gauge jauge = bh.getActionGauge();
+		Position currentPos = animal.getPosition();
+		Gauge jauge = animal.getBehavior().getActionGauge();
 
 		int obedience = jauge.getValue();
-		int max = Gauge.MAX_GAUGE;
-		int actionChoice = rand.nextInt(max + 1);
+		int actionChoice = rand.nextInt(Gauge.MAX_GAUGE + 1);
 
 		// Mauvaise action par l'animal
 		if (map.getBoxAtPosition(currentPos) instanceof BadItem) {
@@ -214,7 +207,6 @@ public class AnimalManager {
 			jauge.subValue(2);
 		}
 
-//		System.out.println(choice);
 		return choice;
 
 	}
@@ -235,12 +227,10 @@ public class AnimalManager {
 		// (no need to check on top of which Item he is)
 		if (animal.getStates() == States.BAD_ACTION) {
 			jauge.subValue(2);
-//			choice = false;
 		} else if (animal.getStates() == States.GOOD_ACTION) {
 			choice = true;
 			jauge.addValue(2);
 		}
-//		System.out.println(choice);
 
 		return choice;
 	}

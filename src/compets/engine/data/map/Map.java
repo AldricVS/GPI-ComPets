@@ -291,6 +291,11 @@ public class Map {
 	public int getColumnCount() {
 		return columnCount;
 	}
+	
+	public boolean isPositionOnMap(Position position) {
+		return ((position.getX() >= 0) && (position.getX() < rowCount)
+				&& (position.getY() >= 0) && (position.getY() < columnCount));
+	}
 
 	public ArrayList<Prop> getProps() {
 		return props;
