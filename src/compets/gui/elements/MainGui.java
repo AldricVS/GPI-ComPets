@@ -29,7 +29,7 @@ public class MainGui extends JFrame implements Runnable {
 	private MainPanel mainPanel;
 	private InfosPanel infosPanel;
 
-	private Animal animal = new Animal(new Position(7, 7));
+	private Animal animal = new Animal(new Position(6, 11));
 	private Map map = new Map();
 	private AnimalManager animalManager = new AnimalManager(animal, map);
 
