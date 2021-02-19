@@ -5,19 +5,15 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 import compets.tests.unit.interaction.*;
-import compets.tests.unit.movement.AnimalWalkInTheVoidTest;
-import compets.tests.unit.movement.AnimalWallMovementTest;
+import compets.tests.unit.movement.MovementTestSuite;
 
 /**
  * @author Maxence
  */
 @RunWith(Suite.class)
 @SuiteClasses({
-	AnimalWallMovementTest.class,
-	AnimalWalkInTheVoidTest.class,
-	AnimalInteractGoodItem.class,
-	AnimalInteractNeutralItem.class,
-	AnimalInteractBadItem.class,
+	InteractionTestSuite.class,
+	MovementTestSuite.class,
 })
 public class MainTestSuite {
 
