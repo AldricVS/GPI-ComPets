@@ -36,6 +36,11 @@ public class Animal {
 
 	public void resetState() {
 		state=States.NEUTRAL;
-		
 	}
+
+	@Override
+	public String toString() {
+		return "Animal [behavior=" + behavior + ", position=" + position + ", state=" + state + "]";
+	}
+	
 }
