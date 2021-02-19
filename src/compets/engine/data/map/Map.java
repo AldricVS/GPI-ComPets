@@ -180,9 +180,10 @@ public class Map {
 				 }
 				 
 			 }
+			 
+			 // tapis
 			rectangle = new Rectangle(new Position(9, 8), 4, 4);
-			addNeutralProp(rectangle, autreJeuImage);
-			
+			addNeutralProp(rectangle,tapisImage);
 			
 			//table basse
 		 	rectangle = new Rectangle(new Position(11, 9), 1, 2);
