@@ -4,13 +4,14 @@ package compets.engine.data.animal;
  * @author Maxence
  */
 public class Gauge {
-	public static final int MIN_GAUGE = 50;
+	public static final int DEFAULT_GAUGE = 50;
+	public static final int MIN_GAUGE = 0;
 	public static final int MAX_GAUGE = 100;
 
 	private int gauge;
 	
 	public Gauge() {
-		this.gauge = MIN_GAUGE;
+		this.gauge = DEFAULT_GAUGE;
 	}
 
 	public int getValue() {
@@ -28,7 +29,7 @@ public class Gauge {
 	}
 	
 	public void decrement() {
-		if(gauge > 0) {
+		if(gauge > MIN_GAUGE) {
 			this.gauge--;
 		}
 	}
