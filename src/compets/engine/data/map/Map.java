@@ -55,14 +55,14 @@ public class Map {
 			Image frigoImage = loadImage("images/frigo.png");
 			Image cuisiniereImage = loadImage("images/cuisiniere.png");
 			Image evierImage = loadImage("images/evier.png");
-			Image meubleImage = loadImage("images/meubles_cuisine.png");
+			Image meubleImage = loadImage("images/plan_cuisine.png");
 			Image gamelleImage = loadImage("images/gamelle.png");
 			Image jeuImage = loadImage("images/jouet_1.png");
 			Image canapeImage = loadImage("images/canape.png");
 			Image fauteuilImage = loadImage("images/fauteuil.png");
 			Image tableBasseImage = loadImage("images/tableBasse.png");
 			Image panierImage = loadImage("images/panier_animal.png");
-			Image autreJeuImage = loadImage("images/Bed.png");
+			Image autreJeuImage = loadImage("images/jouet_2.png");
 			Image teleImage = loadImage("images/tv.png");
 			Image tapisImage = loadImage("images/tapis.png");
 			
