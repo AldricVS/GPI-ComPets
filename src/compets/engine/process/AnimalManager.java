@@ -133,7 +133,7 @@ public class AnimalManager {
 
 		// Mauvaise action par l'animal
 		if (map.getBoxAtPosition(currentPos) instanceof BadItem) {
-			if (actionChoice > obedience) {
+			if (actionChoice >= obedience) {
 				changeState(States.BAD_ACTION);
 			}
 		}
