@@ -9,7 +9,7 @@ public class Gauge {
 	public static final int MAX_GAUGE = 100;
 
 	private int gauge;
-	
+
 	public Gauge() {
 		this.gauge = DEFAULT_GAUGE;
 	}
@@ -21,17 +21,24 @@ public class Gauge {
 	public void setValue(int value) {
 		this.gauge = value;
 	}
-	
+
 	public void increment() {
-		if(gauge < MAX_GAUGE) {
-			this.gauge++;	
+		if (gauge < MAX_GAUGE) {
+			this.gauge++;
 		}
 	}
-	
+
 	public void decrement() {
-		if(gauge > MIN_GAUGE) {
+		if (gauge > MIN_GAUGE) {
 			this.gauge--;
 		}
 	}
 
+	public void addValue(int value) {
+		this.gauge += value;
+	}
+	
+	public void subValue(int value) {
+		this.gauge -= value;
+	}
 }

@@ -40,6 +40,7 @@ public class AnimalManager {
 	 * 
 	 */
 	public void doSomething() {
+		updateBehavior();
 		resetAnimalState();
 		if (hasInteracted) {
 			// Try to move directly
@@ -55,6 +56,26 @@ public class AnimalManager {
 				// Else, move
 				moveAnimalToNewPosition();
 			}
+		}
+		System.out.println(animal.getBehavior().getActionGauge().getValue());
+	}
+
+	/**
+	 * Depending on the state of the animal (and before resetting it), increment or
+	 * decrement the behavior gauge
+	 */
+	private void updateBehavior() {
+		Gauge actionGauge = animal.getBehavior().getActionGauge();
+		switch (animal.getStates()) {
+		case GOOD_ACTION:
+			actionGauge.increment();
+			break;
+		case BAD_ACTION:
+			actionGauge.decrement();
+			break;
+		default:
+			// case NEUTRAL
+			break;
 		}
 	}
 
@@ -188,10 +209,10 @@ public class AnimalManager {
 		// (no need to check on top of which Item he is)
 
 		if (animal.getStates() == States.BAD_ACTION) {
-			jauge.increment();
+			jauge.addValue(2);
 			choice = true;
 		} else if (animal.getStates() == States.GOOD_ACTION) {
-			jauge.decrement();
+			jauge.subValue(2);
 		}
 
 //		System.out.println(choice);
@@ -214,11 +235,11 @@ public class AnimalManager {
 		// Only with the animal state, we can know if he is doing something good or bad
 		// (no need to check on top of which Item he is)
 		if (animal.getStates() == States.BAD_ACTION) {
-			jauge.decrement();
+			jauge.subValue(2);
 //			choice = false;
 		} else if (animal.getStates() == States.GOOD_ACTION) {
 			choice = true;
-			jauge.increment();
+			jauge.addValue(2);
 		}
 //		System.out.println(choice);
 
