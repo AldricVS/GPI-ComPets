@@ -60,7 +60,7 @@ public class Map {
 			Image jeuImage = loadImage("images/jouet_1.png");
 			Image canapeImage = loadImage("images/canape.png");
 			Image fauteuilImage = loadImage("images/fauteuil.png");
-			Image tableBasseImage = loadImage("images/Bed.png");
+			Image tableBasseImage = loadImage("images/tableBasse.png");
 			Image panierImage = loadImage("images/panier_animal.png");
 			Image autreJeuImage = loadImage("images/Bed.png");
 			Image teleImage = loadImage("images/tv.png");
