@@ -9,8 +9,8 @@ import org.junit.runners.Suite.SuiteClasses;
  */
 @RunWith(Suite.class)
 @SuiteClasses({
-	AnimalWalkInTheVoidTest.class,
-	AnimalWallMovementTest.class,
+	AnimalMoveInTheVoidTest.class,
+	AnimalMoveIntoWallTest.class,
 	WalkInStraightLine.class
 })
 public class MovementTestSuite {

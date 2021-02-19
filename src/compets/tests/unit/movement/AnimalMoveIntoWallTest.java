@@ -19,7 +19,7 @@ import compets.engine.process.AnimalManager;
 /**
  * @author Maxence
  */
-public class AnimalWallMovementTest {
+public class AnimalMoveIntoWallTest {
 
 	private static Animal animal;
 	private static AnimalManager manager;

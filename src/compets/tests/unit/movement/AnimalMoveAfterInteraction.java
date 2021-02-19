@@ -10,38 +10,40 @@ import compets.engine.data.animal.States;
 import compets.engine.data.map.EmptyBox;
 import compets.engine.data.map.Map;
 import compets.engine.data.map.Position;
+import compets.engine.data.map.item.NeutralItem;
 import compets.engine.process.AnimalManager;
 
 /**
  * @author Maxence
  */
-public class AnimalWalkInTheVoidTest {
+public class AnimalMoveAfterInteraction {
 
 	private static Animal animal;
 	private static AnimalManager manager;
 	private static Map map;
 	private static Position startingPosition;
+	private static Position emptyPosition;
 
 	@BeforeClass
 	public static void init() {
 		startingPosition = new Position(0, 0);
+		emptyPosition = new Position(0, 1);
 		
-		map = new Map(1, 1);
-		map.getMap()[0][0] = new EmptyBox(new Position(0, 0));
+		map = new Map(1, 2);
+		map.getMap()[startingPosition.getX()][startingPosition.getY()] = new NeutralItem(startingPosition);
+		map.getMap()[emptyPosition.getX()][emptyPosition.getY()] = new EmptyBox(emptyPosition);
 
 		animal = new Animal(startingPosition);
 		animal.setState(States.NEUTRAL);
 
 		manager = new AnimalManager(animal, map);
-		
-		for (int i = 0; i < 10; i++) {
-			manager.moveAnimal(manager.chooseNextMove());
-		}
+		manager.interact();
 	}
 
 	@Test
-	public void tryToWalk() {
-		assertTrue(animal.getPosition() == startingPosition);
+	public void walkAfterInteraction() {
+		manager.doSomething();
+		assertTrue(animal.getPosition() == emptyPosition);
 	}
 
 }

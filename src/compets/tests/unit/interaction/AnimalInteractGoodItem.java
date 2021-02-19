@@ -35,8 +35,11 @@ public class AnimalInteractGoodItem {
 
 		manager = new AnimalManager(animal, map);
 		manager.interact();
-		assertEquals(States.GOOD_ACTION, animal.getStates());
+	}
 
+	@Test
+	public void behaviorChangedByInteraction() {
+		assertEquals(States.GOOD_ACTION, animal.getStates());
 	}
 
 	@Test
