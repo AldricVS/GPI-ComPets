@@ -22,11 +22,11 @@ import compets.engine.data.map.item.NeutralItem;
  * @author Aldric Vitali Silvestre <aldric.vitali@outlook.fr>
  */
 public class BasicBoxColorStartegy implements BoxColorStrategy {
-	private static final Color EMPTY_BOX_COLOR = Color.GRAY;
-	private static final Color WALL_COLOR = new Color(139,69,19);
-	private static final Color GOOD_ITEM_COLOR = new Color(0,128,0);
-	private static final Color BAD_ITEM_COLOR = new Color(139,0,0);
-	private static final Color NEUTRAL_ITEM_COLOR = new Color(255,69,0);
+	private static final Color EMPTY_BOX_COLOR = new Color(200, 200, 200);
+	private static final Color WALL_COLOR = new Color(74, 74, 74);
+	private static final Color GOOD_ITEM_COLOR = new Color(0, 128, 0);
+	private static final Color BAD_ITEM_COLOR = new Color(139, 0, 0);
+	private static final Color NEUTRAL_ITEM_COLOR = new Color(240, 132, 32);
 	
 	@Override
 	public void setColor(Graphics graphics, EmptyBox emptyBox) {
