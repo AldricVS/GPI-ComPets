@@ -57,7 +57,6 @@ public class AnimalManager {
 				moveAnimalToNewPosition();
 			}
 		}
-		System.out.println(animal.getBehavior().getActionGauge().getValue());
 	}
 
 	/**
@@ -203,7 +202,7 @@ public class AnimalManager {
 		if (animal.getStates() == States.BAD_ACTION) {
 			jauge.addValue(2);
 			choice = true;
-		} else if (animal.getStates() == States.GOOD_ACTION) {
+		} else {
 			jauge.subValue(2);
 		}
 
@@ -225,11 +224,11 @@ public class AnimalManager {
 
 		// Only with the animal state, we can know if he is doing something good or bad
 		// (no need to check on top of which Item he is)
-		if (animal.getStates() == States.BAD_ACTION) {
-			jauge.subValue(2);
-		} else if (animal.getStates() == States.GOOD_ACTION) {
+		if (animal.getStates() == States.GOOD_ACTION) {
 			choice = true;
 			jauge.addValue(2);
+		} else {
+			jauge.subValue(2);
 		}
 
 		return choice;

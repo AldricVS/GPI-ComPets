@@ -36,9 +36,19 @@ public class Gauge {
 
 	public void addValue(int value) {
 		this.gauge += value;
+		clampValue();
 	}
 	
 	public void subValue(int value) {
 		this.gauge -= value;
+		clampValue();
+	}
+	
+	private void clampValue() {
+		if(gauge > MAX_GAUGE) {
+			gauge = MAX_GAUGE;
+		}else if(gauge < MIN_GAUGE) {
+			gauge = MIN_GAUGE;
+		}
 	}
 }

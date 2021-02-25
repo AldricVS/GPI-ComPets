@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
+import javax.swing.UIManager;
 
 import compets.config.GuiConfiguration;
 import compets.engine.data.animal.Animal;
@@ -29,14 +30,24 @@ public class MainGui extends JFrame implements Runnable {
 	private MainPanel mainPanel;
 	private InfosPanel infosPanel;
 
-	private Animal animal = new Animal(new Position(6, 11));
-	private Map map = new Map();
-	private AnimalManager animalManager = new AnimalManager(animal, map);
+	private Animal animal;
+	private Map map;
+	private AnimalManager animalManager;
 
 	private boolean isPlaying = true;
 
 	public MainGui() {
 		super("Compet's");
+
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception exc) {
+			System.err.println("Warning: " + exc);
+		}
+
+		animal = new Animal(new Position(6, 11));
+		map = new Map();
+		animalManager = new AnimalManager(animal, map);
 
 		mainPanel = new MainPanel(this);
 		infosPanel = new InfosPanel(this);
@@ -89,7 +100,7 @@ public class MainGui extends JFrame implements Runnable {
 			if (isPlaying) {
 				infosPanel.setButtonsEnabled(true);
 				animalManager.doSomething();
-				// If the animal is not doing somthing, the delay will be longer before the next
+				// If the animal is doing something, the delay will be longer before the next
 				// turn (in order to let user do something)
 				States state = animal.getStates();
 				if (state == States.NEUTRAL) {
