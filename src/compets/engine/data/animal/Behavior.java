@@ -20,7 +20,4 @@ public class Behavior {
 	public Gauge getHealthGauge() {
 		return healthGauge;
 	}
-	
-	
-
 }

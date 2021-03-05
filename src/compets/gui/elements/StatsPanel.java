@@ -1,14 +1,14 @@
 package compets.gui.elements;
 
-import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.util.LinkedList;
-import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
@@ -17,108 +17,126 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.NumberTickUnit;
-import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
-import org.jfree.chart.renderer.xy.XYSplineRenderer;
-import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 import compets.engine.data.animal.Animal;
 import compets.engine.data.animal.Gauge;
 import compets.engine.process.AnimalManager;
-import compets.gui.management.Historical;
 
 public class StatsPanel extends JPanel {
-	private static final Dimension GAUGE_PANEL_DIMENSION = new Dimension(MainGui.INFOS_PANEL_DIMENSION.width / 6, MainGui.INFOS_PANEL_DIMENSION.height);
+	public static final Dimension GAUGE_PANEL_DIMENSION = new Dimension(MainGui.INFOS_PANEL_DIMENSION.width / 7, MainGui.INFOS_PANEL_DIMENSION.height);
 
 	private InfosPanel infosPanel;
 
+	// Gauges
 	private JPanel gaugePanel;
-	private JProgressBar progressBar;
-	private Gauge gauge = new Gauge();
-	private LinkedList<Integer> historical = new LinkedList<Integer>();
+	private GaugePanel actionGaugePanel;
+	private GaugePanel healthGaugePanel;
+	private Gauge actionGauge;
+	private Gauge healthGauge;
 	
-//	private Historical historical = new Historical();
-
+	// Chart
 	private static final int TIME_INTERVAL = 40;
 	private JPanel graphPanel;
-	private XYSeries series;
+	private XYSeries actionDataSeries;
+	private XYSeries healthDataSeries;
+	private LinkedList<Integer> actionHistorical = new LinkedList<Integer>();
+	private LinkedList<Integer> healthHistorical = new LinkedList<Integer>();
 
 	public StatsPanel(InfosPanel infosPanel) {
 		super();
 		this.infosPanel = infosPanel;
 		MainGui context = infosPanel.getContext();
+		
+		// Get behavior gauges
 		AnimalManager animalManager = context.getAnimalManager();
 		Animal animal = animalManager.getAnimal();
-		gauge = animal.getBehavior().getActionGauge();
+		actionGauge = animal.getBehavior().getActionGauge();
+		healthGauge = animal.getBehavior().getHealthGauge();
+		
 		setLayout(new BorderLayout());
 		setPreferredSize(MainGui.STATS_PANEL_DIMENSION);
 		setBackground(Color.GRAY);
-		initGaugePanel();
+		initGaugesPanel();
 		initGraphPanel();
 	}
 
-	private void initGaugePanel() {
+	private void initGaugesPanel() {
 		gaugePanel = new JPanel();
-		gaugePanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-		gaugePanel.setLayout(new BorderLayout());
-		progressBar = new JProgressBar(JProgressBar.VERTICAL, Gauge.MIN_GAUGE, Gauge.MAX_GAUGE);
-		progressBar.setValue(gauge.getValue());
-		Dimension preferredSize = progressBar.getPreferredSize();
-		// preferredSize.setSize(GAUGE_PANEL_DIMENSION.width, preferredSize.height);
-		progressBar.setPreferredSize(preferredSize);
-		gaugePanel.add(progressBar, BorderLayout.CENTER);
+		gaugePanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+		GridLayout gridLayout = new GridLayout(0, 1);
+		gridLayout.setHgap(5);
+		gaugePanel.setLayout(gridLayout);
+		
+		actionGaugePanel = new GaugePanel("Behavior", actionGauge);
+		healthGaugePanel = new GaugePanel("Well-being", healthGauge);
+		
+		gaugePanel.add(actionGaugePanel);
+		gaugePanel.add(healthGaugePanel);
 		gaugePanel.setPreferredSize(GAUGE_PANEL_DIMENSION);
 		add(gaugePanel, BorderLayout.EAST);
 	}
 
 	private void initGraphPanel() {
-		series = new XYSeries("Behavior");
+		actionDataSeries = new XYSeries("Behavior");
+		healthDataSeries = new XYSeries("Well-being");
 		XYSeriesCollection xySeriesCollection = new XYSeriesCollection();
-		xySeriesCollection.addSeries(series);
+		xySeriesCollection.addSeries(actionDataSeries);
+		xySeriesCollection.addSeries(healthDataSeries);
 		JFreeChart xyChart = ChartFactory.createXYLineChart("Animal's behavior (historical)", "Behavior value", "Time", xySeriesCollection,
 				PlotOrientation.VERTICAL, true, false, false);
 		
 		XYPlot xyPlot = xyChart.getXYPlot();
 
-		// set behavior value (y axis) from 0 to 100
+		// Set behavior value (y axis) from 0 to 100
 		NumberAxis yAxis = (NumberAxis) xyPlot.getRangeAxis();
 		yAxis.setRange(Gauge.MIN_GAUGE, Gauge.MAX_GAUGE);
 		yAxis.setTickUnit(new NumberTickUnit(5.0));
-//
-//		// hide the x axis
+
+		// Hide the x axis
 		NumberAxis xAxis = (NumberAxis) xyPlot.getDomainAxis();
 		xAxis.setVisible(false);
 		xAxis.setRange(0, TIME_INTERVAL);
 
 		XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
 		renderer.setSeriesShapesVisible(0, false);
+		renderer.setSeriesShapesVisible(1, false);
 		renderer.setSeriesPaint(0, Color.RED);
+		renderer.setSeriesPaint(1, Color.GREEN);
 		xyPlot.setRenderer(renderer);
 
 		for(int index = 0; index <= TIME_INTERVAL; index++){
-			historical.addLast(50);
+			actionHistorical.add(Gauge.DEFAULT_GAUGE);
+			healthHistorical.add(Gauge.DEFAULT_GAUGE);
 		}
-		fillSeries();
 		
 		graphPanel = new ChartPanel(xyChart);
 		add(graphPanel, BorderLayout.CENTER);
 	}
 
 	private void updateHistorical() {
-		int value = gauge.getValue();
-		historical.remove();
-		historical.addLast(value);
-		series.clear();
+		int actionValue = actionGauge.getValue();
+		int healthValue = healthGauge.getValue();
+		
+		actionHistorical.remove();
+		actionHistorical.addLast(actionValue);
+		actionDataSeries.clear();
+		
+		healthHistorical.remove();
+		healthHistorical.addLast(healthValue);
+		healthDataSeries.clear();
+		
 		fillSeries();
 	}
 
 	private void fillSeries() {
 		for (int index = 0; index <= TIME_INTERVAL; index++) {
-			series.add((double)index, (double)historical.get(index));
+			actionDataSeries.add((double)index, (double)actionHistorical.get(index));
+			healthDataSeries.add((double)index, (double)healthHistorical.get(index));
 		}
 	}
 
@@ -126,39 +144,5 @@ public class StatsPanel extends JPanel {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		updateHistorical();
-		paintProgressBar();
-//		displayList();
-	}
-	
-	private void displayList() {
-		for(int index = 0; index < TIME_INTERVAL; index++){
-			System.out.print(historical.get(index) + " ");
-		}
-		System.out.println();
-	}
-
-	private void paintProgressBar() {
-		int value = gauge.getValue();
-		progressBar.setValue(value);
-		Color gradientColorFromValue = gradientColorFromValue(value);
-		progressBar.setForeground(gradientColorFromValue);
-	}
-
-	private Color gradientColorFromValue(int value) {
-		// Interpolate green and red value depending on the value and the max / min of
-		// the gauge
-		int greenAmount = interpolate(0, 255, (double) value / (double) Gauge.MAX_GAUGE);
-		int redAmount = 255 - greenAmount;
-		return new Color(redAmount, greenAmount, 0);
-	}
-
-	private int interpolate(int start, int end, double amount) {
-		if (amount <= Gauge.MIN_GAUGE) {
-			return start;
-		}
-		if (amount >= Gauge.MAX_GAUGE) {
-			return end;
-		}
-		return (int) (start + (end - start) * amount);
 	}
 }
