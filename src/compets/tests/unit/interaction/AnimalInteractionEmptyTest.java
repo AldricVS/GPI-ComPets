@@ -39,6 +39,7 @@ public class AnimalInteractionEmptyTest {
 	@Before
 	public void resetHealthGauge() {
 		animal.getBehavior().getHealthGauge().setValue(Gauge.DEFAULT_GAUGE);
+		manager.resetAnimalState();
 	}
 
 	@Test

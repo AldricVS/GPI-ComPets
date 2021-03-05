@@ -40,6 +40,7 @@ public class AnimalInteractGoodItem {
 	public void resetGaugeAndInteract() {
 		animal.getBehavior().getActionGauge().setValue(Gauge.MAX_GAUGE);
 		animal.getBehavior().getHealthGauge().setValue(Gauge.DEFAULT_GAUGE);
+		manager.resetAnimalState();
 		manager.interact();
 	}
 
@@ -58,7 +59,7 @@ public class AnimalInteractGoodItem {
 	@Test
 	public void dontGetPunish() {
 		assertFalse(manager.punish());
-		assertEquals(Gauge.DEFAULT_GAUGE - HealthConfig.PUNIS_FOR_GOOD_ACTION, animal.getBehavior().getHealthGauge().getValue());
+		assertEquals(Gauge.DEFAULT_GAUGE - HealthConfig.PUNISH_FOR_GOOD_ACTION, animal.getBehavior().getHealthGauge().getValue());
 	}
 
 }
