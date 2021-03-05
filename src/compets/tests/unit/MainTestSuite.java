@@ -12,7 +12,7 @@ import compets.tests.unit.movement.MovementTestSuite;
  */
 @RunWith(Suite.class)
 @SuiteClasses({
-	InteractionTestSuite.class,
+	//InteractionTestSuite.class,
 	MovementTestSuite.class,
 })
 public class MainTestSuite {
