@@ -2,9 +2,6 @@ package compets.tests.unit.movement;
 
 import static org.junit.Assert.*;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -51,14 +48,10 @@ public class AnimalMoveIntoWallTest {
 
 	@Test
 	public void tryToWalk() {
-		for (int i = 0; i < 15; i++) {
+		for (int i = 0; i < 5; i++) {
 			manager.moveAnimal(manager.chooseNextMove());
+			assertTrue(animal.getPosition() == startingPosition);
 		}
-	}
-	
-	@AfterClass
-	public static void dontBeStuckInWall() {
-		assertTrue(animal.getPosition() == startingPosition);
 	}
 
 }
