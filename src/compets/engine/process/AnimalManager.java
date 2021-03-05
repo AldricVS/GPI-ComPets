@@ -25,7 +25,9 @@ import compets.engine.data.map.item.NeutralItem;
 public class AnimalManager {
 	private Animal animal;
 	private Map map;
+	
 	private boolean hasInteracted = true;
+	private boolean hasInteractWithAnimal = false;
 
 	Random rand = new Random();
 
@@ -175,7 +177,7 @@ public class AnimalManager {
 	 * 
 	 * @param hasInteractWithAnimal vrai si l'utilisateur a interagit avec l'animal
 	 */
-	public void checkWellBe(boolean hasInteractWithAnimal) {
+	public void checkWellBe() {
 		States animalState = animal.getStates();
 		Gauge healthGauge = animal.getBehavior().getHealthGauge();
 
@@ -200,6 +202,7 @@ public class AnimalManager {
 	 */
 	public void resetAnimalState() {
 		animal.resetState();
+		hasInteractWithAnimal = false;
 	}
 
 	/**
@@ -226,6 +229,8 @@ public class AnimalManager {
 			healthGauge.subValue(HealthConfig.PUNISH_FOR_NOTHING); // decrease well-be
 		}
 
+		hasInteractWithAnimal = true;
+		
 		return choice;
 
 	}
@@ -253,6 +258,7 @@ public class AnimalManager {
 			actionGauge.subValue(2);
 		}
 
+		hasInteractWithAnimal = true ;
 		return choice;
 	}
 
