@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import compets.config.HealthConfig;
 import compets.engine.data.animal.Animal;
 import compets.engine.data.animal.Gauge;
 import compets.engine.data.animal.States;
@@ -44,7 +45,6 @@ public class AnimalInteractionEmptyTest {
 	public void cantInteract() {
 		manager.interact();
 		assertEquals(States.NEUTRAL, animal.getStates());
-		assertEquals(Gauge.DEFAULT_GAUGE + 1, animal.getBehavior().getHealthGauge().getValue());
 	}
 
 	@Test
@@ -56,7 +56,7 @@ public class AnimalInteractionEmptyTest {
 	@Test
 	public void getPunish() {
 		assertFalse(manager.punish());
-		assertEquals(Gauge.DEFAULT_GAUGE - 8, animal.getBehavior().getHealthGauge().getValue());
+		assertEquals(Gauge.DEFAULT_GAUGE - HealthConfig.PUNISH_FOR_NOTHING, animal.getBehavior().getHealthGauge().getValue());
 	}
 
 }

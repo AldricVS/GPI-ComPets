@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import compets.config.HealthConfig;
 import compets.engine.data.animal.Animal;
 import compets.engine.data.animal.Gauge;
 import compets.engine.data.animal.States;
@@ -45,19 +46,19 @@ public class AnimalInteractGoodItem {
 	@Test
 	public void behaviorChangedByInteraction() {
 		assertEquals(States.GOOD_ACTION, animal.getStates());
-		assertEquals(Gauge.DEFAULT_GAUGE - 1, animal.getBehavior().getHealthGauge().getValue());
+		assertEquals(Gauge.DEFAULT_GAUGE - HealthConfig.DONE_NOTHING, animal.getBehavior().getHealthGauge().getValue());
 	}
 
 	@Test
 	public void getReward() {
 		assertTrue(manager.reward());
-		assertEquals(Gauge.DEFAULT_GAUGE + 3, animal.getBehavior().getHealthGauge().getValue());
+		assertEquals(Gauge.DEFAULT_GAUGE + HealthConfig.REWARD_FOR_GOOD_ACTION, animal.getBehavior().getHealthGauge().getValue());
 	}
 
 	@Test
 	public void dontGetPunish() {
 		assertFalse(manager.punish());
-		assertEquals(Gauge.DEFAULT_GAUGE - 15, animal.getBehavior().getHealthGauge().getValue());
+		assertEquals(Gauge.DEFAULT_GAUGE - HealthConfig.PUNIS_FOR_GOOD_ACTION, animal.getBehavior().getHealthGauge().getValue());
 	}
 
 }
