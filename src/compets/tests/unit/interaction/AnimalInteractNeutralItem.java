@@ -30,17 +30,30 @@ public class AnimalInteractNeutralItem {
 		map.getMap()[position.getX()][position.getY()] = new NeutralItem(position);
 		
 		animal = new Animal(position);
-		animal.setState(States.NEUTRAL);
 		manager = new AnimalManager(animal, map);
 	}
 
 	@Test
 	public void dontGetReward() {
+		animal.setState(States.BAD_ACTION);
 		assertFalse(manager.reward());
 	}
 	
 	@Test
 	public void getPunish() {
+		animal.setState(States.BAD_ACTION);
+		assertTrue(manager.punish());
+	}
+	
+	@Test
+	public void getReward() {
+		animal.setState(States.GOOD_ACTION);
+		assertTrue(manager.reward());
+	}
+	
+	@Test
+	public void dontGetPunish() {
+		animal.setState(States.GOOD_ACTION);
 		assertFalse(manager.punish());
 	}
 
