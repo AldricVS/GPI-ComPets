@@ -39,12 +39,6 @@ public class MainGui extends JFrame implements Runnable {
 	public MainGui() {
 		super("Compet's");
 
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (Exception exc) {
-			System.err.println("Warning: " + exc);
-		}
-
 		animal = new Animal(new Position(6, 11));
 		map = new Map();
 		animalManager = new AnimalManager(animal, map);
