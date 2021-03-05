@@ -5,14 +5,22 @@ package compets.engine.data.animal;
  */
 public class Behavior {
 
-	private Gauge deedGauge;
+	private Gauge actionGauge;
+	private Gauge healthGauge;
 	
 	public Behavior() {
-		this.deedGauge = new Gauge();
+		this.actionGauge = new Gauge();
+		this.healthGauge = new Gauge();
 	}
 
 	public Gauge getActionGauge() {
-		return deedGauge;
+		return actionGauge;
 	}
+
+	public Gauge getHealthGauge() {
+		return healthGauge;
+	}
+	
+	
 
 }
