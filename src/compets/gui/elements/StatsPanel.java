@@ -32,7 +32,6 @@ public class StatsPanel extends JPanel {
 		AnimalManager animalManager = context.getAnimalManager();
 		Animal animal = animalManager.getAnimal();
 		gauge = animal.getBehavior().getActionGauge();
-		gauge.setValue(100);
 		setLayout(new BorderLayout());
 		setPreferredSize(MainGui.STATS_PANEL_DIMENSION);
 		setBackground(Color.GRAY);
