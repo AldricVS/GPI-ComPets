@@ -2,6 +2,7 @@ package compets.engine.process;
 
 import java.util.Random;
 
+import compets.config.HealthConfig;
 import compets.engine.data.animal.Animal;
 import compets.engine.data.animal.Behavior;
 import compets.engine.data.animal.Gauge;
@@ -169,6 +170,23 @@ public class AnimalManager {
 	}
 
 	/**
+	 * Verifie si l'animal a été bien traité par l'utisateur lors des phases d'inactivité ou des bonnes actions.
+	 * Modifie la jauge de bien etre en fontion.
+	 * 
+	 * @param hasInteractWithAnimal vrai si l'utilisateur a interagit avec l'animal
+	 */
+	public void checkWellBe(boolean hasInteractWithAnimal) {
+		States animalState = animal.getStates();
+		Gauge healthGauge = animal.getBehavior().getHealthGauge();
+
+		if (animalState == States.NEUTRAL && !hasInteractWithAnimal) {
+			healthGauge.subValue(HealthConfig.DONE_NOTHING);
+		} else if (animalState == States.GOOD_ACTION && !hasInteractWithAnimal) {
+			healthGauge.addValue(HealthConfig.DONE_NOTHING);
+		}
+	}
+
+	/**
 	 * Permet de changer l'etat de l'animal
 	 * 
 	 * @param s le nouvelle état dans lequel il prendra
@@ -192,7 +210,8 @@ public class AnimalManager {
 	 */
 	public boolean punish() {
 		Behavior bh = this.animal.getBehavior();
-		Gauge jauge = bh.getActionGauge();
+		Gauge actionGauge = bh.getActionGauge();
+		Gauge healthGauge = bh.getHealthGauge();
 
 		boolean choice = false;
 
@@ -200,10 +219,11 @@ public class AnimalManager {
 		// (no need to check on top of which Item he is)
 
 		if (animal.getStates() == States.BAD_ACTION) {
-			jauge.addValue(2);
+			actionGauge.addValue(2);
 			choice = true;
 		} else {
-			jauge.subValue(2);
+			actionGauge.subValue(2);
+			healthGauge.subValue(HealthConfig.PUNISH_FOR_NOTHING); // decrease well-be
 		}
 
 		return choice;
@@ -212,13 +232,14 @@ public class AnimalManager {
 
 	/**
 	 * Renvoi vrai si l'animal a été récompenser en faisant une bonne action.
-	 * Renvoie faux sinon.
+	 * Renvoie faux sinon. Le tout en implémentant le comportement de l'animal.
 	 * 
 	 * @return
 	 */
 	public boolean reward() {
 		Behavior bh = this.animal.getBehavior();
-		Gauge jauge = bh.getActionGauge();
+		Gauge actionGauge = bh.getActionGauge();
+		Gauge healthGauge = bh.getHealthGauge();
 
 		boolean choice = false;
 
@@ -226,9 +247,10 @@ public class AnimalManager {
 		// (no need to check on top of which Item he is)
 		if (animal.getStates() == States.GOOD_ACTION) {
 			choice = true;
-			jauge.addValue(2);
+			actionGauge.addValue(2);
+			healthGauge.addValue(HealthConfig.REWARD_FOR_GOOD_ACTION); // increase well-be
 		} else {
-			jauge.subValue(2);
+			actionGauge.subValue(2);
 		}
 
 		return choice;
