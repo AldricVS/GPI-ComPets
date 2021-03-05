@@ -2,10 +2,12 @@ package compets.tests.unit.interaction;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import compets.engine.data.animal.Animal;
+import compets.engine.data.animal.Gauge;
 import compets.engine.data.animal.States;
 import compets.engine.data.map.EmptyBox;
 import compets.engine.data.map.Map;
@@ -16,7 +18,7 @@ import compets.engine.process.AnimalManager;
  * @author Maxence
  */
 public class AnimalInteractionEmptyTest {
-	
+
 	private static Map map;
 	private static Position position;
 	private static Animal animal;
@@ -25,28 +27,36 @@ public class AnimalInteractionEmptyTest {
 	@BeforeClass
 	public static void init() {
 		map = new Map(1, 1);
-		
+
 		position = new Position(0, 0);
 		map.getMap()[position.getX()][position.getY()] = new EmptyBox(position);
-		
+
 		animal = new Animal(position);
 		manager = new AnimalManager(animal, map);
+	}
+
+	@Before
+	public void resetHealthGauge() {
+		animal.getBehavior().getHealthGauge().setValue(Gauge.DEFAULT_GAUGE);
 	}
 
 	@Test
 	public void cantInteract() {
 		manager.interact();
 		assertEquals(States.NEUTRAL, animal.getStates());
+		assertEquals(Gauge.DEFAULT_GAUGE + 1, animal.getBehavior().getHealthGauge().getValue());
 	}
-	
+
 	@Test
 	public void dontGetReward() {
 		assertFalse(manager.reward());
+		assertEquals(Gauge.DEFAULT_GAUGE, animal.getBehavior().getHealthGauge().getValue());
 	}
-	
+
 	@Test
 	public void getPunish() {
 		assertFalse(manager.punish());
+		assertEquals(Gauge.DEFAULT_GAUGE - 8, animal.getBehavior().getHealthGauge().getValue());
 	}
 
 }

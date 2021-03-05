@@ -2,6 +2,7 @@ package compets.tests.unit.interaction;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -31,25 +32,32 @@ public class AnimalInteractGoodItem {
 		map.getMap()[position.getX()][position.getY()] = new GoodItem(position);
 
 		animal = new Animal(position);
-		animal.getBehavior().getActionGauge().setValue(Gauge.MAX_GAUGE);
-
 		manager = new AnimalManager(animal, map);
+	}
+	
+	@Before
+	public void resetGaugeAndInteract() {
+		animal.getBehavior().getActionGauge().setValue(Gauge.MAX_GAUGE);
+		animal.getBehavior().getHealthGauge().setValue(Gauge.DEFAULT_GAUGE);
 		manager.interact();
 	}
 
 	@Test
 	public void behaviorChangedByInteraction() {
 		assertEquals(States.GOOD_ACTION, animal.getStates());
+		assertEquals(Gauge.DEFAULT_GAUGE - 1, animal.getBehavior().getHealthGauge().getValue());
 	}
 
 	@Test
 	public void getReward() {
 		assertTrue(manager.reward());
+		assertEquals(Gauge.DEFAULT_GAUGE + 3, animal.getBehavior().getHealthGauge().getValue());
 	}
 
 	@Test
 	public void dontGetPunish() {
 		assertFalse(manager.punish());
+		assertEquals(Gauge.DEFAULT_GAUGE - 15, animal.getBehavior().getHealthGauge().getValue());
 	}
 
 }
