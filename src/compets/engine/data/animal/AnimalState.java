@@ -1,6 +1,6 @@
 package compets.engine.data.animal;
 
-public enum States {
+public enum AnimalState {
 
 	NEUTRAL,
 	BAD_ACTION,

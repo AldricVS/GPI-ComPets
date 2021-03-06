@@ -2,11 +2,13 @@ package compets.engine.process;
 
 import java.util.Random;
 
-import compets.config.HealthConfig;
 import compets.engine.data.animal.Animal;
 import compets.engine.data.animal.Behavior;
 import compets.engine.data.animal.Gauge;
-import compets.engine.data.animal.States;
+import compets.engine.data.animal.UserAction;
+import compets.engine.data.constants.ActionModifValues;
+import compets.engine.data.constants.HealthModifValues;
+import compets.engine.data.animal.AnimalState;
 import compets.engine.data.map.Box;
 import compets.engine.data.map.EmptyBox;
 import compets.engine.data.map.Map;
@@ -20,14 +22,15 @@ import compets.engine.data.map.item.NeutralItem;
  * Cette classe permet de gérer le déroulement du jeu
  * 
  * @author Nathan VIRAYIE
- *
+ * @author Aldric Vitali Silvestre <aldric.vitali@outlook.fr>
  */
 public class AnimalManager {
 	private Animal animal;
 	private Map map;
-	
-	private boolean hasInteracted = true;
-	private boolean hasInteractWithAnimal = false;
+
+	private UserAction userAction = UserAction.NEUTRAL;
+
+	private boolean hasInteracted = false;
 
 	Random rand = new Random();
 
@@ -44,6 +47,7 @@ public class AnimalManager {
 	 */
 	public void doSomething() {
 		updateBehavior();
+		updateWellBeing();
 		resetAnimalState();
 		if (hasInteracted) {
 			// Try to move directly
@@ -68,15 +72,41 @@ public class AnimalManager {
 	 */
 	private void updateBehavior() {
 		Gauge actionGauge = animal.getBehavior().getActionGauge();
-		switch (animal.getStates()) {
+		switch (animal.getState()) {
 		case GOOD_ACTION:
-			actionGauge.increment();
+			actionGauge.addValue(ActionModifValues.GOOD_ACTION);
 			break;
 		case BAD_ACTION:
-			actionGauge.decrement();
+			actionGauge.addValue(ActionModifValues.BAD_ACTION);
 			break;
 		default:
 			// case NEUTRAL
+			break;
+		}
+	}
+
+	/**
+	 * Verifie si l'animal a été bien traité par l'utisateur lors des phases
+	 * d'inactivité ou des bonnes actions. Modifie la jauge de bien etre en fontion.
+	 */
+	private void updateWellBeing() {
+		Behavior bh = this.animal.getBehavior();
+		Gauge healthGauge = bh.getHealthGauge();
+		switch (animal.getState()) {
+		case NEUTRAL:
+			if (userAction == UserAction.NEUTRAL) {
+				healthGauge.addValue(HealthModifValues.DONE_NOTHING);
+			}
+			break;
+		case GOOD_ACTION:
+			// Decrease well being if done a good action but has recieved no reward
+			if (userAction == UserAction.NEUTRAL) {
+				healthGauge.addValue(HealthModifValues.GOOD_ACTION_NOT_REWARDED);
+			}
+			break;
+		case BAD_ACTION:
+			break;
+		default:
 			break;
 		}
 	}
@@ -150,41 +180,24 @@ public class AnimalManager {
 		// Mauvaise action par l'animal
 		if (map.getBoxAtPosition(currentPos) instanceof BadItem) {
 			if (actionChoice >= obedience) {
-				changeState(States.BAD_ACTION);
+				changeState(AnimalState.BAD_ACTION);
 			}
 		}
 
 		// Bonne action par l'animal
 		else if (map.getBoxAtPosition(currentPos) instanceof GoodItem) {
 			if (actionChoice <= obedience) {
-				changeState(States.GOOD_ACTION);
+				changeState(AnimalState.GOOD_ACTION);
 			}
 		}
 
 		// Possibilité du choix de l'intéraction par l'animal (bonne ou mauvaise)
 		else if (map.getBoxAtPosition(currentPos) instanceof NeutralItem) {
 			if (actionChoice < obedience - 20) {
-				changeState(States.GOOD_ACTION);
+				changeState(AnimalState.GOOD_ACTION);
 			} else if (actionChoice >= obedience - 20) {
-				changeState(States.BAD_ACTION);
+				changeState(AnimalState.BAD_ACTION);
 			}
-		}
-	}
-
-	/**
-	 * Verifie si l'animal a été bien traité par l'utisateur lors des phases d'inactivité ou des bonnes actions.
-	 * Modifie la jauge de bien etre en fontion.
-	 * 
-	 * @param hasInteractWithAnimal vrai si l'utilisateur a interagit avec l'animal
-	 */
-	public void checkWellBe() {
-		States animalState = animal.getStates();
-		Gauge healthGauge = animal.getBehavior().getHealthGauge();
-
-		if (animalState == States.NEUTRAL && !hasInteractWithAnimal) {
-			healthGauge.subValue(HealthConfig.DONE_NOTHING);
-		} else if (animalState == States.GOOD_ACTION && !hasInteractWithAnimal) {
-			healthGauge.addValue(HealthConfig.DONE_NOTHING);
 		}
 	}
 
@@ -193,7 +206,7 @@ public class AnimalManager {
 	 * 
 	 * @param s le nouvelle état dans lequel il prendra
 	 */
-	public void changeState(States state) {
+	public void changeState(AnimalState state) {
 		animal.setState(state);
 	}
 
@@ -202,7 +215,7 @@ public class AnimalManager {
 	 */
 	public void resetAnimalState() {
 		animal.resetState();
-		hasInteractWithAnimal = false;
+		userAction = UserAction.NEUTRAL;
 	}
 
 	/**
@@ -221,16 +234,24 @@ public class AnimalManager {
 		// Only with the animal state, we can know if he is doing something good or bad
 		// (no need to check on top of which Item he is)
 
-		if (animal.getStates() == States.BAD_ACTION) {
-			actionGauge.addValue(2);
+		switch (animal.getState()) {
+		case NEUTRAL:
+			actionGauge.addValue(ActionModifValues.NEUTRAL_PUNISHED);
+			healthGauge.addValue(HealthModifValues.PUNISH_FOR_NOTHING);
+			break;
+		case GOOD_ACTION:
+			actionGauge.addValue(ActionModifValues.GOOD_ACTION_PUNISHED);;
+			healthGauge.addValue(HealthModifValues.PUNISH_FOR_GOOD_ACTION);
+			break;
+		case BAD_ACTION:
+			actionGauge.addValue(ActionModifValues.BAD_ACTION_PUNISED);
 			choice = true;
-		} else {
-			actionGauge.subValue(2);
-			healthGauge.subValue(HealthConfig.PUNISH_FOR_NOTHING); // decrease well-be
+			break;
+		default:
+			break;
 		}
+		userAction = UserAction.PUNISHING;
 
-		hasInteractWithAnimal = true;
-		
 		return choice;
 
 	}
@@ -248,17 +269,23 @@ public class AnimalManager {
 
 		boolean choice = false;
 
-		// Only with the animal state, we can know if he is doing something good or bad
-		// (no need to check on top of which Item he is)
-		if (animal.getStates() == States.GOOD_ACTION) {
+		switch (animal.getState()) {
+		case NEUTRAL:
+			actionGauge.addValue(ActionModifValues.NEUTRAL_REWARDED);
+			break;
+		case GOOD_ACTION:
 			choice = true;
-			actionGauge.addValue(2);
-			healthGauge.addValue(HealthConfig.REWARD_FOR_GOOD_ACTION); // increase well-be
-		} else {
-			actionGauge.subValue(2);
+			actionGauge.addValue(ActionModifValues.GOOD_ACTION_REWARDED);
+			healthGauge.addValue(HealthModifValues.REWARD_FOR_GOOD_ACTION); // increase well-be
+			break;
+		case BAD_ACTION:
+			actionGauge.addValue(ActionModifValues.BAD_ACTION_REWARDED);
+			break;
+		default:
+			break;
 		}
-
-		hasInteractWithAnimal = true ;
+		
+		userAction = UserAction.REWARDING;
 		return choice;
 	}
 

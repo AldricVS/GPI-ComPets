@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import compets.engine.data.animal.Animal;
 import compets.engine.data.animal.Gauge;
-import compets.engine.data.animal.States;
+import compets.engine.data.animal.AnimalState;
 import compets.engine.data.map.Map;
 import compets.engine.data.map.Position;
 import compets.engine.data.map.item.BadItem;
@@ -39,7 +39,7 @@ public class AnimalInteractBadItem {
 	
 	@Test
 	public void behaviorChangedByInteraction() {
-		assertEquals(States.BAD_ACTION, animal.getStates());
+		assertEquals(AnimalState.BAD_ACTION, animal.getState());
 	}
 
 	@Test
