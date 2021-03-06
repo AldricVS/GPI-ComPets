@@ -49,6 +49,11 @@ public class AnimalManager {
 		updateBehavior();
 		updateWellBeing();
 		resetAnimalState();
+		tryToInteract();
+		
+	}
+
+	private void tryToInteract() {
 		if (hasInteracted) {
 			// Try to move directly
 			moveAnimalToNewPosition();
@@ -58,7 +63,6 @@ public class AnimalManager {
 			Box boxAtPosition = map.getBoxAtPosition(animal.getPosition());
 			if (!(boxAtPosition instanceof EmptyBox)) {
 				interact();
-				hasInteracted = true;
 			} else {
 				// Else, move
 				moveAnimalToNewPosition();
@@ -70,7 +74,7 @@ public class AnimalManager {
 	 * Depending on the state of the animal (and before resetting it), increment or
 	 * decrement the behavior gauge
 	 */
-	private void updateBehavior() {
+	public void updateBehavior() {
 		Gauge actionGauge = animal.getBehavior().getActionGauge();
 		switch (animal.getState()) {
 		case GOOD_ACTION:
@@ -89,7 +93,7 @@ public class AnimalManager {
 	 * Verifie si l'animal a été bien traité par l'utisateur lors des phases
 	 * d'inactivité ou des bonnes actions. Modifie la jauge de bien etre en fontion.
 	 */
-	private void updateWellBeing() {
+	public void updateWellBeing() {
 		Behavior bh = this.animal.getBehavior();
 		Gauge healthGauge = bh.getHealthGauge();
 		switch (animal.getState()) {
@@ -173,6 +177,7 @@ public class AnimalManager {
 	public void interact() {
 		Position currentPos = animal.getPosition();
 		Gauge jauge = animal.getBehavior().getActionGauge();
+		hasInteracted = true;
 
 		int obedience = jauge.getValue();
 		int actionChoice = rand.nextInt(Gauge.MAX_GAUGE + 1);

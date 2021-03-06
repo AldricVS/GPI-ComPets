@@ -57,7 +57,7 @@ public class AnimalInteractionEmptyTest {
 	@Test
 	public void getPunish() {
 		assertFalse(manager.punish());
-		assertEquals(Gauge.DEFAULT_GAUGE - HealthModifValues.PUNISH_FOR_NOTHING, animal.getBehavior().getHealthGauge().getValue());
+		assertEquals(Gauge.DEFAULT_GAUGE + HealthModifValues.PUNISH_FOR_NOTHING, animal.getBehavior().getHealthGauge().getValue());
 	}
 
 }

@@ -46,8 +46,9 @@ public class AnimalInteractGoodItem {
 
 	@Test
 	public void behaviorChangedByInteraction() {
+		// Health is not changed right after an interaction
 		assertEquals(AnimalState.GOOD_ACTION, animal.getState());
-		assertEquals(Gauge.DEFAULT_GAUGE - HealthModifValues.DONE_NOTHING, animal.getBehavior().getHealthGauge().getValue());
+		assertEquals(Gauge.DEFAULT_GAUGE, animal.getBehavior().getHealthGauge().getValue());
 	}
 
 	@Test
@@ -59,7 +60,7 @@ public class AnimalInteractGoodItem {
 	@Test
 	public void dontGetPunish() {
 		assertFalse(manager.punish());
-		assertEquals(Gauge.DEFAULT_GAUGE - HealthModifValues.PUNISH_FOR_GOOD_ACTION, animal.getBehavior().getHealthGauge().getValue());
+		assertEquals(Gauge.DEFAULT_GAUGE + HealthModifValues.PUNISH_FOR_GOOD_ACTION, animal.getBehavior().getHealthGauge().getValue());
 	}
 
 }
