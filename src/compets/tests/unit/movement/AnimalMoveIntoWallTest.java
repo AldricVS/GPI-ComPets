@@ -6,7 +6,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import compets.engine.data.animal.Animal;
-import compets.engine.data.animal.States;
+import compets.engine.data.animal.AnimalState;
 import compets.engine.data.map.EmptyBox;
 import compets.engine.data.map.Map;
 import compets.engine.data.map.Position;
@@ -41,7 +41,7 @@ public class AnimalMoveIntoWallTest {
 		map.getMap()[2][2] = new Wall(new Position(2, 1));
 
 		animal = new Animal(startingPosition);
-		animal.setState(States.NEUTRAL);
+		animal.setState(AnimalState.NEUTRAL);
 
 		manager = new AnimalManager(animal, map);
 	}

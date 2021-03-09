@@ -6,7 +6,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import compets.engine.data.animal.Animal;
-import compets.engine.data.animal.States;
+import compets.engine.data.animal.AnimalState;
 import compets.engine.data.map.Map;
 import compets.engine.data.map.Position;
 import compets.engine.data.map.item.NeutralItem;
@@ -35,25 +35,25 @@ public class AnimalInteractNeutralItem {
 
 	@Test
 	public void dontGetReward() {
-		animal.setState(States.BAD_ACTION);
+		animal.setState(AnimalState.BAD_ACTION);
 		assertFalse(manager.reward());
 	}
 	
 	@Test
 	public void getPunish() {
-		animal.setState(States.BAD_ACTION);
+		animal.setState(AnimalState.BAD_ACTION);
 		assertTrue(manager.punish());
 	}
 	
 	@Test
 	public void getReward() {
-		animal.setState(States.GOOD_ACTION);
+		animal.setState(AnimalState.GOOD_ACTION);
 		assertTrue(manager.reward());
 	}
 	
 	@Test
 	public void dontGetPunish() {
-		animal.setState(States.GOOD_ACTION);
+		animal.setState(AnimalState.GOOD_ACTION);
 		assertFalse(manager.punish());
 	}
 

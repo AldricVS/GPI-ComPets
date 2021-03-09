@@ -6,12 +6,12 @@ public class Animal {
 	
 	private Behavior behavior;
 	private Position position;
-	private States state;
+	private AnimalState state;
 	
 	public Animal(Position position) {
 		this.position = position;
 		this.behavior = new Behavior();
-		this.state=States.NEUTRAL;
+		this.state=AnimalState.NEUTRAL;
 	}
 
 	public Behavior getBehavior() {
@@ -26,16 +26,16 @@ public class Animal {
 		this.position = position;
 	}
 
-	public States getStates() {
+	public AnimalState getState() {
 		return state;
 	}
 
-	public void setState(States animalStates) {
+	public void setState(AnimalState animalStates) {
 		this.state = animalStates;
 	}
 
 	public void resetState() {
-		state=States.NEUTRAL;
+		state=AnimalState.NEUTRAL;
 	}
 
 	@Override

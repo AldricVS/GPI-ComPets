@@ -36,7 +36,7 @@ public class AnimalImageUtility {
 	}
 	
 	public Image getCorrespondingImage(Animal animal) {
-		switch (animal.getStates()) {
+		switch (animal.getState()) {
 		case GOOD_ACTION:
 			return imageGoodState;
 		case BAD_ACTION:

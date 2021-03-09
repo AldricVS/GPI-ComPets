@@ -8,7 +8,7 @@ import javax.swing.UIManager;
 
 import compets.config.GuiConfiguration;
 import compets.engine.data.animal.Animal;
-import compets.engine.data.animal.States;
+import compets.engine.data.animal.AnimalState;
 import compets.engine.data.map.Map;
 import compets.engine.data.map.Position;
 import compets.engine.process.AnimalManager;
@@ -96,8 +96,8 @@ public class MainGui extends JFrame implements Runnable {
 				animalManager.doSomething();
 				// If the animal is doing something, the delay will be longer before the next
 				// turn (in order to let user do something)
-				States state = animal.getStates();
-				if (state == States.NEUTRAL) {
+				AnimalState state = animal.getState();
+				if (state == AnimalState.NEUTRAL) {
 					delay = AFTER_MOVE_DELAY;
 				} else {
 					delay = AFTER_ACTION_DELAY;

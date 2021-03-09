@@ -6,10 +6,10 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import compets.config.HealthConfig;
 import compets.engine.data.animal.Animal;
 import compets.engine.data.animal.Gauge;
-import compets.engine.data.animal.States;
+import compets.engine.data.constants.HealthModifValues;
+import compets.engine.data.animal.AnimalState;
 import compets.engine.data.map.EmptyBox;
 import compets.engine.data.map.Map;
 import compets.engine.data.map.Position;
@@ -45,7 +45,7 @@ public class AnimalInteractionEmptyTest {
 	@Test
 	public void cantInteract() {
 		manager.interact();
-		assertEquals(States.NEUTRAL, animal.getStates());
+		assertEquals(AnimalState.NEUTRAL, animal.getState());
 	}
 
 	@Test
@@ -57,7 +57,7 @@ public class AnimalInteractionEmptyTest {
 	@Test
 	public void getPunish() {
 		assertFalse(manager.punish());
-		assertEquals(Gauge.DEFAULT_GAUGE - HealthConfig.PUNISH_FOR_NOTHING, animal.getBehavior().getHealthGauge().getValue());
+		assertEquals(Gauge.DEFAULT_GAUGE + HealthModifValues.PUNISH_FOR_NOTHING, animal.getBehavior().getHealthGauge().getValue());
 	}
 
 }

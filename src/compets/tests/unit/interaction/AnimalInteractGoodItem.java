@@ -6,10 +6,10 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import compets.config.HealthConfig;
 import compets.engine.data.animal.Animal;
 import compets.engine.data.animal.Gauge;
-import compets.engine.data.animal.States;
+import compets.engine.data.constants.HealthModifValues;
+import compets.engine.data.animal.AnimalState;
 import compets.engine.data.map.Map;
 import compets.engine.data.map.Position;
 import compets.engine.data.map.item.GoodItem;
@@ -46,20 +46,21 @@ public class AnimalInteractGoodItem {
 
 	@Test
 	public void behaviorChangedByInteraction() {
-		assertEquals(States.GOOD_ACTION, animal.getStates());
-		assertEquals(Gauge.DEFAULT_GAUGE - HealthConfig.DONE_NOTHING, animal.getBehavior().getHealthGauge().getValue());
+		// Health is not changed right after an interaction
+		assertEquals(AnimalState.GOOD_ACTION, animal.getState());
+		assertEquals(Gauge.DEFAULT_GAUGE, animal.getBehavior().getHealthGauge().getValue());
 	}
 
 	@Test
 	public void getReward() {
 		assertTrue(manager.reward());
-		assertEquals(Gauge.DEFAULT_GAUGE + HealthConfig.REWARD_FOR_GOOD_ACTION, animal.getBehavior().getHealthGauge().getValue());
+		assertEquals(Gauge.DEFAULT_GAUGE + HealthModifValues.REWARD_FOR_GOOD_ACTION, animal.getBehavior().getHealthGauge().getValue());
 	}
 
 	@Test
 	public void dontGetPunish() {
 		assertFalse(manager.punish());
-		assertEquals(Gauge.DEFAULT_GAUGE - HealthConfig.PUNISH_FOR_GOOD_ACTION, animal.getBehavior().getHealthGauge().getValue());
+		assertEquals(Gauge.DEFAULT_GAUGE + HealthModifValues.PUNISH_FOR_GOOD_ACTION, animal.getBehavior().getHealthGauge().getValue());
 	}
 
 }
