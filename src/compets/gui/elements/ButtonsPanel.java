@@ -18,11 +18,11 @@ public class ButtonsPanel extends JPanel{
 	private InfosPanel infosPanel;
 	
 	private static final Dimension BUTTON_DIMENSION = new Dimension(
-				(int) (MainGui.BUTTONS_PANEL_DIMENSION.getWidth() - MainGui.BUTTONS_PANEL_DIMENSION.getWidth() / 4),
-				(int) (MainGui.BUTTONS_PANEL_DIMENSION.getHeight() - MainGui.BUTTONS_PANEL_DIMENSION.getHeight() / 4)
+				(int) (GamePanel.BUTTONS_PANEL_DIMENSION.getWidth() - GamePanel.BUTTONS_PANEL_DIMENSION.getWidth() / 4),
+				(int) (GamePanel.BUTTONS_PANEL_DIMENSION.getHeight() - GamePanel.BUTTONS_PANEL_DIMENSION.getHeight() / 4)
 			);
-	private static final int PADDING_WIDTH = (int) (MainGui.BUTTONS_PANEL_DIMENSION.getWidth() / 10);
-	private static final int PADDING_HEIGHT = (int) (MainGui.BUTTONS_PANEL_DIMENSION.getHeight() / 10);
+	private static final int PADDING_WIDTH = (int) (GamePanel.BUTTONS_PANEL_DIMENSION.getWidth() / 10);
+	private static final int PADDING_HEIGHT = (int) (GamePanel.BUTTONS_PANEL_DIMENSION.getHeight() / 10);
 	private static final Font FONT = new Font("arial", Font.BOLD, PADDING_HEIGHT);
 	
 	private JButton punishButton = new JButton("Punish");
@@ -37,7 +37,7 @@ public class ButtonsPanel extends JPanel{
 		
 		setLayout(gridLayout);
 		setBorder(BorderFactory.createEmptyBorder(PADDING_HEIGHT, PADDING_WIDTH, PADDING_HEIGHT, PADDING_WIDTH));
-		setPreferredSize(MainGui.BUTTONS_PANEL_DIMENSION);
+		setPreferredSize(GamePanel.BUTTONS_PANEL_DIMENSION);
 		setBackground(Color.GRAY);
 		
 		initButton(rewardButton);
@@ -69,7 +69,7 @@ public class ButtonsPanel extends JPanel{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String message = "";
-			MainGui context = infosPanel.getContext();
+			GamePanel context = infosPanel.getContext();
 			context.pause();
 			if(context.rewardAnimal()) {
 				message = "Animal is happy to have done a good thing";
@@ -85,7 +85,7 @@ public class ButtonsPanel extends JPanel{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String message = "";
-			MainGui context = infosPanel.getContext();
+			GamePanel context = infosPanel.getContext();
 			context.pause();
 			if(context.punishAnimal()) {
 				message = "He understood that it was a bad thing";

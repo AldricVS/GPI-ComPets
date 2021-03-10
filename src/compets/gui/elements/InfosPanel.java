@@ -6,22 +6,22 @@ import javax.swing.JPanel;
 
 public class InfosPanel extends JPanel {
 
-	private MainGui context;
+	private GamePanel context;
 	private ButtonsPanel buttonsPanel;
 	private StatsPanel statsPanel;
 
-	public InfosPanel(MainGui context) {
+	public InfosPanel(GamePanel context) {
 		super();
 		this.context = context;
 		buttonsPanel = new ButtonsPanel(this);
 		statsPanel = new StatsPanel(this);
 		setLayout(new BorderLayout());
-		setPreferredSize(MainGui.INFOS_PANEL_DIMENSION);
+		setPreferredSize(GamePanel.INFOS_PANEL_DIMENSION);
 		add(statsPanel, BorderLayout.NORTH);
 		add(buttonsPanel, BorderLayout.SOUTH);
 	}
 
-	public MainGui getContext() {
+	public GamePanel getContext() {
 		return context;
 	}
 	

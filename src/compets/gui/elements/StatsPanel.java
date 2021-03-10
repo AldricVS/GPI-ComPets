@@ -28,7 +28,7 @@ import compets.engine.data.animal.Gauge;
 import compets.engine.process.AnimalManager;
 
 public class StatsPanel extends JPanel {
-	public static final Dimension GAUGE_PANEL_DIMENSION = new Dimension(MainGui.INFOS_PANEL_DIMENSION.width / 7, MainGui.INFOS_PANEL_DIMENSION.height);
+	public static final Dimension GAUGE_PANEL_DIMENSION = new Dimension(GamePanel.INFOS_PANEL_DIMENSION.width / 7, GamePanel.INFOS_PANEL_DIMENSION.height);
 
 	private InfosPanel infosPanel;
 
@@ -50,7 +50,7 @@ public class StatsPanel extends JPanel {
 	public StatsPanel(InfosPanel infosPanel) {
 		super();
 		this.infosPanel = infosPanel;
-		MainGui context = infosPanel.getContext();
+		GamePanel context = infosPanel.getContext();
 		
 		// Get behavior gauges
 		AnimalManager animalManager = context.getAnimalManager();
@@ -59,7 +59,7 @@ public class StatsPanel extends JPanel {
 		healthGauge = animal.getBehavior().getHealthGauge();
 		
 		setLayout(new BorderLayout());
-		setPreferredSize(MainGui.STATS_PANEL_DIMENSION);
+		setPreferredSize(GamePanel.STATS_PANEL_DIMENSION);
 		setBackground(Color.GRAY);
 		initGaugesPanel();
 		initGraphPanel();
