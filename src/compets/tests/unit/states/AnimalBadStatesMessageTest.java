@@ -12,6 +12,7 @@ import compets.engine.data.map.Position;
 import compets.engine.process.AnimalStateHandler;
 
 /**
+ * Check that all condition of a badly treated animal get the appropriated message
  * @author Maxence
  */
 public class AnimalBadStatesMessageTest {

@@ -21,7 +21,7 @@ public class AnimalStateHandler {
 	/**
 	 * Verifie comment est traité l'animal par l'utilisateur
 	 * 
-	 * @return l'etat dans lequel est l'animal selon l'enum {@code BehaviorStatesEnum}
+	 * @return l'etat dans lequel est l'animal selon l'enum {@link BehaviorStatesEnum}
 	 */
 	public BehaviorStatesEnum checkState(){
 		Behavior bh = animal.getBehavior();
