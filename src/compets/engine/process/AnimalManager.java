@@ -2,7 +2,7 @@ package compets.engine.process;
 
 import java.util.Random;
 
-import compets.engine.data.animal.Animal;
+import compets.engine.data.animal.Dog;
 import compets.engine.data.animal.Behavior;
 import compets.engine.data.animal.Gauge;
 import compets.engine.data.animal.UserAction;
@@ -25,7 +25,7 @@ import compets.engine.data.map.item.NeutralItem;
  * @author Aldric Vitali Silvestre <aldric.vitali@outlook.fr>
  */
 public class AnimalManager {
-	private Animal animal;
+	private Dog animal;
 	private Map map;
 
 	private UserAction userAction = UserAction.NEUTRAL;
@@ -34,7 +34,7 @@ public class AnimalManager {
 
 	Random rand = new Random();
 
-	public AnimalManager(Animal animal, Map map) {
+	public AnimalManager(Dog animal, Map map) {
 		this.animal = animal;
 		this.map = map;
 	}
@@ -294,7 +294,7 @@ public class AnimalManager {
 		return choice;
 	}
 
-	public Animal getAnimal() {
+	public Dog getAnimal() {
 		return animal;
 	}
 }

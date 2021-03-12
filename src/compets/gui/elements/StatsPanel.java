@@ -23,7 +23,7 @@ import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
-import compets.engine.data.animal.Animal;
+import compets.engine.data.animal.Dog;
 import compets.engine.data.animal.Gauge;
 import compets.engine.process.AnimalManager;
 
@@ -54,7 +54,7 @@ public class StatsPanel extends JPanel {
 		
 		// Get behavior gauges
 		AnimalManager animalManager = context.getAnimalManager();
-		Animal animal = animalManager.getAnimal();
+		Dog animal = animalManager.getAnimal();
 		actionGauge = animal.getBehavior().getActionGauge();
 		healthGauge = animal.getBehavior().getHealthGauge();
 		

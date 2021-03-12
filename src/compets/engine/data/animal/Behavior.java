@@ -8,9 +8,9 @@ public class Behavior {
 	private Gauge actionGauge;
 	private Gauge healthGauge;
 	
-	public Behavior() {
-		this.actionGauge = new Gauge();
-		this.healthGauge = new Gauge();
+	public Behavior(int defaultaction, int defaulthealth) {
+		this.actionGauge = new Gauge(defaultaction);
+		this.healthGauge = new Gauge(defaulthealth);
 	}
 
 	public Gauge getActionGauge() {

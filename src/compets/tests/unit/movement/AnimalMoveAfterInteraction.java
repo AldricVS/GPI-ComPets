@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import compets.engine.data.animal.Animal;
+import compets.engine.data.animal.Dog;
 import compets.engine.data.animal.AnimalState;
 import compets.engine.data.map.EmptyBox;
 import compets.engine.data.map.Map;
@@ -18,7 +18,7 @@ import compets.engine.process.AnimalManager;
  */
 public class AnimalMoveAfterInteraction {
 
-	private static Animal animal;
+	private static Dog animal;
 	private static AnimalManager manager;
 	private static Map map;
 	private static Position startingPosition;
@@ -33,7 +33,7 @@ public class AnimalMoveAfterInteraction {
 		map.getMap()[startingPosition.getX()][startingPosition.getY()] = new NeutralItem(startingPosition);
 		map.getMap()[emptyPosition.getX()][emptyPosition.getY()] = new EmptyBox(emptyPosition);
 
-		animal = new Animal(startingPosition);
+		animal = new Dog(startingPosition);
 		animal.setState(AnimalState.NEUTRAL);
 
 		manager = new AnimalManager(animal, map);
