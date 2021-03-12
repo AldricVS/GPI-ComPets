@@ -6,6 +6,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 import compets.tests.unit.interaction.*;
 import compets.tests.unit.movement.MovementTestSuite;
+import compets.tests.unit.states.AnimalStatesTestSuite;
 
 /**
  * @author Maxence
@@ -14,6 +15,7 @@ import compets.tests.unit.movement.MovementTestSuite;
 @SuiteClasses({
 	InteractionTestSuite.class,
 	MovementTestSuite.class,
+	AnimalStatesTestSuite.class,
 })
 public class MainTestSuite {
 
