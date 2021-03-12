@@ -13,7 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class ButtonsPanel extends JPanel{
+public class ActionsPanel extends JPanel{
 
 	private InfosPanel infosPanel;
 	
@@ -28,7 +28,7 @@ public class ButtonsPanel extends JPanel{
 	private JButton punishButton = new JButton("Punish");
 	private JButton rewardButton = new JButton("Reward");
 
-	public ButtonsPanel(InfosPanel infosPanel) {
+	public ActionsPanel(InfosPanel infosPanel) {
 		super();
 		this.infosPanel = infosPanel;
 		GridLayout gridLayout = new GridLayout(2, 1);

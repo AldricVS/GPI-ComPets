@@ -15,8 +15,12 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JEditorPane;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
@@ -25,7 +29,7 @@ import compets.gui.management.ImagePanel;
 
 public class MenuPanel extends JPanel {
 	private static final Dimension MENU_DIMENSION = new Dimension(GuiConfiguration.WIDTH, GuiConfiguration.HEIGHT);
-
+	
 	private static final Dimension TITLE_PART_DIMENSION = new Dimension(MENU_DIMENSION.width, MENU_DIMENSION.height / 5);
 	private static final Dimension IMAGE_PART_DIMENSION = new Dimension(MENU_DIMENSION.width, MENU_DIMENSION.height);
 	private static final Dimension BUTTONS_PART_DIMENSION = new Dimension(MENU_DIMENSION.width, MENU_DIMENSION.height / 5);
@@ -103,7 +107,25 @@ public class MenuPanel extends JPanel {
 	class ActionHelp implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			//TODO : display help
+//			JLabel message = new JLabel(HELP_HTML);
+//			//message.setLayout(new BorderLayout());
+//			message.setMaximumSize(new Dimension(MENU_DIMENSION.width, MENU_DIMENSION.height));
+//			JScrollPane scrollPane = new JScrollPane(message);
+//			//scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+//			scrollPane.setPreferredSize(new Dimension(MENU_DIMENSION.width, MENU_DIMENSION.height));
+//			JOptionPane.showMessageDialog(MenuPanel.this, scrollPane);
+			
+			JEditorPane jep = new JEditorPane();
+			jep.setEditable(false);
+			try {
+				jep.setPage("file:data/regles.html");
+				JScrollPane scrollPane = new JScrollPane(jep);
+				scrollPane.setMaximumSize(MENU_DIMENSION);
+				scrollPane.setPreferredSize(new Dimension(MENU_DIMENSION.width, 2 * MENU_DIMENSION.height / 3));
+				JOptionPane.showMessageDialog(MenuPanel.this, scrollPane);
+			} catch (IOException exception) {	
+				JOptionPane.showMessageDialog(MenuPanel.this, "Impossible d'afficher l'aide (données non trouvées)", "Erreur", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 	}
 	

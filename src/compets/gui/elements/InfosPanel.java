@@ -7,13 +7,13 @@ import javax.swing.JPanel;
 public class InfosPanel extends JPanel {
 
 	private GamePanel context;
-	private ButtonsPanel buttonsPanel;
+	private ActionsPanel buttonsPanel;
 	private StatsPanel statsPanel;
 
 	public InfosPanel(GamePanel context) {
 		super();
 		this.context = context;
-		buttonsPanel = new ButtonsPanel(this);
+		buttonsPanel = new ActionsPanel(this);
 		statsPanel = new StatsPanel(this);
 		setLayout(new BorderLayout());
 		setPreferredSize(GamePanel.INFOS_PANEL_DIMENSION);

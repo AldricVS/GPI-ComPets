@@ -40,7 +40,7 @@ public class StatsPanel extends JPanel {
 	private Gauge healthGauge;
 	
 	// Chart
-	private static final int TIME_INTERVAL = 40;
+	private static final int TIME_INTERVAL = 150;
 	private JPanel graphPanel;
 	private XYSeries actionDataSeries;
 	private XYSeries healthDataSeries;
@@ -110,8 +110,8 @@ public class StatsPanel extends JPanel {
 		xyPlot.setRenderer(renderer);
 
 		for(int index = 0; index <= TIME_INTERVAL; index++){
-			actionHistorical.add(Gauge.DEFAULT_GAUGE);
-			healthHistorical.add(Gauge.DEFAULT_GAUGE);
+			actionHistorical.add(actionGauge.getValue());
+			healthHistorical.add(healthGauge.getValue());
 		}
 		
 		graphPanel = new ChartPanel(xyChart);
