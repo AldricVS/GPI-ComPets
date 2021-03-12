@@ -104,6 +104,14 @@ public class GamePanel extends JPanel implements Runnable{
 				} else {
 					delay = AFTER_ACTION_DELAY;
 				}
+				// apply a boost of speed depending of the health of the animal
+				int healthValue = animal.getBehavior().getHealthGauge().getValue();
+				//speed modifier goes from -2 to 4
+				int speedModifier = (healthValue/20)-2;
+				//pourcent speed goes from 80 to 140
+				int pourcentSpeed = (100 + (10 * speedModifier));
+				//apply pourcent speed to the delay
+				delay = (delay * 100) / pourcentSpeed;
 				checkGauges();
 				repaint();
 			}
