@@ -27,9 +27,9 @@ import compets.gui.ColorConstants;
 import compets.gui.management.AnimalImageUtility;
 import compets.gui.management.PaintBoxVisitor;
 
-public class MainPanel extends JPanel {
+public class MapPanel extends JPanel {
 
-	private MainGui context;
+	private GamePanel context;
 	
 	private int boxWidth;
 	private int boxHeight;
@@ -37,7 +37,7 @@ public class MainPanel extends JPanel {
 	private PaintBoxVisitor paintBoxVisitor = new PaintBoxVisitor();
 	private AnimalImageUtility animalImageUtility;
 	
-	public MainPanel(MainGui context) {
+	public MapPanel(GamePanel context) {
 		this.context = context;
 		try {
 			animalImageUtility = new AnimalImageUtility();
@@ -45,11 +45,11 @@ public class MainPanel extends JPanel {
 			System.err.println("Error while getting image files : " + exception.getMessage());
 		}
 		setLayout(new BorderLayout());
-		setPreferredSize(MainGui.MAIN_PANEL_DIMENSION);
+		setPreferredSize(GamePanel.MAIN_PANEL_DIMENSION);
 		setBackground(Color.BLACK);
 	}
 
-	public MainGui getContext() {
+	public GamePanel getContext() {
 		return context;
 	}
 
