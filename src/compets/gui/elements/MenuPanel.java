@@ -121,7 +121,7 @@ public class MenuPanel extends JPanel {
 				jep.setPage("file:data/regles.html");
 				JScrollPane scrollPane = new JScrollPane(jep);
 				scrollPane.setMaximumSize(MENU_DIMENSION);
-				scrollPane.setPreferredSize(new Dimension(MENU_DIMENSION.width, MENU_DIMENSION.height / 2));
+				scrollPane.setPreferredSize(new Dimension(MENU_DIMENSION.width, 2 * MENU_DIMENSION.height / 3));
 				JOptionPane.showMessageDialog(MenuPanel.this, scrollPane);
 			} catch (IOException exception) {	
 				JOptionPane.showMessageDialog(MenuPanel.this, "Impossible d'afficher l'aide (données non trouvées)", "Erreur", JOptionPane.ERROR_MESSAGE);
