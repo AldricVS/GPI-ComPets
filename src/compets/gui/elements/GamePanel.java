@@ -3,11 +3,13 @@ package compets.gui.elements;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import compets.config.GuiConfiguration;
 import compets.engine.data.animal.Animal;
 import compets.engine.data.animal.AnimalState;
+import compets.engine.data.animal.Gauge;
 import compets.engine.data.map.Map;
 import compets.engine.data.map.Position;
 import compets.engine.process.AnimalManager;
@@ -37,6 +39,8 @@ public class GamePanel extends JPanel implements Runnable{
 	private AnimalManager animalManager;
 
 	private boolean isPlaying = true;
+	
+	private boolean isAnimalInGoodShape = true;
 
 	public GamePanel(MainGui context) {
 		super();
@@ -100,9 +104,17 @@ public class GamePanel extends JPanel implements Runnable{
 				} else {
 					delay = AFTER_ACTION_DELAY;
 				}
+				checkGauges();
 				repaint();
 			}
 		}
 	}
-	
+
+	private void checkGauges() {
+		Gauge healthGauge = animal.getBehavior().getHealthGauge();
+		if(healthGauge.getValue() < 5 && isAnimalInGoodShape) {
+			isAnimalInGoodShape = false;
+			JOptionPane.showMessageDialog(this, "The animal is in a really bad shape, you really should be nicer with him !");
+		}
+	}
 }
