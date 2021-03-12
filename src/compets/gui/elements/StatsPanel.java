@@ -24,6 +24,7 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 import compets.engine.data.animal.Animal;
+import compets.engine.data.animal.Dog;
 import compets.engine.data.animal.Gauge;
 import compets.engine.process.AnimalManager;
 

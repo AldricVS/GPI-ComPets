@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 
 import compets.config.GuiConfiguration;
 import compets.engine.data.animal.Animal;
+import compets.engine.data.animal.Dog;
 import compets.engine.data.map.Box;
 import compets.engine.data.map.EmptyBox;
 import compets.engine.data.map.Map;

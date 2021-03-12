@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import compets.engine.data.animal.Animal;
+import compets.engine.data.animal.Dog;
 import compets.engine.data.animal.Gauge;
 import compets.engine.data.animal.AnimalState;
 import compets.engine.data.map.Map;
@@ -20,7 +20,7 @@ public class AnimalInteractBadItem {
 
 	private static Map map;
 	private static Position position;
-	private static Animal animal;
+	private static Dog animal;
 	private static AnimalManager manager;
 
 	@BeforeClass
@@ -30,7 +30,7 @@ public class AnimalInteractBadItem {
 		position = new Position(0, 0);
 		map.getMap()[position.getX()][position.getY()] = new BadItem(position);
 
-		animal = new Animal(position);
+		animal = new Dog(position);
 		animal.getBehavior().getActionGauge().setValue(Gauge.MIN_GAUGE);
 
 		manager = new AnimalManager(animal, map);

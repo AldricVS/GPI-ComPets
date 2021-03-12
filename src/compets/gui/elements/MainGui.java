@@ -19,6 +19,7 @@ public class MainGui extends JFrame{
 		getContentPane().add(menuPanel, MENU_WINDOW_NAME);
 		setResizable(false);
 		setVisible(true);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		switchToMenuPanel();
 	}
 

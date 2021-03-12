@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import compets.engine.data.animal.Animal;
+import compets.engine.data.animal.Dog;
 import compets.engine.data.animal.Gauge;
 import compets.engine.data.constants.HealthModifValues;
 import compets.engine.data.animal.AnimalState;
@@ -22,7 +22,7 @@ public class AnimalInteractionEmptyTest {
 
 	private static Map map;
 	private static Position position;
-	private static Animal animal;
+	private static Dog animal;
 	private static AnimalManager manager;
 
 	@BeforeClass
@@ -32,7 +32,7 @@ public class AnimalInteractionEmptyTest {
 		position = new Position(0, 0);
 		map.getMap()[position.getX()][position.getY()] = new EmptyBox(position);
 
-		animal = new Animal(position);
+		animal = new Dog(position);
 		manager = new AnimalManager(animal, map);
 	}
 

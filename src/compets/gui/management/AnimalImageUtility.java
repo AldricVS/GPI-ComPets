@@ -8,6 +8,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import compets.engine.data.animal.Animal;
+import compets.engine.data.animal.Cat;
+import compets.engine.data.animal.Dog;
 
 /**
  * Utility class in order to get the animal image with all his states.
@@ -20,6 +22,7 @@ public class AnimalImageUtility {
 	private Image imageBadState;
 	private Image imageGoodState;
 	private Image imageNeutralState;
+	private Image imageCatNeutral;
 
 	/**
 	 * Loads the utility and load all images from files.
@@ -33,9 +36,14 @@ public class AnimalImageUtility {
 		imageBadState = ImageIO.read(file);
 		file = new File(PATH + "Animal_NEUTRAL.png");
 		imageNeutralState = ImageIO.read(file);
+		file = new File(PATH + "Cat_NEUTRAL.png");
+		imageCatNeutral = ImageIO.read(file);
 	}
 	
 	public Image getCorrespondingImage(Animal animal) {
+		if(animal instanceof Cat) {
+			return imageCatNeutral;
+		}
 		switch (animal.getState()) {
 		case GOOD_ACTION:
 			return imageGoodState;

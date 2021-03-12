@@ -4,14 +4,15 @@ package compets.engine.data.animal;
  * @author Maxence
  */
 public class Gauge {
-	public static final int DEFAULT_GAUGE = 50;
+	public static int DEFAULT_GAUGE = 50;
 	public static final int MIN_GAUGE = 0;
 	public static final int MAX_GAUGE = 100;
 
 	private int gauge;
 
-	public Gauge() {
-		this.gauge = DEFAULT_GAUGE;
+	public Gauge(int defaultGauge) {
+		this.gauge = defaultGauge;
+		DEFAULT_GAUGE = defaultGauge;
 	}
 
 	public int getValue() {

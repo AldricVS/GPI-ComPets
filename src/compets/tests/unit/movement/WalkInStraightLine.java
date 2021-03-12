@@ -6,7 +6,7 @@ import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import compets.engine.data.animal.Animal;
+import compets.engine.data.animal.Dog;
 import compets.engine.data.map.EmptyBox;
 import compets.engine.data.map.Map;
 import compets.engine.data.map.Position;
@@ -18,7 +18,7 @@ import compets.engine.process.AnimalManager;
  */
 public class WalkInStraightLine {
 
-	private static Animal animal;
+	private static Dog animal;
 	private static AnimalManager manager;
 	private static Map map;
 	private static Position startingPosition;
@@ -36,7 +36,7 @@ public class WalkInStraightLine {
 		map.getMap()[0][3] = new EmptyBox(new Position(0, 3));
 		map.getMap()[0][4] = new EmptyBox(new Position(0, 4));
 
-		animal = new Animal(startingPosition);
+		animal = new Dog(startingPosition);
 		manager = new AnimalManager(animal, map);
 	}
 

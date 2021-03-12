@@ -2,12 +2,13 @@ package compets.engine.process;
 
 import java.util.Random;
 
-import compets.engine.data.animal.Animal;
+import compets.engine.data.animal.Dog;
 import compets.engine.data.animal.Behavior;
 import compets.engine.data.animal.Gauge;
 import compets.engine.data.animal.UserAction;
 import compets.engine.data.constants.ActionModifValues;
 import compets.engine.data.constants.HealthModifValues;
+import compets.engine.data.animal.Animal;
 import compets.engine.data.animal.AnimalState;
 import compets.engine.data.map.Box;
 import compets.engine.data.map.EmptyBox;

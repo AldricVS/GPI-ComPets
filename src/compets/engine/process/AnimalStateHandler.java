@@ -1,6 +1,6 @@
 package compets.engine.process;
 
-import compets.engine.data.animal.Animal;
+import compets.engine.data.animal.Dog;
 import compets.engine.data.animal.Behavior;
 import compets.engine.data.animal.Gauge;
 import compets.engine.data.behavior.BehaviorStatesEnum;
@@ -12,9 +12,9 @@ import compets.engine.data.behavior.BehaviorStatesEnum;
  *
  */
 public class AnimalStateHandler {
-	private Animal animal;
+	private Dog animal;
 
-	public AnimalStateHandler(Animal animal) {
+	public AnimalStateHandler(Dog animal) {
 		this.animal = animal;
 	}
 	

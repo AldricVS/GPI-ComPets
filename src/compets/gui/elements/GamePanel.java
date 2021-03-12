@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import compets.config.GuiConfiguration;
+import compets.engine.data.animal.Dog;
 import compets.engine.data.animal.Animal;
 import compets.engine.data.animal.AnimalState;
 import compets.engine.data.animal.Gauge;
@@ -49,7 +50,7 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 	
 	public void newGame() {
-		animal = new Animal(new Position(6, 11));
+		animal = new Dog(new Position(6, 11));
 		map = new Map();
 		animalManager = new AnimalManager(animal, map);
 		infosPanel = new InfosPanel(this);
