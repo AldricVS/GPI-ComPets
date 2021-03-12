@@ -29,16 +29,8 @@ public class AnimalStateHandler {
 			return BehaviorStatesEnum.ANIMAL_EXEMPLARY;
 		}
 		
-		if (actionGaugeValue >= 80) {
+		if (actionGaugeValue >= 70) {
 			 return BehaviorStatesEnum.ANIMAL_GOOD_BEHAVIOR;
-		}
-		
-		if (healthGaugeValue <= 10) {
-			return BehaviorStatesEnum.ANIMAL_VERY_BAD_HEALTH;
-		}
-		
-		if (healthGaugeValue <= 30) {
-			return BehaviorStatesEnum.ANIMAL_BAD_HEALTH;
 		}
 		
 		if (actionGaugeValue <= 10) {
@@ -47,6 +39,14 @@ public class AnimalStateHandler {
 		
 		if (actionGaugeValue <= 30) {
 			 return BehaviorStatesEnum.ANIMAL_BAD_BEHAVIOR;
+		}
+		
+		if (healthGaugeValue <= 10) {
+			return BehaviorStatesEnum.ANIMAL_VERY_BAD_HEALTH;
+		}
+		
+		if (healthGaugeValue <= 30) {
+			return BehaviorStatesEnum.ANIMAL_BAD_HEALTH;
 		}
 		
 		if(healthGaugeValue >= 90) {

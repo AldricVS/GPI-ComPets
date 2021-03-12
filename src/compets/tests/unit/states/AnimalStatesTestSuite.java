@@ -8,7 +8,9 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author Maxence
  */
 @RunWith(Suite.class)
-@SuiteClasses({})
+@SuiteClasses({
+	AnimalBadStatesMessageTest.class,
+	AnimalGoodStatesMessageTest.class,
+})
 public class AnimalStatesTestSuite {
-
 }

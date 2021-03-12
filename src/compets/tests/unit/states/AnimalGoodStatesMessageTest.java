@@ -29,6 +29,13 @@ public class AnimalGoodStatesMessageTest {
 	}
 	
 	@Test
+	public void messageNeutral() {
+		animal.getBehavior().getActionGauge().setValue(Gauge.DEFAULT_GAUGE);
+		animal.getBehavior().getHealthGauge().setValue(Gauge.DEFAULT_GAUGE);
+		assertEquals(BehaviorStatesEnum.NO_MSG, handler.checkState());
+	}
+	
+	@Test
 	public void messageVeryGoodState() {
 		animal.getBehavior().getActionGauge().setValue(Gauge.MAX_GAUGE);
 		animal.getBehavior().getHealthGauge().setValue(Gauge.MAX_GAUGE);
