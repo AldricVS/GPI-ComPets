@@ -5,6 +5,12 @@ import compets.engine.data.animal.Behavior;
 import compets.engine.data.animal.Gauge;
 import compets.engine.data.behavior.BehaviorStatesEnum;
 
+/**
+ * Cette classe définit les conditions de l'animal selon sa barre de santé et sa barre de dressage
+ * 
+ * @author VIRAYIE Nathan
+ *
+ */
 public class AnimalStateHandler {
 	private Animal animal;
 
@@ -13,7 +19,7 @@ public class AnimalStateHandler {
 	}
 	
 	/**
-	 * Verifie dans quel état est la santé et le dressage de l'animal
+	 * Verifie comment est traité l'animal par l'utilisateur
 	 * 
 	 * @return l'etat dans lequel est l'animal selon l'enum {@code BehaviorStatesEnum}
 	 */
