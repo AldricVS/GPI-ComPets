@@ -1,5 +1,6 @@
 package compets.gui.elements;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -10,15 +11,18 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 public class ActionsPanel extends JPanel{
 
 	private InfosPanel infosPanel;
 	
 	private static final Dimension BUTTON_DIMENSION = new Dimension(
-				(int) (GamePanel.BUTTONS_PANEL_DIMENSION.getWidth() - GamePanel.BUTTONS_PANEL_DIMENSION.getWidth() / 4),
+				(int) (GamePanel.BUTTONS_PANEL_DIMENSION.getWidth() - GamePanel.BUTTONS_PANEL_DIMENSION.getWidth() / 4 / 2),
 				(int) (GamePanel.BUTTONS_PANEL_DIMENSION.getHeight() - GamePanel.BUTTONS_PANEL_DIMENSION.getHeight() / 4)
 			);
 	private static final int PADDING_WIDTH = (int) (GamePanel.BUTTONS_PANEL_DIMENSION.getWidth() / 10);
@@ -27,27 +31,58 @@ public class ActionsPanel extends JPanel{
 	
 	private JButton punishButton = new JButton("Punish");
 	private JButton rewardButton = new JButton("Reward");
+	
+	private JPanel buttonsPanel = new JPanel();
+	private JPanel messagesPanel = new JPanel();
+	private JLabel messageLabel;
 
 	public ActionsPanel(InfosPanel infosPanel) {
 		super();
 		this.infosPanel = infosPanel;
+		infosPanel.getContext().getAnimalManager();
+		setLayout(new GridLayout(1, 2));
+		initMessagesPanel();
+		initButtonsPanel();
+		//initFont();
+	}
+	
+	private void initButtonsPanel() {
 		GridLayout gridLayout = new GridLayout(2, 1);
 		gridLayout.setHgap(PADDING_WIDTH);
 		gridLayout.setVgap(PADDING_HEIGHT);
 		
-		setLayout(gridLayout);
-		setBorder(BorderFactory.createEmptyBorder(PADDING_HEIGHT, PADDING_WIDTH, PADDING_HEIGHT, PADDING_WIDTH));
-		setPreferredSize(GamePanel.BUTTONS_PANEL_DIMENSION);
-		setBackground(Color.GRAY);
-		
+		buttonsPanel.setLayout(gridLayout);
+		buttonsPanel.setBorder(BorderFactory.createEmptyBorder(PADDING_HEIGHT, PADDING_WIDTH, PADDING_HEIGHT, PADDING_WIDTH));
+		buttonsPanel.setPreferredSize(GamePanel.BUTTONS_PANEL_DIMENSION);
+		buttonsPanel.setBackground(Color.GRAY);
 		initButton(rewardButton);
 		initButton(punishButton);
 		punishButton.addActionListener(new ActionPunish());
 		rewardButton.addActionListener(new ActionReward());
-		
-		initFont();
+		add(buttonsPanel);
+	}
+
+	private void initMessagesPanel() {
+		messagesPanel.setLayout(new BorderLayout());
+		messagesPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+		JLabel titleLabel = new JLabel("Animal state :", SwingConstants.CENTER);
+		messagesPanel.add(titleLabel, BorderLayout.NORTH);
+		messageLabel = new JLabel("", SwingConstants.CENTER);
+		messageLabel.setFont(new Font("Arial", Font.PLAIN, GamePanel.BUTTONS_PANEL_DIMENSION.width / 30));
+		changeMessageLabel("Nothing to say...", false);
+		messagesPanel.add(messageLabel, BorderLayout.CENTER);
+		add(messagesPanel);
 	}
 	
+	public void changeMessageLabel(String newMessage, boolean isBadMessage) {
+		if(isBadMessage) {
+			messageLabel.setText("<html><p style=\"color:red;\">" + newMessage + "</p></html>");
+		}else {
+			messageLabel.setText("<html><p>" + newMessage + "</p></html>");
+		}
+		
+	}
+
 	public void setButtonsEnabled(boolean enabled) {
 		punishButton.setEnabled(enabled);
 		rewardButton.setEnabled(enabled);
@@ -56,7 +91,7 @@ public class ActionsPanel extends JPanel{
 	private void initButton(JButton button) {
 		button.setPreferredSize(BUTTON_DIMENSION);
 		button.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-		add(button);
+		buttonsPanel.add(button);
 	}
 	
 	private void initFont() {
