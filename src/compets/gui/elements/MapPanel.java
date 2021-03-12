@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 import compets.config.GuiConfiguration;
+import compets.engine.data.animal.Animal;
 import compets.engine.data.animal.Dog;
 import compets.engine.data.map.Box;
 import compets.engine.data.map.EmptyBox;
@@ -104,7 +105,7 @@ public class MapPanel extends JPanel {
 
 	private void drawAnimal(Graphics g) {
 		AnimalManager animalManager = context.getAnimalManager();
-		Dog animal = animalManager.getAnimal();
+		Animal animal = animalManager.getAnimal();
 		Position position = animal.getPosition();
 		//if cannot find the images, draw the old oval instead
 		if(animalImageUtility == null) {

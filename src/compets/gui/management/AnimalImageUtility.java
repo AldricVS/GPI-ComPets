@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import compets.engine.data.animal.Animal;
 import compets.engine.data.animal.Dog;
 
 /**
@@ -35,7 +36,7 @@ public class AnimalImageUtility {
 		imageNeutralState = ImageIO.read(file);
 	}
 	
-	public Image getCorrespondingImage(Dog animal) {
+	public Image getCorrespondingImage(Animal animal) {
 		switch (animal.getState()) {
 		case GOOD_ACTION:
 			return imageGoodState;

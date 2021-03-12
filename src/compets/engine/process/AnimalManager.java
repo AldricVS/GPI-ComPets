@@ -8,6 +8,7 @@ import compets.engine.data.animal.Gauge;
 import compets.engine.data.animal.UserAction;
 import compets.engine.data.constants.ActionModifValues;
 import compets.engine.data.constants.HealthModifValues;
+import compets.engine.data.animal.Animal;
 import compets.engine.data.animal.AnimalState;
 import compets.engine.data.map.Box;
 import compets.engine.data.map.EmptyBox;
@@ -25,7 +26,7 @@ import compets.engine.data.map.item.NeutralItem;
  * @author Aldric Vitali Silvestre <aldric.vitali@outlook.fr>
  */
 public class AnimalManager {
-	private Dog animal;
+	private Animal animal;
 	private Map map;
 
 	private UserAction userAction = UserAction.NEUTRAL;
@@ -34,7 +35,7 @@ public class AnimalManager {
 
 	Random rand = new Random();
 
-	public AnimalManager(Dog animal, Map map) {
+	public AnimalManager(Animal animal, Map map) {
 		this.animal = animal;
 		this.map = map;
 	}
@@ -294,7 +295,7 @@ public class AnimalManager {
 		return choice;
 	}
 
-	public Dog getAnimal() {
+	public Animal getAnimal() {
 		return animal;
 	}
 }

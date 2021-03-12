@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 import compets.config.GuiConfiguration;
 import compets.engine.data.animal.Dog;
+import compets.engine.data.animal.Animal;
 import compets.engine.data.animal.AnimalState;
 import compets.engine.data.animal.Gauge;
 import compets.engine.data.map.Map;
@@ -34,7 +35,7 @@ public class GamePanel extends JPanel implements Runnable{
 	private MapPanel mainPanel;
 	private InfosPanel infosPanel;
 
-	private Dog animal;
+	private Animal animal;
 	private Map map;
 	private AnimalManager animalManager;
 
