@@ -14,6 +14,7 @@ import compets.engine.data.animal.Gauge;
 import compets.engine.data.map.Map;
 import compets.engine.data.map.Position;
 import compets.engine.process.AnimalManager;
+import compets.engine.process.AnimalStateHandler;
 
 public class GamePanel extends JPanel implements Runnable{
 
@@ -38,6 +39,7 @@ public class GamePanel extends JPanel implements Runnable{
 	private Animal animal;
 	private Map map;
 	private AnimalManager animalManager;
+	private AnimalStateHandler animalStateHandler;
 
 	private boolean isPlaying = true;
 	
@@ -53,6 +55,7 @@ public class GamePanel extends JPanel implements Runnable{
 		animal = new Dog(new Position(6, 11));
 		map = new Map();
 		animalManager = new AnimalManager(animal, map);
+		animalStateHandler = new AnimalStateHandler(animal);
 		infosPanel = new InfosPanel(this);
 		setLayout(new BorderLayout());
 		add(mainPanel, BorderLayout.CENTER);
@@ -61,6 +64,10 @@ public class GamePanel extends JPanel implements Runnable{
 
 	public AnimalManager getAnimalManager() {
 		return animalManager;
+	}
+	
+	public AnimalStateHandler getAnimalStateHandler() {
+		return animalStateHandler;
 	}
 
 	public Map getMap() {
@@ -105,25 +112,22 @@ public class GamePanel extends JPanel implements Runnable{
 				} else {
 					delay = AFTER_ACTION_DELAY;
 				}
-				// apply a boost of speed depending of the health of the animal
-				int healthValue = animal.getBehavior().getHealthGauge().getValue();
-				//speed modifier goes from -2 to 4
-				int speedModifier = (healthValue/20)-2;
-				//pourcent speed goes from 80 to 140
-				int pourcentSpeed = (100 + (10 * speedModifier));
-				//apply pourcent speed to the delay
-				delay = (delay * 100) / pourcentSpeed;
-				checkGauges();
+				delay = updateDelay(delay);
+				infosPanel.updateMessage();
 				repaint();
 			}
 		}
 	}
 
-	private void checkGauges() {
-		Gauge healthGauge = animal.getBehavior().getHealthGauge();
-		if(healthGauge.getValue() < 5 && isAnimalInGoodShape) {
-			isAnimalInGoodShape = false;
-			JOptionPane.showMessageDialog(this, "The animal is in a really bad shape, you really should be nicer with him !");
-		}
+	private int updateDelay(int delay) {
+		// apply a boost of speed depending of the health of the animal
+		int healthValue = animal.getBehavior().getHealthGauge().getValue();
+		//speed modifier goes from -2 to 4
+		int speedModifier = (healthValue/20)-2;
+		//pourcent speed goes from 80 to 140
+		int pourcentSpeed = (100 + (10 * speedModifier));
+		//apply pourcent speed to the delay
+		delay = (delay * 100) / pourcentSpeed;
+		return delay;
 	}
 }
