@@ -34,6 +34,14 @@ public class GameInitializer {
 	 */
 	public static GameManager createNewGame() {
 		Position pos = choosePos();
+		
+		/*if(animalType.equals("chat")){
+		 *animal = new Cat(pos);
+		 * }
+		 * else{
+		 * animal = new Dog(pos);
+		 * }*/
+		
 		Animal animal = new Dog(pos);
 		Map map = new Map();
 		AnimalManager am = new AnimalManager(animal, map);
@@ -52,17 +60,11 @@ public class GameInitializer {
 		return ANIMALPOSITIONS[index];
 	}
 
-	public static GameManager loadGame() {		
+	public static GameManager loadGame() throws IOException{		
 		SimulationSave saver = new SimulationSave();
 		Animal animal;
 		
-		try {
-			animal = saver.load();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
+		animal = saver.load();
 		
 		Map map = new Map();
 		AnimalManager am = new AnimalManager(animal, map);
