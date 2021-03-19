@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import compets.engine.data.animal.Dog;
 import compets.engine.data.animal.Gauge;
+import compets.engine.data.animal.Animal;
 import compets.engine.data.animal.AnimalState;
 import compets.engine.data.map.Map;
 import compets.engine.data.map.Position;
@@ -20,7 +21,7 @@ public class AnimalInteractBadItem {
 
 	private static Map map;
 	private static Position position;
-	private static Dog animal;
+	private static Animal animal;
 	private static AnimalManager manager;
 
 	@BeforeClass

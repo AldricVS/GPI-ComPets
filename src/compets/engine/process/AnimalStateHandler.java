@@ -37,6 +37,11 @@ public class AnimalStateHandler {
 			return BehaviorStatesEnum.ANIMAL_EXEMPLARY;
 		}
 		
+		//animal en piteux état
+		if ((actionGaugeValue <= 10) && (healthGaugeValue <= 10)) {
+			return BehaviorStatesEnum.ANIMAL_PITIFUL;
+		}
+		
 		//bon dressage
 		if (actionGaugeValue >= 70) {
 			 return BehaviorStatesEnum.ANIMAL_GOOD_BEHAVIOR;

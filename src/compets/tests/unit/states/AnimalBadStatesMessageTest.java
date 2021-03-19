@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import compets.engine.data.animal.Animal;
 import compets.engine.data.animal.Dog;
 import compets.engine.data.animal.Gauge;
 import compets.engine.data.behavior.BehaviorStatesEnum;
@@ -18,7 +19,7 @@ import compets.engine.process.AnimalStateHandler;
 public class AnimalBadStatesMessageTest {
 
 	private static Position position;
-	private static Dog animal;
+	private static Animal animal;
 	private static AnimalStateHandler handler;
 
 	@BeforeClass
@@ -33,7 +34,7 @@ public class AnimalBadStatesMessageTest {
 	public void messageVeryBadState() {
 		animal.getBehavior().getActionGauge().setValue(Gauge.MIN_GAUGE);
 		animal.getBehavior().getHealthGauge().setValue(Gauge.MIN_GAUGE);
-		assertEquals(BehaviorStatesEnum.ANIMAL_VERY_BAD_BEHAVIOR, handler.checkState());
+		assertEquals(BehaviorStatesEnum.ANIMAL_PITIFUL, handler.checkState());
 	}
 	
 	@Test
