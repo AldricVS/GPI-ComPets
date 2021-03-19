@@ -26,6 +26,7 @@ import compets.engine.data.map.Position;
 import compets.engine.process.AnimalManager;
 import compets.engine.process.AnimalStateHandler;
 import compets.engine.process.GameManager;
+import compets.engine.process.SimulationSave;
 
 public class GamePanel extends JPanel implements Runnable{
 
@@ -66,7 +67,7 @@ public class GamePanel extends JPanel implements Runnable{
 		map = animalManager.getMap();
 		animal = animalManager.getAnimal();
 		animalStateHandler = gameManager.getAnimalStateHandler();
-		infosPanel = new InfosPanel(this);
+		infosPanel = new InfosPanel(this, gameManager);
 		setLayout(new BorderLayout());
 		add(mapPanel, BorderLayout.CENTER);
 		add(infosPanel, BorderLayout.EAST);
@@ -74,17 +75,17 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 
 	// OLD
-	public void newGame() {
-		animal = new Dog(new Position(6, 11));
-		map = new Map();
-		animalManager = new AnimalManager(animal, map);
-		animalStateHandler = new AnimalStateHandler(animal);
-		infosPanel = new InfosPanel(this);
-		setLayout(new BorderLayout());
-		add(mapPanel, BorderLayout.CENTER);
-		add(infosPanel, BorderLayout.EAST);
-		initMenuBar();
-	}
+//	public void newGame() {
+//		animal = new Dog(new Position(6, 11));
+//		map = new Map();
+//		animalManager = new AnimalManager(animal, map);
+//		animalStateHandler = new AnimalStateHandler(animal);
+//		infosPanel = new InfosPanel(this, null);
+//		setLayout(new BorderLayout());
+//		add(mapPanel, BorderLayout.CENTER);
+//		add(infosPanel, BorderLayout.EAST);
+//		initMenuBar();
+//	}
 	
 	private void initMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
@@ -94,6 +95,7 @@ public class GamePanel extends JPanel implements Runnable{
 		JMenuItem itemSaveGame = new JMenuItem("Save game");
 		// CTRL-S shortcut
 		itemSaveGame.setAccelerator( KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK) );
+		itemSaveGame.addActionListener(new ActionSaveGame());
 		menuGame.add(itemSaveGame);
 		
 		JMenuItem itemReturnToMenu = new JMenuItem("Return to main menu");
@@ -187,10 +189,18 @@ public class GamePanel extends JPanel implements Runnable{
 		return delay;
 	}
 	
-	class ActionSaveGame implements ActionListener{
+	class ActionSaveGame implements ActionListener{	
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
+			isPlaying = false;
+			SimulationSave simulationSave = new SimulationSave();
+			try {
+				simulationSave.save(animal);
+				JOptionPane.showMessageDialog(GamePanel.this, "Game saved successfully", "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
+			} catch (IOException e1) {
+				JOptionPane.showMessageDialog(GamePanel.this, "Cannot save the game, an error occured.", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+			isPlaying = true;
 		}
 	}
 	

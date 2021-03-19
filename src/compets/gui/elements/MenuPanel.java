@@ -118,7 +118,7 @@ public class MenuPanel extends JPanel {
 	class ActionLoadGame implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
+			mainGui.loadGame();
 		}
 	}
 	

@@ -27,6 +27,7 @@ import compets.engine.data.animal.Animal;
 import compets.engine.data.animal.Dog;
 import compets.engine.data.animal.Gauge;
 import compets.engine.process.AnimalManager;
+import compets.engine.process.GameManager;
 
 public class StatsPanel extends JPanel {
 	public static final Dimension GAUGE_PANEL_DIMENSION = new Dimension(GamePanel.INFOS_PANEL_DIMENSION.width / 7, GamePanel.INFOS_PANEL_DIMENSION.height);
@@ -48,13 +49,11 @@ public class StatsPanel extends JPanel {
 	private LinkedList<Integer> actionHistorical = new LinkedList<Integer>();
 	private LinkedList<Integer> healthHistorical = new LinkedList<Integer>();
 
-	public StatsPanel(InfosPanel infosPanel) {
+	public StatsPanel(GameManager gameManager) {
 		super();
-		this.infosPanel = infosPanel;
-		GamePanel context = infosPanel.getContext();
 		
 		// Get behavior gauges
-		AnimalManager animalManager = context.getAnimalManager();
+		AnimalManager animalManager = gameManager.getAnimalManager();
 		Animal animal = animalManager.getAnimal();
 		actionGauge = animal.getBehavior().getActionGauge();
 		healthGauge = animal.getBehavior().getHealthGauge();

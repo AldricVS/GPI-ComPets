@@ -58,24 +58,39 @@ public class SimulationSave {
 	 * @throws FileNotFoundException si aucun fichier de sauvegarde existe
 	 */
 	public Animal load() throws IOException {
+		if(!file.exists()) {
+			throw new IOException("No savegame found");
+		}
 		BufferedReader reader = new BufferedReader(new FileReader(file));
-
 		int actionGaugeVal = 0, healthGaugeVal = 0, x = 0, y = 0;
 		try {
-			String[] positionString = reader.readLine().substring(POSITION_STRING.length()).split(POSITION_SEPARATOR);
+			String line = reader.readLine();
+			if(!line.startsWith(POSITION_STRING)) {
+				reader.close();
+				throw new IOException("Cannot read save file : position property not found.");
+			}
+			String[] positionString = line.substring(POSITION_STRING.length()).split(POSITION_SEPARATOR);
 			x = Integer.parseInt(positionString[0]);
 			y = Integer.parseInt(positionString[1]);
-			actionGaugeVal = Integer.parseInt(reader.readLine().substring(ACTION_GAUGE_STRING.length()));
-			healthGaugeVal = Integer.parseInt(reader.readLine().substring(HEALTH_GAUGE_STRING.length()));
+			
+			line = reader.readLine();
+			if(!line.startsWith(ACTION_GAUGE_STRING)) {
+				reader.close();
+				throw new IOException("Cannot read save file : action gauge value not found.");
+			}
+			actionGaugeVal = Integer.parseInt(line.substring(ACTION_GAUGE_STRING.length()));
+			
+			line = reader.readLine();
+			if(!line.startsWith(HEALTH_GAUGE_STRING)) {
+				reader.close();
+				throw new IOException("Cannot read save file : health gauge value  not found.");
+			}
+			healthGaugeVal = Integer.parseInt(line.substring(HEALTH_GAUGE_STRING.length()));
 			reader.close();
 		} catch (NumberFormatException e) {
 			// format fichier incorrecte
 			throw new IOException("Cannot read save file : a number cannot be readed properly");
-		} catch (IOException e) {
-			// impossible de lire le fichier
-			e.printStackTrace();
-			throw new IOException("Cannot read save file : IOException occured");
-		} 
+		}
 
 		Position pos = new Position(x, y);
 		Animal animal = new Dog(pos);

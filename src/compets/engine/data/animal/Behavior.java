@@ -20,4 +20,9 @@ public class Behavior {
 	public Gauge getHealthGauge() {
 		return healthGauge;
 	}
+
+	@Override
+	public String toString() {
+		return "Behavior [actionGauge=" + actionGauge.getValue() + ", healthGauge=" + healthGauge.getValue() + "]";
+	}
 }

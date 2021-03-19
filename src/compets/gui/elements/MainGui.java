@@ -1,9 +1,10 @@
 package compets.gui.elements;
 
 import java.awt.CardLayout;
+import java.io.IOException;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.JOptionPane;
 
 import compets.engine.process.GameInitializer;
 import compets.engine.process.GameManager;
@@ -34,16 +35,22 @@ public class MainGui extends JFrame{
 	}
 	
 	public void loadGame() {
-		switchToGamePanel();
-		
+		// Try to get gameManager with save file
+		// if null, cannot have it
+		try {
+			GameManager gameManager = GameInitializer.loadGame();
+			switchToGamePanel();
+			gamePanel.initGame(gameManager);
+		}catch(IOException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 	public void switchToGamePanel() {
-		cardLayout.removeLayoutComponent(gamePanel);
+		getContentPane().remove(gamePanel);
 		gamePanel = new GamePanel(this);
 		getContentPane().add(gamePanel, GAME_WINDOW_NAME);
 		cardLayout.show(this.getContentPane(), GAME_WINDOW_NAME);
-		gamePanel.newGame();
 		Thread gameThread = new Thread(gamePanel);
 		gameThread.start();
 		pack();
