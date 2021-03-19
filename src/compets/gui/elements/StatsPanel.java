@@ -106,7 +106,7 @@ public class StatsPanel extends JPanel {
 		renderer.setSeriesShapesVisible(0, false);
 		renderer.setSeriesShapesVisible(1, false);
 		renderer.setSeriesPaint(0, Color.RED);
-		renderer.setSeriesPaint(1, Color.GREEN);
+		renderer.setSeriesPaint(1, new Color(28, 148, 49));
 		xyPlot.setRenderer(renderer);
 
 		for(int index = 0; index <= TIME_INTERVAL; index++){

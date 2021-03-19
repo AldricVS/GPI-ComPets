@@ -60,7 +60,7 @@ public class ActionsPanel extends JPanel{
 		gridLayout.setVgap(PADDING_HEIGHT);
 		
 		buttonsPanel.setLayout(gridLayout);
-		buttonsPanel.setBorder(BorderFactory.createEmptyBorder(PADDING_HEIGHT, PADDING_WIDTH, PADDING_HEIGHT, PADDING_WIDTH));
+		buttonsPanel.setBorder(BorderFactory.createEmptyBorder(PADDING_HEIGHT * 2, PADDING_WIDTH, PADDING_HEIGHT, PADDING_WIDTH));
 		buttonsPanel.setPreferredSize(GamePanel.BUTTONS_PANEL_DIMENSION);
 		buttonsPanel.setBackground(Color.GRAY);
 		initButton(rewardButton);
@@ -99,13 +99,8 @@ public class ActionsPanel extends JPanel{
 	private void initButton(JButton button) {
 		button.setPreferredSize(BUTTON_DIMENSION);
 		button.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+		button.setFont(FONT);
 		buttonsPanel.add(button);
-	}
-	
-	private void initFont() {
-		for(Component component : getComponents()) {
-			component.setFont(FONT);
-		}
 	}
 	
 	class ActionReward implements ActionListener{
