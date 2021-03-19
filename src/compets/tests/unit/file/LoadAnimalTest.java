@@ -18,7 +18,7 @@ import compets.engine.process.SimulationSave;
  */
 public class LoadAnimalTest {
 
-	private static final String FILEPATH = "src/compets/tests/unit/file/testfiles/testFile2.txt";
+	private static final String FILEPATH = "src/compets/tests/unit/file/testfiles/testFileLoad.txt";
 	private static SimulationSave SimulationSave;
 	
 	private static Animal animal;
