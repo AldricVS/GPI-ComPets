@@ -2,9 +2,14 @@ package compets.gui.elements;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.KeyEvent;
 
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 
 import compets.config.GuiConfiguration;
 import compets.engine.data.animal.Dog;
@@ -22,18 +27,18 @@ public class GamePanel extends JPanel implements Runnable{
 	private static final int AFTER_MOVE_DELAY = 1000;
 
 	private static final Dimension WINDOW_DIMENSION = new Dimension(GuiConfiguration.WIDTH, GuiConfiguration.HEIGHT);
-	public static final Dimension MAIN_PANEL_DIMENSION = new Dimension(GuiConfiguration.HEIGHT, GuiConfiguration.HEIGHT);
+	public static final Dimension MAP_PANEL_DIMENSION = new Dimension(GuiConfiguration.HEIGHT - GuiConfiguration.MENU_HEIGHT, GuiConfiguration.HEIGHT);
 
-	public static final Dimension INFOS_PANEL_DIMENSION = new Dimension((int) (GuiConfiguration.WIDTH - MAIN_PANEL_DIMENSION.getWidth()),
+	public static final Dimension INFOS_PANEL_DIMENSION = new Dimension((int) (GuiConfiguration.WIDTH - MAP_PANEL_DIMENSION.getWidth()),
 			GuiConfiguration.HEIGHT);
-	public static final Dimension STATS_PANEL_DIMENSION = new Dimension((int) (GuiConfiguration.WIDTH - MAIN_PANEL_DIMENSION.getWidth()),
+	public static final Dimension STATS_PANEL_DIMENSION = new Dimension((int) (GuiConfiguration.WIDTH - MAP_PANEL_DIMENSION.getWidth()),
 			(int) (GuiConfiguration.HEIGHT * GuiConfiguration.STATS_PANEL_RATIO));
-	public static final Dimension BUTTONS_PANEL_DIMENSION = new Dimension((int) (GuiConfiguration.WIDTH - MAIN_PANEL_DIMENSION.getWidth()),
+	public static final Dimension BUTTONS_PANEL_DIMENSION = new Dimension((int) (GuiConfiguration.WIDTH - MAP_PANEL_DIMENSION.getWidth()),
 			(int) (GuiConfiguration.HEIGHT * (1.0 - GuiConfiguration.STATS_PANEL_RATIO)));
 
 	private MainGui mainGui;
 	
-	private MapPanel mainPanel;
+	private MapPanel mapPanel;
 	private InfosPanel infosPanel;
 
 	private Animal animal;
@@ -46,9 +51,9 @@ public class GamePanel extends JPanel implements Runnable{
 	public GamePanel(MainGui context) {
 		super();
 		mainGui = context;
-		mainPanel = new MapPanel(this);
+		mapPanel = new MapPanel(this);
 	}
-	
+
 	public void newGame() {
 		animal = new Dog(new Position(6, 11));
 		map = new Map();
@@ -56,10 +61,37 @@ public class GamePanel extends JPanel implements Runnable{
 		animalStateHandler = new AnimalStateHandler(animal);
 		infosPanel = new InfosPanel(this);
 		setLayout(new BorderLayout());
-		add(mainPanel, BorderLayout.CENTER);
+		add(mapPanel, BorderLayout.CENTER);
 		add(infosPanel, BorderLayout.EAST);
+		initMenuBar();
 	}
-
+	
+	private void initMenuBar() {
+		JMenuBar menuBar = new JMenuBar();
+		
+		JMenu menuGame = new JMenu("Game");
+		menuGame.setMnemonic('G');
+		
+		JMenuItem itemSaveGame = new JMenuItem("Save game");
+		// CTRL-S shortcut
+		itemSaveGame.setAccelerator( KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK) );
+		menuGame.add(itemSaveGame);
+		
+		JMenuItem itemQuitGame = new JMenuItem("Quit game");
+		itemQuitGame.setAccelerator( KeyStroke.getKeyStroke(KeyEvent.VK_Q, KeyEvent.CTRL_DOWN_MASK) );
+		menuGame.add(itemQuitGame);
+		
+		JMenu menuHelp = new JMenu("Help");
+		JMenuItem itemHelp = new JMenuItem("Display help");
+		itemHelp.setAccelerator( KeyStroke.getKeyStroke(KeyEvent.VK_H, KeyEvent.CTRL_DOWN_MASK) );
+		menuHelp.add(itemHelp);
+		
+		menuBar.add(menuGame);
+		menuBar.add(menuHelp);
+		
+		this.add(menuBar, BorderLayout.NORTH);
+	}
+	
 	public AnimalManager getAnimalManager() {
 		return animalManager;
 	}

@@ -46,7 +46,7 @@ public class MapPanel extends JPanel {
 			System.err.println("Error while getting image files : " + exception.getMessage());
 		}
 		setLayout(new BorderLayout());
-		setPreferredSize(GamePanel.MAIN_PANEL_DIMENSION);
+		setPreferredSize(GamePanel.MAP_PANEL_DIMENSION);
 		setBackground(Color.BLACK);
 	}
 

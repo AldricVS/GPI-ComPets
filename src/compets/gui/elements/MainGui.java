@@ -1,8 +1,13 @@
 package compets.gui.elements;
 
 import java.awt.CardLayout;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.KeyStroke;
 
 public class MainGui extends JFrame{
 	private static final String GAME_WINDOW_NAME = "game";
@@ -12,7 +17,7 @@ public class MainGui extends JFrame{
 	private MenuPanel menuPanel = new MenuPanel(this);
 	
 	private CardLayout cardLayout = new CardLayout();
-
+	
 	public MainGui() {
 		getContentPane().setLayout(cardLayout);
 		getContentPane().add(gamePanel, GAME_WINDOW_NAME);
