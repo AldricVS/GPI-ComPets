@@ -39,11 +39,19 @@ public class SaveAnimalTest {
 
 	@Test
 	public void saveAnimal() {
+		Animal newAnimal = null;
 		try {
 			SimulationSave.save(animal);
+			newAnimal = SimulationSave.load();
 		} catch (IOException e) {
 			System.err.println(e.getMessage());
+			fail();
 		}
+		assertEquals(Dog.class, newAnimal.getClass());
+		assertEquals(position, newAnimal.getPosition());
+		assertEquals(healthStatus, newAnimal.getBehavior().getHealthGauge());
+		assertEquals(actionStatus, newAnimal.getBehavior().getActionGauge());
+		assertEquals(animalState, newAnimal.getState());
 	}
 
 }

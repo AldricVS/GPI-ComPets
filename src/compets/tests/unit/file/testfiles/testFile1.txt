@@ -1,1 +1,2 @@
-animal=Dog
+actionGauge:30
+healthGauge:70

@@ -16,9 +16,15 @@ public class SimulationSave {
 
 	private File file;
 	private static final String FILEPATH = "save/save.txt";
+	private static final String ACTION_GAUGE_STRING = "actionGauge:";
+	private static final String HEALTH_GAUGE_STRING = "healthGauge:";
 
 	public SimulationSave() {
-		this.file = new File(FILEPATH);
+		this(FILEPATH);
+	}
+	
+	public SimulationSave(String filePath) {
+		this.file = new File(filePath);
 	}
 	
 	/**
@@ -33,8 +39,9 @@ public class SimulationSave {
 		int actionGaugeVal = animal.getBehavior().getActionGauge().getValue();
 		int healthGaugeVal = animal.getBehavior().getHealthGauge().getValue();
 		
-		writer.write("actionGauge:"+actionGaugeVal);
-		writer.write("healthGauge:"+healthGaugeVal);
+		writer.write(ACTION_GAUGE_STRING+actionGaugeVal);
+		writer.newLine();
+		writer.write(HEALTH_GAUGE_STRING+healthGaugeVal);
 		writer.close();
 	}
 	
@@ -50,14 +57,13 @@ public class SimulationSave {
 		int actionGaugeVal = 0, healthGaugeVal = 0, x = 0, y = 0;
 		
 		try {
-			x = Integer.parseInt(reader.readLine());
-			y = Integer.parseInt(reader.readLine());
-			actionGaugeVal = Integer.parseInt(reader.readLine());
-			healthGaugeVal  =Integer.parseInt(reader.readLine());
+			actionGaugeVal = Integer.parseInt(reader.readLine().substring(ACTION_GAUGE_STRING.length()));
+			healthGaugeVal = Integer.parseInt(reader.readLine().substring(HEALTH_GAUGE_STRING.length()));
 			reader.close();
 		} catch (NumberFormatException e) {
 			// format fichier incorrecte
-			e.printStackTrace();
+			System.err.println("Erreur lors de la lecture du fichier de sauvegarde : une donnée n'a pas pu être correctment récupérée");
+			System.err.println(e.getMessage());
 		} catch (IOException e) {
 			// impossible de lire le fichier
 			e.printStackTrace();
