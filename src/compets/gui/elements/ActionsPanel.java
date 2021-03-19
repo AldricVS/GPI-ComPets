@@ -119,7 +119,7 @@ public class ActionsPanel extends JPanel{
 			}else {
 				message = "That was not a good thing to reward the animal";
 			}
-			JOptionPane.showMessageDialog(context, message);
+			JOptionPane.showMessageDialog(ActionsPanel.this, message);
 			context.play();
 		}
 	}
@@ -135,7 +135,7 @@ public class ActionsPanel extends JPanel{
 			}else {
 				message = "That was not a good thing to punish the animal";
 			}
-			JOptionPane.showMessageDialog(context, message);
+			JOptionPane.showMessageDialog(ActionsPanel.this, message);
 			context.play();
 		}
 	}
