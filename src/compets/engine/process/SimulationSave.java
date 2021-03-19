@@ -28,6 +28,7 @@ public class SimulationSave {
 	 * @throws IOException si il a été impossible de sauvegarder
 	 */
 	public void save(Animal animal) throws IOException{
+		file.createNewFile();
 		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 		int actionGaugeVal = animal.getBehavior().getActionGauge().getValue();
 		int healthGaugeVal = animal.getBehavior().getHealthGauge().getValue();
