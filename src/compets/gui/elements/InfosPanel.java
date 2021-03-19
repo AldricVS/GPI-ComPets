@@ -7,18 +7,18 @@ import javax.swing.JPanel;
 public class InfosPanel extends JPanel {
 
 	private GamePanel context;
-	private ActionsPanel buttonsPanel;
+	private ActionsPanel actionsPanel;
 	private StatsPanel statsPanel;
 
 	public InfosPanel(GamePanel context) {
 		super();
 		this.context = context;
-		buttonsPanel = new ActionsPanel(this);
+		actionsPanel = new ActionsPanel(this);
 		statsPanel = new StatsPanel(this);
 		setLayout(new BorderLayout());
 		setPreferredSize(GamePanel.INFOS_PANEL_DIMENSION);
 		add(statsPanel, BorderLayout.NORTH);
-		add(buttonsPanel, BorderLayout.SOUTH);
+		add(actionsPanel, BorderLayout.SOUTH);
 	}
 
 	public GamePanel getContext() {
@@ -26,6 +26,10 @@ public class InfosPanel extends JPanel {
 	}
 	
 	public void setButtonsEnabled(boolean enabled) {
-		buttonsPanel.setButtonsEnabled(enabled);
+		actionsPanel.setButtonsEnabled(enabled);
+	}
+	
+	public void updateMessage() {
+		actionsPanel.updateMessage();
 	}
 }

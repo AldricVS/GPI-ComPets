@@ -12,7 +12,8 @@ public class Gauge {
 
 	public Gauge(int defaultGauge) {
 		this.gauge = defaultGauge;
-		DEFAULT_GAUGE = defaultGauge;
+		clampValue();
+		DEFAULT_GAUGE = this.gauge;
 	}
 
 	public int getValue() {

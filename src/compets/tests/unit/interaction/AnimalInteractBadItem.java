@@ -2,11 +2,14 @@ package compets.tests.unit.interaction;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import compets.engine.data.animal.Dog;
 import compets.engine.data.animal.Gauge;
+import compets.engine.data.constants.ActionModifValues;
+import compets.engine.data.animal.Animal;
 import compets.engine.data.animal.AnimalState;
 import compets.engine.data.map.Map;
 import compets.engine.data.map.Position;
@@ -20,7 +23,7 @@ public class AnimalInteractBadItem {
 
 	private static Map map;
 	private static Position position;
-	private static Dog animal;
+	private static Animal animal;
 	private static AnimalManager manager;
 
 	@BeforeClass
@@ -31,12 +34,17 @@ public class AnimalInteractBadItem {
 		map.getMap()[position.getX()][position.getY()] = new BadItem(position);
 
 		animal = new Dog(position);
-		animal.getBehavior().getActionGauge().setValue(Gauge.MIN_GAUGE);
-
 		manager = new AnimalManager(animal, map);
+	}
+
+	@Before
+	public void resetGaugeAndInteract() {
+		animal.getBehavior().getActionGauge().setValue(Gauge.MIN_GAUGE);
+		animal.getBehavior().getHealthGauge().setValue(Gauge.DEFAULT_GAUGE);
+		manager.resetAnimalState();
 		manager.interact();
 	}
-	
+
 	@Test
 	public void behaviorChangedByInteraction() {
 		assertEquals(AnimalState.BAD_ACTION, animal.getState());
@@ -45,10 +53,14 @@ public class AnimalInteractBadItem {
 	@Test
 	public void dontGetReward() {
 		assertFalse(manager.reward());
+		assertEquals(Gauge.MIN_GAUGE, animal.getBehavior().getActionGauge().getValue());
+		assertEquals(Gauge.DEFAULT_GAUGE, animal.getBehavior().getHealthGauge().getValue());
 	}
 
 	@Test
 	public void getPunish() {
 		assertTrue(manager.punish());
+		assertEquals(Gauge.MIN_GAUGE + ActionModifValues.BAD_ACTION_PUNISHED, animal.getBehavior().getActionGauge().getValue());
+		assertEquals(Gauge.DEFAULT_GAUGE, animal.getBehavior().getHealthGauge().getValue());
 	}
 }

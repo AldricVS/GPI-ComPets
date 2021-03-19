@@ -17,9 +17,15 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import compets.engine.data.behavior.BehaviorStatesEnum;
+import compets.engine.process.AnimalStateHandler;
+import compets.gui.management.MessagesRepository;
+
 public class ActionsPanel extends JPanel{
 
 	private InfosPanel infosPanel;
+	
+	private AnimalStateHandler animalStateHandler;
 	
 	private static final Dimension BUTTON_DIMENSION = new Dimension(
 				(int) (GamePanel.BUTTONS_PANEL_DIMENSION.getWidth() - GamePanel.BUTTONS_PANEL_DIMENSION.getWidth() / 4 / 2),
@@ -35,11 +41,13 @@ public class ActionsPanel extends JPanel{
 	private JPanel buttonsPanel = new JPanel();
 	private JPanel messagesPanel = new JPanel();
 	private JLabel messageLabel;
+	
+	private MessagesRepository messagesRepository = new MessagesRepository();
 
 	public ActionsPanel(InfosPanel infosPanel) {
 		super();
 		this.infosPanel = infosPanel;
-		infosPanel.getContext().getAnimalManager();
+		animalStateHandler = infosPanel.getContext().getAnimalStateHandler();
 		setLayout(new GridLayout(1, 2));
 		initMessagesPanel();
 		initButtonsPanel();
@@ -111,7 +119,7 @@ public class ActionsPanel extends JPanel{
 			}else {
 				message = "That was not a good thing to reward the animal";
 			}
-			JOptionPane.showMessageDialog(context, message);
+			JOptionPane.showMessageDialog(ActionsPanel.this, message);
 			context.play();
 		}
 	}
@@ -127,8 +135,14 @@ public class ActionsPanel extends JPanel{
 			}else {
 				message = "That was not a good thing to punish the animal";
 			}
-			JOptionPane.showMessageDialog(context, message);
+			JOptionPane.showMessageDialog(ActionsPanel.this, message);
 			context.play();
 		}
+	}
+
+	public void updateMessage() {
+		BehaviorStatesEnum messageState = animalStateHandler.checkState();
+		String message = messagesRepository.getAnimalStateMessage(messageState);
+		messageLabel.setText(message);
 	}
 }

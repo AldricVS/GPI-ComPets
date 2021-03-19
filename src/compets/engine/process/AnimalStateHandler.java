@@ -1,6 +1,7 @@
 package compets.engine.process;
 
 import compets.engine.data.animal.Dog;
+import compets.engine.data.animal.Animal;
 import compets.engine.data.animal.Behavior;
 import compets.engine.data.animal.Gauge;
 import compets.engine.data.behavior.BehaviorStatesEnum;
@@ -12,9 +13,9 @@ import compets.engine.data.behavior.BehaviorStatesEnum;
  *
  */
 public class AnimalStateHandler {
-	private Dog animal;
+	private Animal animal;
 
-	public AnimalStateHandler(Dog animal) {
+	public AnimalStateHandler(Animal animal) {
 		this.animal = animal;
 	}
 	
@@ -34,6 +35,11 @@ public class AnimalStateHandler {
 		//dressage exemplaire
 		if (actionGaugeValue >= 90 && healthGaugeValue >= 95) {
 			return BehaviorStatesEnum.ANIMAL_EXEMPLARY;
+		}
+		
+		//animal en piteux état
+		if ((actionGaugeValue <= 10) && (healthGaugeValue <= 10)) {
+			return BehaviorStatesEnum.ANIMAL_PITIFUL;
 		}
 		
 		//bon dressage

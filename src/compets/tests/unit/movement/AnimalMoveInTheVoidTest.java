@@ -6,6 +6,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import compets.engine.data.animal.Dog;
+import compets.engine.data.animal.Animal;
 import compets.engine.data.animal.AnimalState;
 import compets.engine.data.map.EmptyBox;
 import compets.engine.data.map.Map;
@@ -19,7 +20,7 @@ import compets.engine.process.AnimalManager;
  */
 public class AnimalMoveInTheVoidTest {
 
-	private static Dog animal;
+	private static Animal animal;
 	private static AnimalManager manager;
 	private static Map map;
 	private static Position startingPosition;
