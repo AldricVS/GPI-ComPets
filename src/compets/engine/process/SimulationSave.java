@@ -16,35 +16,41 @@ public class SimulationSave {
 
 	private File file;
 	private static final String FILEPATH = "save/save.txt";
+	private static final String POSITION_STRING = "position:";
+	private static final String POSITION_SEPARATOR = ",";
 	private static final String ACTION_GAUGE_STRING = "actionGauge:";
 	private static final String HEALTH_GAUGE_STRING = "healthGauge:";
 
 	public SimulationSave() {
 		this(FILEPATH);
 	}
-	
+
 	public SimulationSave(String filePath) {
 		this.file = new File(filePath);
 	}
-	
+
 	/**
 	 * Sauvegarde l'état de la partie dans un fichier
 	 * 
 	 * @param animal l'animal qui doir etre sauvegarder
 	 * @throws IOException si il a été impossible de sauvegarder
 	 */
-	public void save(Animal animal) throws IOException{
+	public void save(Animal animal) throws IOException {
 		file.createNewFile();
 		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+
+		Position position = animal.getPosition();
 		int actionGaugeVal = animal.getBehavior().getActionGauge().getValue();
 		int healthGaugeVal = animal.getBehavior().getHealthGauge().getValue();
-		
-		writer.write(ACTION_GAUGE_STRING+actionGaugeVal);
+
+		writer.write(POSITION_STRING + position.getX() + POSITION_SEPARATOR + position.getY());
 		writer.newLine();
-		writer.write(HEALTH_GAUGE_STRING+healthGaugeVal);
+		writer.write(ACTION_GAUGE_STRING + actionGaugeVal);
+		writer.newLine();
+		writer.write(HEALTH_GAUGE_STRING + healthGaugeVal);
 		writer.close();
 	}
-	
+
 	/**
 	 * Récupère les données sauvegarder et recreait la simulation précédente
 	 * 
@@ -53,10 +59,12 @@ public class SimulationSave {
 	 */
 	public Animal load() throws FileNotFoundException {
 		BufferedReader reader = new BufferedReader(new FileReader(file));
-		
+
 		int actionGaugeVal = 0, healthGaugeVal = 0, x = 0, y = 0;
-		
 		try {
+			String[] positionString = reader.readLine().substring(POSITION_STRING.length()).split(POSITION_SEPARATOR);
+			x = Integer.parseInt(positionString[0]);
+			y = Integer.parseInt(positionString[1]);
 			actionGaugeVal = Integer.parseInt(reader.readLine().substring(ACTION_GAUGE_STRING.length()));
 			healthGaugeVal = Integer.parseInt(reader.readLine().substring(HEALTH_GAUGE_STRING.length()));
 			reader.close();
@@ -67,13 +75,13 @@ public class SimulationSave {
 		} catch (IOException e) {
 			// impossible de lire le fichier
 			e.printStackTrace();
-		} 
-		
-		Position pos = new Position(x,y);
+		}
+
+		Position pos = new Position(x, y);
 		Animal animal = new Dog(pos);
-		animal.setBehavior(actionGaugeVal, healthGaugeVal);	
-		
+		animal.setBehavior(actionGaugeVal, healthGaugeVal);
+
 		return animal;
 	}
-	
+
 }

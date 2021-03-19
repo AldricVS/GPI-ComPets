@@ -2,21 +2,51 @@ package compets.tests.unit.file;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import compets.engine.data.animal.Animal;
+import compets.engine.data.animal.Dog;
+import compets.engine.data.animal.Gauge;
+import compets.engine.data.map.Position;
+import compets.engine.process.SimulationSave;
 
 /**
  * @author Maxence
  */
 public class LoadAnimalTest {
 
+	private static final String FILEPATH = "src/compets/tests/unit/file/testfiles/testFile2.txt";
+	private static SimulationSave SimulationSave;
+	
+	private static Animal animal;
+	private static Position position = new Position(3, 4);
+	private static Gauge actionStatus = new Gauge(66);
+	private static Gauge healthStatus = new Gauge(28);
+
 	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
+	public static void setupAnimalData() throws Exception {
+		SimulationSave = new SimulationSave(FILEPATH);
+		animal = new Dog(position);
+		animal.getBehavior().getActionGauge().setValue(actionStatus.getValue());
+		animal.getBehavior().getHealthGauge().setValue(healthStatus.getValue());
 	}
 
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void saveAnimal() {
+		Animal newAnimal = null;
+		try {
+			newAnimal = SimulationSave.load();
+		} catch (IOException e) {
+			System.err.println(e.getMessage());
+			fail();
+		}
+		assertEquals(Dog.class, newAnimal.getClass());
+		assertTrue(position.equals(newAnimal.getPosition()));
+		assertEquals(healthStatus.getValue(), newAnimal.getBehavior().getHealthGauge().getValue());
+		assertEquals(actionStatus.getValue(), newAnimal.getBehavior().getActionGauge().getValue());
 	}
 
 }
