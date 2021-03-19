@@ -2,6 +2,7 @@ package compets.tests.unit.file;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
 import java.io.IOException;
 
 import org.junit.BeforeClass;
@@ -32,6 +33,10 @@ public class LoadAnimalTest {
 		animal = new Dog(position);
 		animal.getBehavior().getActionGauge().setValue(actionStatus.getValue());
 		animal.getBehavior().getHealthGauge().setValue(healthStatus.getValue());
+		File fileToLoad = new File(FILEPATH);
+		if (!fileToLoad.exists()) {
+			SimulationSave.save(animal);
+		}
 	}
 
 	@Test
