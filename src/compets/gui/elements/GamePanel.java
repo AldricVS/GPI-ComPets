@@ -2,13 +2,18 @@ package compets.gui.elements;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 
+import javax.swing.JEditorPane;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.KeyStroke;
 
 import compets.config.GuiConfiguration;
@@ -46,6 +51,7 @@ public class GamePanel extends JPanel implements Runnable{
 	private AnimalManager animalManager;
 	private AnimalStateHandler animalStateHandler;
 
+	private boolean isGameRunning = true;
 	private boolean isPlaying = true;
 	
 	public GamePanel(MainGui context) {
@@ -69,20 +75,26 @@ public class GamePanel extends JPanel implements Runnable{
 	private void initMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
 		
-		JMenu menuGame = new JMenu("Game");
-		menuGame.setMnemonic('G');
+		JMenu menuGame = new JMenu("Menu");
 		
 		JMenuItem itemSaveGame = new JMenuItem("Save game");
 		// CTRL-S shortcut
 		itemSaveGame.setAccelerator( KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK) );
 		menuGame.add(itemSaveGame);
 		
+		JMenuItem itemReturnToMenu = new JMenuItem("Return to main menu");
+		itemReturnToMenu.addActionListener(new ActionReturnToMenu());
+		itemReturnToMenu.setAccelerator( KeyStroke.getKeyStroke(KeyEvent.VK_M, KeyEvent.CTRL_DOWN_MASK) );
+		menuGame.add(itemReturnToMenu);
+		
 		JMenuItem itemQuitGame = new JMenuItem("Quit game");
+		itemQuitGame.addActionListener(new ActionQuitGame());
 		itemQuitGame.setAccelerator( KeyStroke.getKeyStroke(KeyEvent.VK_Q, KeyEvent.CTRL_DOWN_MASK) );
 		menuGame.add(itemQuitGame);
 		
 		JMenu menuHelp = new JMenu("Help");
 		JMenuItem itemHelp = new JMenuItem("Display help");
+		itemHelp.addActionListener(new ActionHelp());
 		itemHelp.setAccelerator( KeyStroke.getKeyStroke(KeyEvent.VK_H, KeyEvent.CTRL_DOWN_MASK) );
 		menuHelp.add(itemHelp);
 		
@@ -125,7 +137,7 @@ public class GamePanel extends JPanel implements Runnable{
 	@Override
 	public void run() {
 		int delay = AFTER_MOVE_DELAY;
-		while (true) {
+		while (isGameRunning) {
 			try {
 				Thread.sleep(delay);
 			} catch (InterruptedException e) {
@@ -159,5 +171,55 @@ public class GamePanel extends JPanel implements Runnable{
 		//apply pourcent speed to the delay
 		delay = (delay * 100) / pourcentSpeed;
 		return delay;
+	}
+	
+	class ActionSaveGame implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+		}
+	}
+	
+	class ActionHelp implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			//Pause the game
+			isPlaying = false;
+			JEditorPane jep = new JEditorPane();
+			jep.setEditable(false);
+			try {
+				jep.setPage("file:data/regles.html");
+				JScrollPane scrollPane = new JScrollPane(jep);
+				scrollPane.setMaximumSize(MenuPanel.MENU_DIMENSION);
+				scrollPane.setPreferredSize(new Dimension(MenuPanel.MENU_DIMENSION.width, 2 * MenuPanel.MENU_DIMENSION.height / 3));
+				JOptionPane.showMessageDialog(GamePanel.this, scrollPane);
+			} catch (IOException exception) {	
+				JOptionPane.showMessageDialog(GamePanel.this, "Impossible d'afficher l'aide (données non trouvées)", "Erreur", JOptionPane.ERROR_MESSAGE);
+			}
+			isPlaying = true;
+		}
+	}
+	
+	class ActionQuitGame implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.exit(0);
+		}
+	}
+	
+	class ActionReturnToMenu implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			int answer = JOptionPane.showConfirmDialog(GamePanel.this, 
+					"Do you really want to return to the menu ? All progress non saved will be lost.", 
+					"Return to menu ?", 
+					JOptionPane.YES_NO_OPTION
+				);
+			if(answer == JOptionPane.YES_OPTION) {
+				isPlaying = false;
+				isGameRunning = false;
+				mainGui.switchToMenuPanel();
+			}
+		}
 	}
 }
