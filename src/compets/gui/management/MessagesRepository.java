@@ -16,6 +16,7 @@ public class MessagesRepository {
 	public MessagesRepository() {
 		// a message for each of the messages states
 		messages.put(BehaviorStatesEnum.NO_MSG, "<html><p>Nothing to say....</p></html>");
+		messages.put(BehaviorStatesEnum.ANIMAL_PITIFUL, "<html><p style=\"color:red;\">The Animal is in pitiful state, are you doing it on purpose ?</p></html>");
 		messages.put(BehaviorStatesEnum.ANIMAL_VERY_BAD_HEALTH,
 				"<html><p style=\"color:red;\">The animal is in really bad shape, you must stop to mistreat him !</p></html>");
 		messages.put(BehaviorStatesEnum.ANIMAL_BAD_HEALTH, "<html><p style=\"color:red;\">The animal is in bad shape, be careful to not hurt him.</p></html>");
