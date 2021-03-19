@@ -57,7 +57,7 @@ public class SimulationSave {
 	 * @return l'animal avec les parametre sauvegarder
 	 * @throws FileNotFoundException si aucun fichier de sauvegarde existe
 	 */
-	public Animal load() throws FileNotFoundException {
+	public Animal load() throws IOException {
 		BufferedReader reader = new BufferedReader(new FileReader(file));
 
 		int actionGaugeVal = 0, healthGaugeVal = 0, x = 0, y = 0;
@@ -70,12 +70,12 @@ public class SimulationSave {
 			reader.close();
 		} catch (NumberFormatException e) {
 			// format fichier incorrecte
-			System.err.println("Erreur lors de la lecture du fichier de sauvegarde : une donnée n'a pas pu être correctment récupérée");
-			System.err.println(e.getMessage());
+			throw new IOException("Cannot read save file : a number cannot be readed properly");
 		} catch (IOException e) {
 			// impossible de lire le fichier
 			e.printStackTrace();
-		}
+			throw new IOException("Cannot read save file : IOException occured");
+		} 
 
 		Position pos = new Position(x, y);
 		Animal animal = new Dog(pos);

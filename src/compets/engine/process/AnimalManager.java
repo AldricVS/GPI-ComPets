@@ -298,4 +298,8 @@ public class AnimalManager {
 	public Animal getAnimal() {
 		return animal;
 	}
+
+	public Map getMap() {
+		return map;
+	}
 }

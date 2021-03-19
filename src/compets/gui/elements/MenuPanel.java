@@ -28,7 +28,7 @@ import compets.config.GuiConfiguration;
 import compets.gui.management.ImagePanel;
 
 public class MenuPanel extends JPanel {
-	private static final Dimension MENU_DIMENSION = new Dimension(GuiConfiguration.WIDTH, GuiConfiguration.HEIGHT);
+	public static final Dimension MENU_DIMENSION = new Dimension(GuiConfiguration.WIDTH, GuiConfiguration.HEIGHT);
 	
 	private static final Dimension TITLE_PART_DIMENSION = new Dimension(MENU_DIMENSION.width, MENU_DIMENSION.height / 5);
 	private static final Dimension IMAGE_PART_DIMENSION = new Dimension(MENU_DIMENSION.width, MENU_DIMENSION.height);
@@ -110,7 +110,7 @@ public class MenuPanel extends JPanel {
 					JOptionPane.YES_NO_OPTION
 				);
 			if(answer == JOptionPane.YES_OPTION) {
-				mainGui.switchToGamePanel();
+				mainGui.newGame();
 			}
 		}
 	}

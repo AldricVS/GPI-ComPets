@@ -3,6 +3,10 @@ package compets.gui.elements;
 import java.awt.CardLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import compets.engine.process.GameInitializer;
+import compets.engine.process.GameManager;
 
 public class MainGui extends JFrame{
 	private static final String GAME_WINDOW_NAME = "game";
@@ -24,14 +28,20 @@ public class MainGui extends JFrame{
 	}
 	
 	public void newGame() {
-		
+		switchToGamePanel();
+		GameManager gameManager = GameInitializer.createNewGame();
+		gamePanel.initGame(gameManager);
 	}
 	
 	public void loadGame() {
+		switchToGamePanel();
 		
 	}
 
 	public void switchToGamePanel() {
+		cardLayout.removeLayoutComponent(gamePanel);
+		gamePanel = new GamePanel(this);
+		getContentPane().add(gamePanel, GAME_WINDOW_NAME);
 		cardLayout.show(this.getContentPane(), GAME_WINDOW_NAME);
 		gamePanel.newGame();
 		Thread gameThread = new Thread(gamePanel);
