@@ -43,8 +43,6 @@ public class GamePanel extends JPanel implements Runnable{
 
 	private boolean isPlaying = true;
 	
-	private boolean isAnimalInGoodShape = true;
-
 	public GamePanel(MainGui context) {
 		super();
 		mainGui = context;
