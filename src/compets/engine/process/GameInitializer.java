@@ -1,6 +1,7 @@
 package compets.engine.process;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Random;
 
 import compets.engine.data.animal.Animal;
@@ -57,7 +58,7 @@ public class GameInitializer {
 		
 		try {
 			animal = saver.load();
-		} catch (FileNotFoundException e) {
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;

@@ -25,6 +25,7 @@ import compets.engine.data.map.Map;
 import compets.engine.data.map.Position;
 import compets.engine.process.AnimalManager;
 import compets.engine.process.AnimalStateHandler;
+import compets.engine.process.GameManager;
 
 public class GamePanel extends JPanel implements Runnable{
 
@@ -59,7 +60,20 @@ public class GamePanel extends JPanel implements Runnable{
 		mainGui = context;
 		mapPanel = new MapPanel(this);
 	}
+	
+	public void initGame(GameManager gameManager) {
+		animalManager = gameManager.getAnimalManager();
+		map = animalManager.getMap();
+		animal = animalManager.getAnimal();
+		animalStateHandler = gameManager.getAnimalStateHandler();
+		infosPanel = new InfosPanel(this);
+		setLayout(new BorderLayout());
+		add(mapPanel, BorderLayout.CENTER);
+		add(infosPanel, BorderLayout.EAST);
+		initMenuBar();
+	}
 
+	// OLD
 	public void newGame() {
 		animal = new Dog(new Position(6, 11));
 		map = new Map();

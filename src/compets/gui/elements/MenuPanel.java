@@ -110,7 +110,7 @@ public class MenuPanel extends JPanel {
 					JOptionPane.YES_NO_OPTION
 				);
 			if(answer == JOptionPane.YES_OPTION) {
-				mainGui.switchToGamePanel();
+				mainGui.newGame();
 			}
 		}
 	}

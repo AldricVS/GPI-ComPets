@@ -5,6 +5,9 @@ import java.awt.CardLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import compets.engine.process.GameInitializer;
+import compets.engine.process.GameManager;
+
 public class MainGui extends JFrame{
 	private static final String GAME_WINDOW_NAME = "game";
 	private static final String MENU_WINDOW_NAME = "menu";
@@ -25,10 +28,13 @@ public class MainGui extends JFrame{
 	}
 	
 	public void newGame() {
-		
+		switchToGamePanel();
+		GameManager gameManager = GameInitializer.createNewGame();
+		gamePanel.initGame(gameManager);
 	}
 	
 	public void loadGame() {
+		switchToGamePanel();
 		
 	}
 
