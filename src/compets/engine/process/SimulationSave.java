@@ -9,10 +9,11 @@ import compets.engine.data.animal.Animal;
 public class SimulationSave {
 
 	private FileWriter file;
+	private static final String FILEPATH = "./save.txt";
 
-	public SimulationSave(String filePath) {
+	public SimulationSave() {
 		try {
-			this.file = new FileWriter(filePath);
+			this.file = new FileWriter(FILEPATH);
 		} catch (IOException e) {
 			System.err.println("Couldn't find file");
 			e.printStackTrace();
