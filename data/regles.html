@@ -4,65 +4,82 @@
     <meta charset='utf-8'>
     <meta name='author' content='admin' >
     </head>
-    <!--#87b3bf-->
-<body style = "background-color :#c7d0d8 ;">
-<center><table>
-	<td> <a href="../images/Animal/Animal_GOOD.png"><img src="../images/Animal/Animal_GOOD.png" width="75" height="75"></td>
-	<td><h1 style="font-size: 250%">Compet's</h1></td>
-	<td> <a href="../images/Animal/Animal_BAD.png"><img src="../images/Animal/Animal_BAD.png" width="75" height="75"></td>
-	</table>
-</center>
-</table>
+    <!--#87b3bf  #c7d0d8  #4F82C6 -->
+<body style = "background-color : #D4F7FF;">
+	<center>	<img src="./regles_UX_images/compets_logo.png" width="50%" height="50%"></center>
 	
-		<p>Cette simulation a pour but de dresser un animal. L’animal peut interagir avec les cases de couleur rouge, orange et verte. Les cases grises sont de simples cases où l’animal ne peut que se déplacer, les cases noirs sont des murs. Une case rouge est une case où l’animal peut faire une mauvaise action, une case verte est une case où l’animal peut faire une bonne action et une case orange est celle où il peut faire une bonne action ou une mauvaise.</p>
-		<p> <br/>Vous pouvez soit récompenser l’animal soit le punir à l’aide se boutons. </p>
-		<p><br/>Vous pouvez observer l’évolution de l’apprentissage de l’animal grâce à la jauge d’obéissance, et à l’aide du graphique de l’historique des dernière action de l’animal. Mais attention à la jauge de bien être de votre animal.</p>
-		
-		
-	<table>
+	<style>
+	nav{
+		text-align:center;
+		margin:auto;	
+		background-color: #545454;
+		overflow: hidden;
+ 		padding: 0%;
+	}
+
+	nav li{
+		display: inline;
+		margin-right: 15px;
+		margin-bottom: 15px;
+		margin-top: 15px;
+		padding: 1%;
+	}
 	
+	nav a{
+    font-size: 1.3em;
+    color: white;
+    text-decoration: none;
+    
+	}
 	
-		<td>
-			<h2>Jauge d’obéissance</h2>
-				<ul>			
-					<li><u>décrémentation lorsque</u>:</li>
-						<ul>
-							<li> l’animal est puni alors qu’il ne fait rien</li>
-							<li> l’animal est puni alors qu’il fait une bonne action</li>
-							<li> l’animal fait une mauvaise action et qu’il n’est pas puni</li>
-						</ul>
-					<li><u>incrémentation lorsque</u>:</li>
-						<ul>
-							<li> l’animal est récompensé pour une bonne action</li>
-							<li> l’animal fait une mauvaise action et est puni</li>
-							<li> l’animal fait de bonne action mais qu’il n’est pas récompensé</li>
-						</ul>
-				</ul></td>
-		<td>
-			<div>
-				<h2>Jauge de bien être</h2>
+	nav a:hover{
+		border-bottom: 3px solid #FDDA00;
+	}
+	</style>
+	
+	<header>
+			<nav id="menu">
 				<ul>
-					<li><u>décrémentation lorsque</u>:</li>
-						<ul>
-							<li> l’animal est puni alors qu’il ne fait rien</li>
-							<li> l’animal est puni alors qu’il fait une bonne action</li>
-							<li> l’animal fait de bonne action mais qu’il n’est pas récompensé</li>
-						</ul>
-					<li><u>incrémentation lorsque</u>:</li>
-						<ul>
-							<li> l’animal est récompensé pour une bonne action</li>
-							<li> quand l’animal ne fait rien</li>
-						</ul>
+					<li><a href="#environnement">Environnement Animal</a></li>
+					<li><a href="#code_couleur">Code couleur</a></li>
+					<li><a href="#obeissance">Obeissance Animal</a></li>
+					<li><a href="#bien_etre">Bien-etre Animal</a></li>
 				</ul>
+			</nav>
+	</header> 
+	
+	<div id="environnement">
 			
-		</div>
-		</td>
-		<td>
-			<div>		
-				<a href="compets_schema.png"><img src="compets_schema.png" width="450" height="455.5"></a>
-			</div>	
-	</td>
-	</table>
-			
+		<center>	
+			<h2>ENVIRONNEMENT DE L'ANIMAL</h2>
+			<img src="./regles_UX_images/environnement.png" width="80%" height="80%">
+		</center>
+	</div>
+	
+	<div id="code_couleur">
+		<center>
+			<h2>TYPE DE CASE ET CODE COULEUR</h2>	
+			<img src="./regles_UX_images/code_couleur.png" width="80%" height="80%">
+		</center>
+	</div>
+	
+	<div id="obeissance">
+		<center>	
+			<h2>OBEISSANCE DE L'ANIMAL</h2>	
+			<img src="./regles_UX_images/obeissance_1.png" width="80%" height="80%">
+			<img src="./regles_UX_images/obeissance_2.png" width="80%" height="80%">
+		</center>
+	</div>
+	
+	<div id="bien_etre">
+		<center>		
+			<h2>BIEN-ETRE DE L'ANIMAL</h2>	
+			<img src="./regles_UX_images/bien_etre_1.png" width="80%" height="80%">
+			<img src="./regles_UX_images/bien_etre_2.png" width="80%" height="80%">
+			<img src="./regles_UX_images/bien_etre_3.png" width="80%" height="80%">
+		</center>
+	</div>
+	
+					
 </body>
 </html>
