@@ -20,6 +20,8 @@ public class SimulationSave {
 	private static final String POSITION_SEPARATOR = ",";
 	private static final String ACTION_GAUGE_STRING = "actionGauge:";
 	private static final String HEALTH_GAUGE_STRING = "healthGauge:";
+//	private static final String ANIMAL_TYPE_STRING = "animal:";
+
 
 	public SimulationSave() {
 		this(FILEPATH);
@@ -43,6 +45,8 @@ public class SimulationSave {
 		int actionGaugeVal = animal.getBehavior().getActionGauge().getValue();
 		int healthGaugeVal = animal.getBehavior().getHealthGauge().getValue();
 
+//		writer.write(ANIMAL_TYPE_STRING + animal.getClass().getName());
+//		writer.newLine();
 		writer.write(POSITION_STRING + position.getX() + POSITION_SEPARATOR + position.getY());
 		writer.newLine();
 		writer.write(ACTION_GAUGE_STRING + actionGaugeVal);
@@ -64,6 +68,13 @@ public class SimulationSave {
 		BufferedReader reader = new BufferedReader(new FileReader(file));
 		int actionGaugeVal = 0, healthGaugeVal = 0, x = 0, y = 0;
 		try {
+//			line = reader.readLine();
+//			if(!line.startsWith(ANIMAL_TYPE_STRING)) {
+//				reader.close();
+//				throw new IOException("Cannot read save file : animal type not found.");
+//			}
+//			String animalType = reader.readLine().substring(ANIMAL_TYPE_STRING.length());
+			
 			String line = reader.readLine();
 			if(!line.startsWith(POSITION_STRING)) {
 				reader.close();
@@ -91,6 +102,15 @@ public class SimulationSave {
 			// format fichier incorrecte
 			throw new IOException("Cannot read save file : a number cannot be readed properly");
 		}
+
+//		Animal animal;
+//		
+//		if(animalType.equals("chat")){
+//			animal = new Cat(pos);
+//		}
+//		else {
+//			animal = new Dog(pos);
+//		}
 
 		Position pos = new Position(x, y);
 		Animal animal = new Dog(pos);

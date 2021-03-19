@@ -1,6 +1,5 @@
 package compets.engine.process;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Random;
 
@@ -35,12 +34,12 @@ public class GameInitializer {
 	public static GameManager createNewGame() {
 		Position pos = choosePos();
 		
-		/*if(animalType.equals("chat")){
-		 *animal = new Cat(pos);
-		 * }
-		 * else{
-		 * animal = new Dog(pos);
-		 * }*/
+//		Animal animal;
+//		if (animalType.equals("chat")) {
+//			animal = new Cat(pos);
+//		} else {
+//			animal = new Dog(pos);
+//		}
 		
 		Animal animal = new Dog(pos);
 		Map map = new Map();
