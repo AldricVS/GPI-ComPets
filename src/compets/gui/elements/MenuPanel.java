@@ -34,7 +34,8 @@ public class MenuPanel extends JPanel {
 	private static final Dimension IMAGE_PART_DIMENSION = new Dimension(MENU_DIMENSION.width, MENU_DIMENSION.height);
 	public static final Dimension BUTTONS_PART_DIMENSION = new Dimension(MENU_DIMENSION.width, MENU_DIMENSION.height / 5);
 
-	JButton playButton = new JButton("Play");
+	JButton newGameButton = new JButton("New Game");
+	JButton continueButton = new JButton("Continue");
 	JButton helpButton = new JButton("Help");
 	JButton exitButton = new JButton("Exit");
 
@@ -83,38 +84,47 @@ public class MenuPanel extends JPanel {
 		buttonsPanel.setPreferredSize(BUTTONS_PART_DIMENSION);
 
 		Font buttonFont = new Font("Arial", Font.PLAIN, BUTTONS_PART_DIMENSION.width / 30);
-		playButton.setFont(buttonFont);
+		newGameButton.setFont(buttonFont);
+		continueButton.setFont(buttonFont);
 		helpButton.setFont(buttonFont);
 		exitButton.setFont(buttonFont);
 		
-		playButton.addActionListener(new ActionPlay());
+		newGameButton.addActionListener(new ActionNewGame());
+		continueButton.addActionListener(new ActionLoadGame());
 		helpButton.addActionListener(new ActionHelp());
 		exitButton.addActionListener(new ActionExit());
 
-		buttonsPanel.add(playButton);
+		buttonsPanel.add(newGameButton);
+		buttonsPanel.add(continueButton);
 		buttonsPanel.add(helpButton);
 		buttonsPanel.add(exitButton);
 		this.add(buttonsPanel, BorderLayout.SOUTH);
 	}
 
-	class ActionPlay implements ActionListener {
+	class ActionNewGame implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			mainGui.switchToGamePanel();
+			int answer = JOptionPane.showConfirmDialog(MenuPanel.this, 
+					"Do you really want to create a new game ? Any game previously saved could be lost.", 
+					"Load ?", 
+					JOptionPane.YES_NO_OPTION
+				);
+			if(answer == JOptionPane.YES_OPTION) {
+				mainGui.switchToGamePanel();
+			}
+		}
+	}
+	
+	class ActionLoadGame implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
 		}
 	}
 	
 	class ActionHelp implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-//			JLabel message = new JLabel(HELP_HTML);
-//			//message.setLayout(new BorderLayout());
-//			message.setMaximumSize(new Dimension(MENU_DIMENSION.width, MENU_DIMENSION.height));
-//			JScrollPane scrollPane = new JScrollPane(message);
-//			//scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-//			scrollPane.setPreferredSize(new Dimension(MENU_DIMENSION.width, MENU_DIMENSION.height));
-//			JOptionPane.showMessageDialog(MenuPanel.this, scrollPane);
-			
 			JEditorPane jep = new JEditorPane();
 			jep.setEditable(false);
 			try {

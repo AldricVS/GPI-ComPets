@@ -22,6 +22,14 @@ public class MainGui extends JFrame{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		switchToMenuPanel();
 	}
+	
+	public void newGame() {
+		
+	}
+	
+	public void loadGame() {
+		
+	}
 
 	public void switchToGamePanel() {
 		cardLayout.show(this.getContentPane(), GAME_WINDOW_NAME);

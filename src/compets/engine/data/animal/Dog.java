@@ -21,6 +21,10 @@ public class Dog implements Animal {
 		return behavior;
 	}
 
+	public void setBehavior(int actionGaugeValue, int healthGaugeValue) {
+		this.behavior = new Behavior(actionGaugeValue,healthGaugeValue);
+	}
+
 	public Position getPosition() {
 		return position;
 	}
