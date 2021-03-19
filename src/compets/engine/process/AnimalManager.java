@@ -170,10 +170,10 @@ public class AnimalManager {
 	}
 
 	/**
-	 * Définit les intéractions possible par l'animal en fonction de la case sur
+	 * Change l'état de l'animal en fonction de la case sur
 	 * laquelle il se trouve
 	 * 
-	 * Ces derniers seront réalisées en fonction du dressage reçu.
+	 * Le changement sera réalisé en fonction du dressage reçu.
 	 */
 	public void interact() {
 		Position currentPos = animal.getPosition();
@@ -250,7 +250,7 @@ public class AnimalManager {
 			healthGauge.addValue(HealthModifValues.PUNISH_FOR_GOOD_ACTION);
 			break;
 		case BAD_ACTION:
-			actionGauge.addValue(ActionModifValues.BAD_ACTION_PUNISED);
+			actionGauge.addValue(ActionModifValues.BAD_ACTION_PUNISHED);
 			choice = true;
 			break;
 		default:
