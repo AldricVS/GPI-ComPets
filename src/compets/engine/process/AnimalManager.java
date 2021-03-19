@@ -26,6 +26,8 @@ import compets.engine.data.map.item.NeutralItem;
  * @author Aldric Vitali Silvestre <aldric.vitali@outlook.fr>
  */
 public class AnimalManager {
+	private final int MAX_NATURAL_HEALTH_REGEN = 65;
+	
 	private Animal animal;
 	private Map map;
 
@@ -99,7 +101,7 @@ public class AnimalManager {
 		Gauge healthGauge = bh.getHealthGauge();
 		switch (animal.getState()) {
 		case NEUTRAL:
-			if (userAction == UserAction.NEUTRAL) {
+			if (userAction == UserAction.NEUTRAL && healthGauge.getValue() < MAX_NATURAL_HEALTH_REGEN) {
 				healthGauge.addValue(HealthModifValues.DONE_NOTHING);
 			}
 			break;
