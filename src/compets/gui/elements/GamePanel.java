@@ -59,7 +59,6 @@ public class GamePanel extends JPanel implements Runnable{
 	public GamePanel(MainGui context) {
 		super();
 		mainGui = context;
-		mapPanel = new MapPanel(this);
 	}
 	
 	public void initGame(GameManager gameManager) {
@@ -68,6 +67,7 @@ public class GamePanel extends JPanel implements Runnable{
 		animal = animalManager.getAnimal();
 		animalStateHandler = gameManager.getAnimalStateHandler();
 		infosPanel = new InfosPanel(this, gameManager);
+		mapPanel = new MapPanel(this);
 		setLayout(new BorderLayout());
 		add(mapPanel, BorderLayout.CENTER);
 		add(infosPanel, BorderLayout.EAST);

@@ -1,6 +1,7 @@
 package compets.engine.data.animal;
 
 import compets.engine.data.map.Position;
+import compets.engine.process.visitor.AnimalVisitor;
 
 public class Dog implements Animal {
 	
@@ -50,4 +51,8 @@ public class Dog implements Animal {
 		return "Animal [behavior=" + behavior + ", position=" + position + ", state=" + state + "]";
 	}
 	
+	@Override
+	public <T> T accept(AnimalVisitor<T> visitor) {
+		return visitor.visit(this);
+	}
 }

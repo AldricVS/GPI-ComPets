@@ -25,8 +25,8 @@ import compets.engine.data.map.item.NeutralItem;
 import compets.engine.process.AnimalManager;
 import compets.engine.process.visitor.BoxVisitor;
 import compets.gui.ColorConstants;
-import compets.gui.management.AnimalImageUtility;
-import compets.gui.management.PaintBoxVisitor;
+import compets.gui.management.animal_drawing.AnimalImageUtility;
+import compets.gui.management.box_drawing.PaintBoxVisitor;
 
 public class MapPanel extends JPanel {
 
@@ -38,13 +38,15 @@ public class MapPanel extends JPanel {
 	private PaintBoxVisitor paintBoxVisitor = new PaintBoxVisitor();
 	private AnimalImageUtility animalImageUtility;
 	
+	Animal animal;
+	
 	public MapPanel(GamePanel context) {
 		this.context = context;
-		try {
-			animalImageUtility = new AnimalImageUtility();
-		}catch(IOException exception) {
-			System.err.println("Error while getting image files : " + exception.getMessage());
-		}
+		AnimalManager animalManager = context.getAnimalManager();
+		animal = animalManager.getAnimal();
+		animalImageUtility = new AnimalImageUtility(animal);
+		
+		
 		setLayout(new BorderLayout());
 		setPreferredSize(GamePanel.MAP_PANEL_DIMENSION);
 		setBackground(Color.BLACK);
@@ -104,15 +106,13 @@ public class MapPanel extends JPanel {
 	}
 
 	private void drawAnimal(Graphics g) {
-		AnimalManager animalManager = context.getAnimalManager();
-		Animal animal = animalManager.getAnimal();
 		Position position = animal.getPosition();
+		Image image = animalImageUtility.getCorrespondingImage(animal);
 		//if cannot find the images, draw the old oval instead
-		if(animalImageUtility == null) {
+		if(image == null) {
 			g.setColor(ColorConstants.ANIMAL_COLOR);
 			g.fillOval(position.getX() * boxWidth, position.getY() * boxHeight, boxWidth, boxHeight);
 		}else {
-			Image image = animalImageUtility.getCorrespondingImage(animal);
 			g.drawImage(image, position.getX() * boxWidth, position.getY() * boxHeight, boxWidth, boxHeight, null);
 		}
 	}

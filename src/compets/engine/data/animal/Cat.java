@@ -1,6 +1,7 @@
 package compets.engine.data.animal;
 
 import compets.engine.data.map.Position;
+import compets.engine.process.visitor.AnimalVisitor;
 
 public class Cat implements Animal {
 	
@@ -49,5 +50,9 @@ public class Cat implements Animal {
 	public String toString() {
 		return "Animal [behavior=" + behavior + ", position=" + position + ", state=" + state + "]";
 	}
-	
+
+	@Override
+	public <T> T accept(AnimalVisitor<T> visitor) {
+		return visitor.visit(this);
+	}
 }

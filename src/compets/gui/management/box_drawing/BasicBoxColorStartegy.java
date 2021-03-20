@@ -1,4 +1,4 @@
-package compets.gui.management;
+package compets.gui.management.box_drawing;
 
 import java.awt.Color;
 import java.awt.Graphics;

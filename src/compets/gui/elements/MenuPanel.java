@@ -15,6 +15,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JEditorPane;
 import javax.swing.JLabel;
@@ -25,6 +26,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import compets.config.GuiConfiguration;
+import compets.engine.data.animal.AnimalType;
 import compets.gui.management.ImagePanel;
 
 public class MenuPanel extends JPanel {
@@ -104,13 +106,28 @@ public class MenuPanel extends JPanel {
 	class ActionNewGame implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			int answer = JOptionPane.showConfirmDialog(MenuPanel.this, 
-					"Do you really want to create a new game ? Any game previously saved could be lost.", 
-					"Load ?", 
-					JOptionPane.YES_NO_OPTION
-				);
+			// a panel to choose the animal
+			AnimalType animalType = showAnimalChoice();
+			if(animalType != null) {
+				int answer = JOptionPane.showConfirmDialog(MenuPanel.this, 
+						"Do you really want to create a new game ? Any game previously saved could be lost.", 
+						"Load ?", 
+						JOptionPane.YES_NO_OPTION
+					);
+				if(answer == JOptionPane.YES_OPTION) {
+					mainGui.newGame(animalType);
+				}
+			}
+		}
+
+		private AnimalType showAnimalChoice() {
+		    JComboBox<AnimalType> animalTypeComboBox = new JComboBox<AnimalType>(AnimalType.values());
+			int answer = JOptionPane.showConfirmDialog(MenuPanel.this, animalTypeComboBox, "Choice of animal",
+		        JOptionPane.YES_NO_OPTION);
 			if(answer == JOptionPane.YES_OPTION) {
-				mainGui.newGame();
+				return (AnimalType)animalTypeComboBox.getSelectedItem();
+			}else {
+				return null;
 			}
 		}
 	}

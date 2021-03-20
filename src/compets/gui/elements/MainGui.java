@@ -6,6 +6,7 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import compets.engine.data.animal.AnimalType;
 import compets.engine.process.GameInitializer;
 import compets.engine.process.GameManager;
 
@@ -28,9 +29,9 @@ public class MainGui extends JFrame{
 		switchToMenuPanel();
 	}
 	
-	public void newGame() {
+	public void newGame(AnimalType animalType) {
 		switchToGamePanel();
-		GameManager gameManager = GameInitializer.createNewGame();
+		GameManager gameManager = GameInitializer.createNewGame(animalType);
 		gamePanel.initGame(gameManager);
 	}
 	
