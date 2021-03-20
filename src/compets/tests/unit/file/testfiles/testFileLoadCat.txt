@@ -1,0 +1,4 @@
+position:3,4
+actionGauge:66
+healthGauge:28
+animalType:CAT

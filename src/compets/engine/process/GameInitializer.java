@@ -70,7 +70,7 @@ public class GameInitializer {
 		SimulationSave saver = new SimulationSave();
 		Animal animal;
 
-		animal = saver.load();
+		animal = saver.loadAnimalData();
 
 		Map map = new Map();
 		AnimalManager am = new AnimalManager(animal, map);

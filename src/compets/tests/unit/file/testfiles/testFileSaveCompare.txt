@@ -1,3 +1,4 @@
+animalType:DOG
 position:7,6
 actionGauge:30
 healthGauge:70

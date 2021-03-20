@@ -9,6 +9,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import compets.engine.data.animal.Animal;
+import compets.engine.data.animal.Cat;
 import compets.engine.data.animal.Dog;
 import compets.engine.data.animal.Gauge;
 import compets.engine.data.map.Position;
@@ -17,9 +18,9 @@ import compets.engine.process.SimulationSave;
 /**
  * @author Maxence
  */
-public class LoadAnimalTest {
+public class LoadCatTest {
 
-	private static final String FILEPATH = "src/compets/tests/unit/file/testfiles/testFileLoad.txt";
+	private static final String FILEPATH = "src/compets/tests/unit/file/testfiles/testFileLoadCat.txt";
 	private static SimulationSave SimulationSave;
 	
 	private static Animal animal;
@@ -43,12 +44,12 @@ public class LoadAnimalTest {
 	public void loadAnimal() {
 		Animal newAnimal = null;
 		try {
-			newAnimal = SimulationSave.load();
+			newAnimal = SimulationSave.loadAnimalData();
 		} catch (IOException e) {
 			System.err.println(e.getMessage());
 			fail();
 		}
-		assertEquals(Dog.class, newAnimal.getClass());
+		assertTrue(newAnimal instanceof Cat);
 		assertTrue(position.equals(newAnimal.getPosition()));
 		assertEquals(healthStatus.getValue(), newAnimal.getBehavior().getHealthGauge().getValue());
 		assertEquals(actionStatus.getValue(), newAnimal.getBehavior().getActionGauge().getValue());
