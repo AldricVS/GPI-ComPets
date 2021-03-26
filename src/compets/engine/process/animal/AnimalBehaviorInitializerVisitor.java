@@ -2,6 +2,7 @@ package compets.engine.process.animal;
 
 import compets.engine.data.animal.Cat;
 import compets.engine.data.animal.Dog;
+import compets.engine.data.animal.Fox;
 import compets.engine.data.behavior.AnimalBehaviorValuesRepository;
 import compets.engine.data.behavior.BehaviorValues;
 import compets.engine.process.visitor.AnimalVisitor;
@@ -48,6 +49,12 @@ public class AnimalBehaviorInitializerVisitor implements AnimalVisitor<AnimalBeh
 		repository.addValue(BehaviorValues.HEALTH_GOOD_ACTION_NOT_REWARDED, -3);
 
 		return repository;
+	}
+
+	@Override
+	public AnimalBehaviorValuesRepository visit(Fox fox) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
