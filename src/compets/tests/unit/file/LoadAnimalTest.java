@@ -43,7 +43,7 @@ public class LoadAnimalTest {
 	public void loadAnimal() {
 		Animal newAnimal = null;
 		try {
-			newAnimal = SimulationSave.load();
+			newAnimal = SimulationSave.loadAnimalData();
 		} catch (IOException e) {
 			System.err.println(e.getMessage());
 			fail();
