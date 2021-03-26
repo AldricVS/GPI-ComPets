@@ -1,4 +1,4 @@
-package compets.engine.process;
+package compets.engine.process.animal;
 
 import compets.engine.data.animal.Dog;
 import compets.engine.data.animal.Animal;

@@ -11,7 +11,7 @@ import compets.engine.data.animal.AnimalState;
 import compets.engine.data.map.EmptyBox;
 import compets.engine.data.map.Map;
 import compets.engine.data.map.Position;
-import compets.engine.process.AnimalManager;
+import compets.engine.process.animal.AnimalManager;
 
 /**
  * Make the animal walk 10 times, making sure that it doesn't go to the void

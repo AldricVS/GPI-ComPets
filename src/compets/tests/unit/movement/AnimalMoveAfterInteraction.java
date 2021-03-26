@@ -12,7 +12,7 @@ import compets.engine.data.map.EmptyBox;
 import compets.engine.data.map.Map;
 import compets.engine.data.map.Position;
 import compets.engine.data.map.item.NeutralItem;
-import compets.engine.process.AnimalManager;
+import compets.engine.process.animal.AnimalManager;
 
 /**
  * @author Maxence

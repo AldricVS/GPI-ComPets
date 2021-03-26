@@ -1,5 +1,8 @@
 package compets.engine.process;
 
+import compets.engine.process.animal.AnimalManager;
+import compets.engine.process.animal.AnimalStateHandler;
+
 /**
  * Basic class that contains all game relative data.
  * 

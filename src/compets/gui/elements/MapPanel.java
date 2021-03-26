@@ -22,7 +22,7 @@ import compets.engine.data.map.Wall;
 import compets.engine.data.map.item.BadItem;
 import compets.engine.data.map.item.GoodItem;
 import compets.engine.data.map.item.NeutralItem;
-import compets.engine.process.AnimalManager;
+import compets.engine.process.animal.AnimalManager;
 import compets.engine.process.visitor.BoxVisitor;
 import compets.gui.ColorConstants;
 import compets.gui.management.animal_drawing.AnimalImageUtility;

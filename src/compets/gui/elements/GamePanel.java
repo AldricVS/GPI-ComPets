@@ -23,10 +23,10 @@ import compets.engine.data.animal.AnimalState;
 import compets.engine.data.animal.Gauge;
 import compets.engine.data.map.Map;
 import compets.engine.data.map.Position;
-import compets.engine.process.AnimalManager;
-import compets.engine.process.AnimalStateHandler;
 import compets.engine.process.GameManager;
 import compets.engine.process.SimulationSave;
+import compets.engine.process.animal.AnimalManager;
+import compets.engine.process.animal.AnimalStateHandler;
 
 public class GamePanel extends JPanel implements Runnable{
 

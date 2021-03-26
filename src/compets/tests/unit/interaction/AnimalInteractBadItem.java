@@ -14,7 +14,7 @@ import compets.engine.data.animal.AnimalState;
 import compets.engine.data.map.Map;
 import compets.engine.data.map.Position;
 import compets.engine.data.map.item.BadItem;
-import compets.engine.process.AnimalManager;
+import compets.engine.process.animal.AnimalManager;
 
 /**
  * @author Maxence

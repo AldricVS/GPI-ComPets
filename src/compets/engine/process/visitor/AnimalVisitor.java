@@ -7,5 +7,5 @@ public interface AnimalVisitor<T> {
 	
 	T visit(Dog dog);
 	
-	T visit(Cat dog);
+	T visit(Cat cat);
 }

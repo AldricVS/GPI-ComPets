@@ -1,4 +1,4 @@
-package compets.engine.process;
+package compets.engine.process.animal;
 
 import java.util.Random;
 

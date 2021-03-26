@@ -9,6 +9,8 @@ import compets.engine.data.animal.Cat;
 import compets.engine.data.animal.Dog;
 import compets.engine.data.map.Map;
 import compets.engine.data.map.Position;
+import compets.engine.process.animal.AnimalManager;
+import compets.engine.process.animal.AnimalStateHandler;
 
 /**
  * This class contains two main static functions :

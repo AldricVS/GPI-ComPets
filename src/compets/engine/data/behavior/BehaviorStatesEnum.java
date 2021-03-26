@@ -1,7 +1,7 @@
 package compets.engine.data.behavior;
 
 /**
- * Contains all different message that can be recieved from {@link compets.engine.process.AnimalStateHandler#checkState() AnimalStateHandler}
+ * Contains all different message that can be recieved from {@link compets.engine.process.animal.AnimalStateHandler#checkState() AnimalStateHandler}
  */
 public enum BehaviorStatesEnum {
 	NO_MSG,

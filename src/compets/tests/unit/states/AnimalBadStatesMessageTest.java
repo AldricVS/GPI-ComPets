@@ -10,7 +10,7 @@ import compets.engine.data.animal.Dog;
 import compets.engine.data.animal.Gauge;
 import compets.engine.data.behavior.BehaviorStatesEnum;
 import compets.engine.data.map.Position;
-import compets.engine.process.AnimalStateHandler;
+import compets.engine.process.animal.AnimalStateHandler;
 
 /**
  * Check that all condition of a badly treated animal get the appropriated message

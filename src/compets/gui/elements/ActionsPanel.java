@@ -18,7 +18,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import compets.engine.data.behavior.BehaviorStatesEnum;
-import compets.engine.process.AnimalStateHandler;
+import compets.engine.process.animal.AnimalStateHandler;
 import compets.gui.management.MessagesRepository;
 
 public class ActionsPanel extends JPanel{

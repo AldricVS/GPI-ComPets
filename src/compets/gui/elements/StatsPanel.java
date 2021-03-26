@@ -26,8 +26,8 @@ import org.jfree.data.xy.XYSeriesCollection;
 import compets.engine.data.animal.Animal;
 import compets.engine.data.animal.Dog;
 import compets.engine.data.animal.Gauge;
-import compets.engine.process.AnimalManager;
 import compets.engine.process.GameManager;
+import compets.engine.process.animal.AnimalManager;
 
 public class StatsPanel extends JPanel {
 	public static final Dimension GAUGE_PANEL_DIMENSION = new Dimension(GamePanel.INFOS_PANEL_DIMENSION.width / 7, GamePanel.INFOS_PANEL_DIMENSION.height);
