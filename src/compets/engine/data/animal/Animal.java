@@ -3,22 +3,47 @@ package compets.engine.data.animal;
 import compets.engine.data.map.Position;
 import compets.engine.process.visitor.AnimalVisitor;
 
-public interface Animal {
-	public Behavior getBehavior();
-	
-	public void setBehavior(int actionGaugeValue, int healthGaugeValue);
-	
-	public Position getPosition();
+public abstract class Animal {
 
-	public void setPosition(Position position);
+	private Behavior behavior;
+	private Position position;
+	private AnimalState state;
 
-	public AnimalState getState();
+	protected Animal(Position position, Behavior behavior) {
+		this.position = position;
+		this.behavior = behavior;
+		this.state = AnimalState.NEUTRAL;
+	}
 
-	public void setState(AnimalState animalStates);
+	public Behavior getBehavior() {
+		return behavior;
+	}
 
-	public void resetState();
+	public void setBehavior(int actionGaugeValue, int healthGaugeValue) {
+		this.behavior = new Behavior(actionGaugeValue, healthGaugeValue);
+	}
 
-	public String toString();
-	
+	public Position getPosition() {
+		return position;
+	}
+
+	public void setPosition(Position position) {
+		this.position = position;
+	}
+
+	public AnimalState getState() {
+		return state;
+	}
+
+	public void setState(AnimalState animalStates) {
+		this.state = animalStates;
+	}
+
+	public void resetState() {
+		state = AnimalState.NEUTRAL;
+	}
+
+	public abstract String toString();
+
 	public abstract <T> T accept(AnimalVisitor<T> visitor);
 }
