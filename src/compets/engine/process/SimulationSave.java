@@ -151,11 +151,11 @@ public class SimulationSave {
 		
 		// if any value is null, then we didn't found it in the file
 		String actionGaugeString = fileContent.get(KEY_ACTION_GAUGE);
-		checkNonNull(actionGaugeString, "actionGauge");
+		checkNonNull(actionGaugeString, KEY_ACTION_GAUGE);
 		String healthGaugeString = fileContent.get(KEY_HEALTH_GAUGE);
-		checkNonNull(healthGaugeString, "healthGauge");
+		checkNonNull(healthGaugeString, KEY_HEALTH_GAUGE);
 		String positionString = fileContent.get(KEY_POSITION);
-		checkNonNull(positionString, "positionGauge");
+		checkNonNull(positionString, KEY_POSITION);
 		//animal is optionnal
 		String animalTypeString = fileContent.get(KEY_ANIMAL_TYPE);
 		
