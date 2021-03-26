@@ -2,12 +2,11 @@ package compets.engine.process.animal;
 
 import java.util.Random;
 
-import compets.engine.data.animal.Dog;
 import compets.engine.data.animal.Behavior;
 import compets.engine.data.animal.Gauge;
 import compets.engine.data.animal.UserAction;
-import compets.engine.data.constants.ActionModifValues;
-import compets.engine.data.constants.HealthModifValues;
+import compets.engine.data.behavior.AnimalBehaviorValuesRepository;
+import compets.engine.data.behavior.BehaviorValues;
 import compets.engine.data.animal.Animal;
 import compets.engine.data.animal.AnimalState;
 import compets.engine.data.map.Box;
@@ -30,6 +29,7 @@ public class AnimalManager {
 	
 	private Animal animal;
 	private Map map;
+	private AnimalBehaviorValuesRepository repo;
 
 	private UserAction userAction = UserAction.NEUTRAL;
 
@@ -40,6 +40,9 @@ public class AnimalManager {
 	public AnimalManager(Animal animal, Map map) {
 		this.animal = animal;
 		this.map = map;
+		
+		AnimalBehaviorInitializerVisitor behaviorVisitor = new AnimalBehaviorInitializerVisitor();
+		repo = animal.accept(behaviorVisitor);
 	}
 
 	/**
@@ -81,10 +84,10 @@ public class AnimalManager {
 		Gauge actionGauge = animal.getBehavior().getActionGauge();
 		switch (animal.getState()) {
 		case GOOD_ACTION:
-			actionGauge.addValue(ActionModifValues.GOOD_ACTION);
+			actionGauge.addValue(repo.getValue(BehaviorValues.ACTION_GOOD));
 			break;
 		case BAD_ACTION:
-			actionGauge.addValue(ActionModifValues.BAD_ACTION);
+			actionGauge.addValue(repo.getValue(BehaviorValues.ACTION_BAD));
 			break;
 		default:
 			// case NEUTRAL
@@ -102,13 +105,13 @@ public class AnimalManager {
 		switch (animal.getState()) {
 		case NEUTRAL:
 			if (userAction == UserAction.NEUTRAL && healthGauge.getValue() < MAX_NATURAL_HEALTH_REGEN) {
-				healthGauge.addValue(HealthModifValues.DONE_NOTHING);
+				healthGauge.addValue(repo.getValue(BehaviorValues.HEALTH_DONE_NOTHING));
 			}
 			break;
 		case GOOD_ACTION:
 			// Decrease well being if done a good action but has recieved no reward
 			if (userAction == UserAction.NEUTRAL) {
-				healthGauge.addValue(HealthModifValues.GOOD_ACTION_NOT_REWARDED);
+				healthGauge.addValue(repo.getValue(BehaviorValues.HEALTH_GOOD_ACTION_NOT_REWARDED));
 			}
 			break;
 		case BAD_ACTION:
@@ -244,15 +247,15 @@ public class AnimalManager {
 
 		switch (animal.getState()) {
 		case NEUTRAL:
-			actionGauge.addValue(ActionModifValues.NEUTRAL_PUNISHED);
-			healthGauge.addValue(HealthModifValues.PUNISH_FOR_NOTHING);
+			actionGauge.addValue(repo.getValue(BehaviorValues.ACTION_NEUTRAL_PUNISHED));
+			healthGauge.addValue(repo.getValue(BehaviorValues.HEALTH_PUNISH_FOR_NOTHING));
 			break;
 		case GOOD_ACTION:
-			actionGauge.addValue(ActionModifValues.GOOD_ACTION_PUNISHED);;
-			healthGauge.addValue(HealthModifValues.PUNISH_FOR_GOOD_ACTION);
+			actionGauge.addValue(repo.getValue(BehaviorValues.ACTION_BAD_PUNISHED));
+			healthGauge.addValue(repo.getValue(BehaviorValues.HEALTH_PUNISH_FOR_GOOD_ACTION));
 			break;
 		case BAD_ACTION:
-			actionGauge.addValue(ActionModifValues.BAD_ACTION_PUNISHED);
+			actionGauge.addValue(repo.getValue(BehaviorValues.ACTION_BAD_PUNISHED));
 			choice = true;
 			break;
 		default:
@@ -279,15 +282,15 @@ public class AnimalManager {
 
 		switch (animal.getState()) {
 		case NEUTRAL:
-			actionGauge.addValue(ActionModifValues.NEUTRAL_REWARDED);
+			actionGauge.addValue(repo.getValue(BehaviorValues.ACTION_NEUTRAL_REWARDED));
 			break;
 		case GOOD_ACTION:
 			choice = true;
-			actionGauge.addValue(ActionModifValues.GOOD_ACTION_REWARDED);
-			healthGauge.addValue(HealthModifValues.REWARD_FOR_GOOD_ACTION); // increase well-be
+			actionGauge.addValue(repo.getValue(BehaviorValues.ACTION_GOOD_REWARDED));
+			healthGauge.addValue(repo.getValue(BehaviorValues.HEALTH_REWARD_FOR_GOOD_ACTION)); // increase well-be
 			break;
 		case BAD_ACTION:
-			actionGauge.addValue(ActionModifValues.BAD_ACTION_REWARDED);
+			actionGauge.addValue(repo.getValue(BehaviorValues.ACTION_BAD_REWARDED));
 			break;
 		default:
 			break;
