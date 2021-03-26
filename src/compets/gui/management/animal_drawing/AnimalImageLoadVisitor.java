@@ -14,6 +14,7 @@ import compets.engine.process.visitor.AnimalVisitor;
 public class AnimalImageLoadVisitor implements AnimalVisitor<AnimalImagesRepository> {
 	private static final String DOG_IMAGES_PATH = "images/Animal/Dog/";
 	private static final String CAT_IMAGES_PATH = "images/Animal/Cat/";
+	private static final String FOX_IMAGES_PATH = "images/Animal/Fox/";
 	
 
 	@Override
@@ -31,6 +32,14 @@ public class AnimalImageLoadVisitor implements AnimalVisitor<AnimalImagesReposit
 		Image imgBad = loadImage(CAT_IMAGES_PATH + "Cat_BAD.png");
 		return new AnimalImagesRepository(imgGood, imgBad, imgNeutral);
 	}
+	
+	@Override
+	public AnimalImagesRepository visit(Fox fox) {
+		Image imgNeutral = loadImage(FOX_IMAGES_PATH + "Fox_NEUTRAL.png");
+		Image imgGood = loadImage(FOX_IMAGES_PATH + "Fox_GOOD.png");
+		Image imgBad = loadImage(FOX_IMAGES_PATH + "Fox_BAD.png");
+		return new AnimalImagesRepository(imgGood, imgBad, imgNeutral);
+	}
 
 	private Image loadImage(String imageName){
 		File file = new File(imageName);
@@ -42,9 +51,5 @@ public class AnimalImageLoadVisitor implements AnimalVisitor<AnimalImagesReposit
 		}
 	}
 
-	@Override
-	public AnimalImagesRepository visit(Fox fox) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 }

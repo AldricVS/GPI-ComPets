@@ -4,6 +4,7 @@ import compets.engine.data.animal.Animal;
 import compets.engine.data.animal.AnimalType;
 import compets.engine.data.animal.Cat;
 import compets.engine.data.animal.Dog;
+import compets.engine.data.animal.Fox;
 import compets.engine.data.map.Position;
 
 public class AnimalFactory {
@@ -22,6 +23,8 @@ public class AnimalFactory {
 			return new Dog(position);
 		case CAT:
 			return new Cat(position);
+		case FOX:
+			return new Fox(position);
 		default:
 			return new Dog(position);
 		}

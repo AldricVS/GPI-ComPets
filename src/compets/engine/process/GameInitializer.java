@@ -7,6 +7,7 @@ import compets.engine.data.animal.Animal;
 import compets.engine.data.animal.AnimalType;
 import compets.engine.data.animal.Cat;
 import compets.engine.data.animal.Dog;
+import compets.engine.data.animal.Fox;
 import compets.engine.data.map.Map;
 import compets.engine.data.map.Position;
 import compets.engine.process.animal.AnimalManager;
@@ -46,6 +47,9 @@ public class GameInitializer {
 			break;
 		case CAT:
 			animal = new Cat(pos);
+			break;
+		case FOX:
+			animal = new Fox(pos);
 			break;
 		default:
 			animal = new Dog(pos);
