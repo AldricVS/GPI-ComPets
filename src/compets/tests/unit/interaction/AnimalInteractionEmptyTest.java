@@ -8,8 +8,7 @@ import org.junit.Test;
 
 import compets.engine.data.animal.Dog;
 import compets.engine.data.animal.Gauge;
-import compets.engine.data.constants.ActionModifValues;
-import compets.engine.data.constants.HealthModifValues;
+import compets.engine.data.behavior.BehaviorValues;
 import compets.engine.data.animal.Animal;
 import compets.engine.data.animal.AnimalState;
 import compets.engine.data.map.EmptyBox;
@@ -54,15 +53,15 @@ public class AnimalInteractionEmptyTest {
 	@Test
 	public void dontGetReward() {
 		assertFalse(manager.reward());
-		assertEquals(Gauge.DEFAULT_GAUGE + ActionModifValues.NEUTRAL_REWARDED, animal.getBehavior().getActionGauge().getValue());
+		assertEquals(Gauge.DEFAULT_GAUGE + manager.getRepoValue(BehaviorValues.ACTION_NEUTRAL_REWARDED), animal.getBehavior().getActionGauge().getValue());
 		assertEquals(Gauge.DEFAULT_GAUGE, animal.getBehavior().getHealthGauge().getValue());
 	}
 
 	@Test
 	public void getPunish() {
 		assertFalse(manager.punish());
-		assertEquals(Gauge.DEFAULT_GAUGE + ActionModifValues.NEUTRAL_PUNISHED, animal.getBehavior().getActionGauge().getValue());
-		assertEquals(Gauge.DEFAULT_GAUGE + HealthModifValues.PUNISH_FOR_NOTHING, animal.getBehavior().getHealthGauge().getValue());
+		assertEquals(Gauge.DEFAULT_GAUGE + manager.getRepoValue(BehaviorValues.ACTION_NEUTRAL_PUNISHED), animal.getBehavior().getActionGauge().getValue());
+		assertEquals(Gauge.DEFAULT_GAUGE + manager.getRepoValue(BehaviorValues.HEALTH_PUNISH_FOR_NOTHING), animal.getBehavior().getHealthGauge().getValue());
 	}
 
 }
