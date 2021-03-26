@@ -1,6 +1,5 @@
 package compets.engine.process.animal;
 
-import compets.engine.data.animal.Dog;
 import compets.engine.data.animal.Animal;
 import compets.engine.data.animal.Behavior;
 import compets.engine.data.animal.Gauge;

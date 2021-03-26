@@ -8,8 +8,7 @@ import org.junit.Test;
 
 import compets.engine.data.animal.Dog;
 import compets.engine.data.animal.Gauge;
-import compets.engine.data.constants.ActionModifValues;
-import compets.engine.data.constants.HealthModifValues;
+import compets.engine.data.behavior.BehaviorValues;
 import compets.engine.data.animal.Animal;
 import compets.engine.data.animal.AnimalState;
 import compets.engine.data.map.Map;
@@ -55,14 +54,14 @@ public class AnimalInteractGoodItem {
 	public void getReward() {
 		assertTrue(manager.reward());
 		assertEquals(Gauge.MAX_GAUGE, animal.getBehavior().getActionGauge().getValue());
-		assertEquals(Gauge.DEFAULT_GAUGE + HealthModifValues.REWARD_FOR_GOOD_ACTION, animal.getBehavior().getHealthGauge().getValue());
+		assertEquals(Gauge.DEFAULT_GAUGE + manager.getRepoValue(BehaviorValues.HEALTH_REWARD_FOR_GOOD_ACTION), animal.getBehavior().getHealthGauge().getValue());
 	}
 
 	@Test
 	public void dontGetPunish() {
 		assertFalse(manager.punish());
-		assertEquals(Gauge.MAX_GAUGE + ActionModifValues.GOOD_ACTION_PUNISHED, animal.getBehavior().getActionGauge().getValue());
-		assertEquals(Gauge.DEFAULT_GAUGE + HealthModifValues.PUNISH_FOR_GOOD_ACTION, animal.getBehavior().getHealthGauge().getValue());
+		assertEquals(Gauge.MAX_GAUGE + manager.getRepoValue(BehaviorValues.ACTION_GOOD_PUNISHED), animal.getBehavior().getActionGauge().getValue());
+		assertEquals(Gauge.DEFAULT_GAUGE + manager.getRepoValue(BehaviorValues.HEALTH_PUNISH_FOR_GOOD_ACTION), animal.getBehavior().getHealthGauge().getValue());
 	}
 
 }

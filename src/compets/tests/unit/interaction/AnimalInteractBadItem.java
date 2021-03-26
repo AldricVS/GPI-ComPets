@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import compets.engine.data.animal.Dog;
 import compets.engine.data.animal.Gauge;
-import compets.engine.data.constants.ActionModifValues;
+import compets.engine.data.behavior.BehaviorValues;
 import compets.engine.data.animal.Animal;
 import compets.engine.data.animal.AnimalState;
 import compets.engine.data.map.Map;
@@ -60,7 +60,7 @@ public class AnimalInteractBadItem {
 	@Test
 	public void getPunish() {
 		assertTrue(manager.punish());
-		assertEquals(Gauge.MIN_GAUGE + ActionModifValues.BAD_ACTION_PUNISHED, animal.getBehavior().getActionGauge().getValue());
+		assertEquals(Gauge.MIN_GAUGE + manager.getRepoValue(BehaviorValues.ACTION_BAD_PUNISHED), animal.getBehavior().getActionGauge().getValue());
 		assertEquals(Gauge.DEFAULT_GAUGE, animal.getBehavior().getHealthGauge().getValue());
 	}
 }

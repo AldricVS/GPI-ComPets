@@ -1,6 +1,6 @@
 package compets.engine.data.constants;
 
-public class ActionModifValues {	
+ class ActionModifValues {	
 	public static final int GOOD_ACTION = 1;
 	public static final int BAD_ACTION = -1;
 	
