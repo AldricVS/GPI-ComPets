@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 
 import compets.engine.data.animal.Cat;
 import compets.engine.data.animal.Dog;
+import compets.engine.data.animal.Fox;
 import compets.engine.process.visitor.AnimalVisitor;
 
 public class AnimalImageLoadVisitor implements AnimalVisitor<AnimalImagesRepository> {
@@ -39,5 +40,11 @@ public class AnimalImageLoadVisitor implements AnimalVisitor<AnimalImagesReposit
 			System.err.println(String.format("Cannot read \"%s\" : %s", imageName, e.getMessage()));
 			return null;
 		}
+	}
+
+	@Override
+	public AnimalImagesRepository visit(Fox fox) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
