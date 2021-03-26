@@ -109,7 +109,7 @@ public class AnimalManager {
 			}
 			break;
 		case GOOD_ACTION:
-			// Decrease well being if done a good action but has recieved no reward
+			// Decrease well being if done a good action but has received no reward
 			if (userAction == UserAction.NEUTRAL) {
 				healthGauge.addValue(repo.getValue(BehaviorValues.HEALTH_GOOD_ACTION_NOT_REWARDED));
 			}
