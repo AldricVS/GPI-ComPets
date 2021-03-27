@@ -31,9 +31,11 @@ public class MainGui extends JFrame{
 		initLocale();
 	}
 	
+	
 	private void initLocale() {
+		// Default locale is UK (if locale is FRANCE, unchanged)
 		Locale locale = Locale.getDefault();
-		if(!locale.equals(Locale.FRANCE) || !locale.equals(Locale.UK)) {
+		if(!locale.equals(Locale.FRANCE)) {
 			Locale.setDefault(Locale.UK);
 		}
 	}

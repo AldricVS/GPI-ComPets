@@ -39,7 +39,9 @@ public class MenuPanel extends JPanel {
 	private static final Dimension IMAGE_PART_DIMENSION = new Dimension(MENU_DIMENSION.width, MENU_DIMENSION.height);
 	public static final Dimension BUTTONS_PART_DIMENSION = new Dimension(MENU_DIMENSION.width, MENU_DIMENSION.height / 5);
 	
-	ResourceBundle resources = ResourceBundle.getBundle("menu/menu", Locale.getDefault());
+	private static final String RESOURCE_BUNDLE_NAME = "main_menu/menu";
+	
+	ResourceBundle resources = ResourceBundle.getBundle(RESOURCE_BUNDLE_NAME, Locale.getDefault());
 
 	JButton newGameButton = new JButton(resources.getString("button_new_game"));
 	JButton continueButton = new JButton(resources.getString("button_continue"));
@@ -61,8 +63,6 @@ public class MenuPanel extends JPanel {
 		initTitlePanel();
 		initCenterPanel();
 		initButtonsPanel();
-		
-		
 	}
 
 	private void initTitlePanel() {
@@ -78,6 +78,7 @@ public class MenuPanel extends JPanel {
 		// change language button above the title screen
 		changeLanguageButton.setBounds(0, 0, 150, 50);
 		changeLanguageButton.setPreferredSize(new Dimension(150, 50));
+		changeLanguageButton.addActionListener(new ActionChangeLanguage());
 		layeredPane.add(changeLanguageButton);
 		layeredPane.add(titlePanel);
 		
@@ -95,6 +96,7 @@ public class MenuPanel extends JPanel {
 	}
 
 	private void initButtonsPanel() {
+		fillButtons();
 		JPanel buttonsPanel = new JPanel();
 		int hgap = MENU_DIMENSION.width / 40;
 		buttonsPanel.setBorder(new EmptyBorder(hgap, hgap, hgap, hgap));
@@ -121,6 +123,14 @@ public class MenuPanel extends JPanel {
 		this.add(buttonsPanel, BorderLayout.SOUTH);
 	}
 
+	private void fillButtons() {
+		newGameButton.setText(resources.getString("button_new_game"));
+		continueButton.setText(resources.getString("button_continue"));
+		helpButton.setText(resources.getString("button_help"));
+		exitButton.setText(resources.getString("button_exit"));
+		
+	}
+
 	class ActionNewGame implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -140,7 +150,7 @@ public class MenuPanel extends JPanel {
 
 		private AnimalType showAnimalChoice() {
 		    JComboBox<AnimalType> animalTypeComboBox = new JComboBox<AnimalType>(AnimalType.values());
-			int answer = JOptionPane.showConfirmDialog(MenuPanel.this, animalTypeComboBox, "Choice of animal",
+			int answer = JOptionPane.showConfirmDialog(MenuPanel.this, animalTypeComboBox, resources.getString("choice_animal_title"),
 		        JOptionPane.YES_NO_OPTION);
 			if(answer == JOptionPane.YES_OPTION) {
 				return (AnimalType)animalTypeComboBox.getSelectedItem();
@@ -160,10 +170,16 @@ public class MenuPanel extends JPanel {
 	class ActionHelp implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			String filename;
+			if(Locale.getDefault().equals(Locale.FRANCE)) {
+				filename = "regles.html";
+			}else {
+				filename = "rules.html";
+			}
 			JEditorPane jep = new JEditorPane();
 			jep.setEditable(false);
 			try {
-				jep.setPage("file:data/regles.html");
+				jep.setPage("file:data/" + filename);
 				JScrollPane scrollPane = new JScrollPane(jep);
 				scrollPane.setMaximumSize(MENU_DIMENSION);
 				scrollPane.setPreferredSize(new Dimension(MENU_DIMENSION.width, 2 * MENU_DIMENSION.height / 3));
@@ -185,7 +201,16 @@ public class MenuPanel extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Locale.setDefault(Locale.UK);
+			if(Locale.getDefault().equals(Locale.FRANCE)) {
+				Locale.setDefault(Locale.UK);
+				changeLanguageButton.setText("Français");
+			}else {
+				Locale.setDefault(Locale.FRANCE);
+				changeLanguageButton.setText("English");
+			}
+			
+			resources = ResourceBundle.getBundle(RESOURCE_BUNDLE_NAME);
+			fillButtons();
 		}
 		
 	}
