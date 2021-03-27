@@ -34,20 +34,20 @@ import compets.gui.management.ImagePanel;
 
 public class MenuPanel extends JPanel {
 	public static final Dimension MENU_DIMENSION = new Dimension(GuiConfiguration.WIDTH, GuiConfiguration.HEIGHT);
-	
+
 	private static final Dimension TITLE_PART_DIMENSION = new Dimension(MENU_DIMENSION.width, MENU_DIMENSION.height / 5);
 	private static final Dimension IMAGE_PART_DIMENSION = new Dimension(MENU_DIMENSION.width, MENU_DIMENSION.height);
 	public static final Dimension BUTTONS_PART_DIMENSION = new Dimension(MENU_DIMENSION.width, MENU_DIMENSION.height / 5);
-	
+
 	private static final String RESOURCE_BUNDLE_NAME = "main_menu/menu";
-	
+
 	ResourceBundle resources = ResourceBundle.getBundle(RESOURCE_BUNDLE_NAME, Locale.getDefault());
 
 	JButton newGameButton = new JButton(resources.getString("button_new_game"));
 	JButton continueButton = new JButton(resources.getString("button_continue"));
 	JButton helpButton = new JButton(resources.getString("button_help"));
 	JButton exitButton = new JButton(resources.getString("button_exit"));
-	
+
 	JButton changeLanguageButton = new JButton("English");
 
 	private MainGui mainGui;
@@ -74,14 +74,14 @@ public class MenuPanel extends JPanel {
 		titlePanel.add(titleLabel, BorderLayout.CENTER);
 		titlePanel.setBounds(0, 0, TITLE_PART_DIMENSION.width, TITLE_PART_DIMENSION.height);
 		layeredPane.setPreferredSize(TITLE_PART_DIMENSION);
-		
+
 		// change language button above the title screen
 		changeLanguageButton.setBounds(0, 0, 150, 50);
 		changeLanguageButton.setPreferredSize(new Dimension(150, 50));
 		changeLanguageButton.addActionListener(new ActionChangeLanguage());
 		layeredPane.add(changeLanguageButton);
 		layeredPane.add(titlePanel);
-		
+
 		this.add(layeredPane, BorderLayout.NORTH);
 	}
 
@@ -110,7 +110,7 @@ public class MenuPanel extends JPanel {
 		continueButton.setFont(buttonFont);
 		helpButton.setFont(buttonFont);
 		exitButton.setFont(buttonFont);
-		
+
 		newGameButton.addActionListener(new ActionNewGame());
 		continueButton.addActionListener(new ActionLoadGame());
 		helpButton.addActionListener(new ActionHelp());
@@ -128,7 +128,7 @@ public class MenuPanel extends JPanel {
 		continueButton.setText(resources.getString("button_continue"));
 		helpButton.setText(resources.getString("button_help"));
 		exitButton.setText(resources.getString("button_exit"));
-		
+
 	}
 
 	class ActionNewGame implements ActionListener {
@@ -136,44 +136,47 @@ public class MenuPanel extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			// a panel to choose the animal
 			AnimalType animalType = showAnimalChoice();
-			if(animalType != null) {
-				int answer = JOptionPane.showConfirmDialog(MenuPanel.this, 
-						"Do you really want to create a new game ? Any game previously saved could be lost.", 
-						"Load ?", 
-						JOptionPane.YES_NO_OPTION
-					);
-				if(answer == JOptionPane.YES_OPTION) {
+			if (animalType != null) {
+				String options[] = new String[2];
+				options[0] = resources.getString("dialog_yes");
+				options[1] = resources.getString("dialog_no");
+				int answer = JOptionPane.showOptionDialog(MenuPanel.this, resources.getString("new_game_warning"), resources.getString("new_game_warning_title"), 0,
+						JOptionPane.INFORMATION_MESSAGE, null, options, null);
+				if (answer == 0) {
 					mainGui.newGame(animalType);
 				}
 			}
 		}
 
 		private AnimalType showAnimalChoice() {
-		    JComboBox<AnimalType> animalTypeComboBox = new JComboBox<AnimalType>(AnimalType.values());
-			int answer = JOptionPane.showConfirmDialog(MenuPanel.this, animalTypeComboBox, resources.getString("choice_animal_title"),
-		        JOptionPane.YES_NO_OPTION);
-			if(answer == JOptionPane.YES_OPTION) {
-				return (AnimalType)animalTypeComboBox.getSelectedItem();
-			}else {
+			String options[] = new String[2];
+			options[0] = resources.getString("dialog_chose");
+			options[1] = resources.getString("dialog_cancel");
+			JComboBox<AnimalType> animalTypeComboBox = new JComboBox<AnimalType>(AnimalType.values());
+			int answer = JOptionPane.showOptionDialog(MenuPanel.this, animalTypeComboBox, resources.getString("choice_animal_title"), 0,
+					JOptionPane.INFORMATION_MESSAGE, null, options, null);
+			if (answer == 0) {
+				return (AnimalType) animalTypeComboBox.getSelectedItem();
+			} else {
 				return null;
 			}
 		}
 	}
-	
-	class ActionLoadGame implements ActionListener{
+
+	class ActionLoadGame implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			mainGui.loadGame();
 		}
 	}
-	
+
 	class ActionHelp implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String filename;
-			if(Locale.getDefault().equals(Locale.FRANCE)) {
+			if (Locale.getDefault().equals(Locale.FRANCE)) {
 				filename = "regles.html";
-			}else {
+			} else {
 				filename = "rules.html";
 			}
 			JEditorPane jep = new JEditorPane();
@@ -184,34 +187,34 @@ public class MenuPanel extends JPanel {
 				scrollPane.setMaximumSize(MENU_DIMENSION);
 				scrollPane.setPreferredSize(new Dimension(MENU_DIMENSION.width, 2 * MENU_DIMENSION.height / 3));
 				JOptionPane.showMessageDialog(MenuPanel.this, scrollPane);
-			} catch (IOException exception) {	
+			} catch (IOException exception) {
 				JOptionPane.showMessageDialog(MenuPanel.this, "Impossible d'afficher l'aide (données non trouvées)", "Erreur", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}
-	
+
 	class ActionExit implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			System.exit(0);
 		}
 	}
-	
-	class ActionChangeLanguage implements ActionListener{
+
+	class ActionChangeLanguage implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(Locale.getDefault().equals(Locale.FRANCE)) {
+			if (Locale.getDefault().equals(Locale.FRANCE)) {
 				Locale.setDefault(Locale.UK);
 				changeLanguageButton.setText("Français");
-			}else {
+			} else {
 				Locale.setDefault(Locale.FRANCE);
 				changeLanguageButton.setText("English");
 			}
-			
+
 			resources = ResourceBundle.getBundle(RESOURCE_BUNDLE_NAME);
 			fillButtons();
 		}
-		
+
 	}
 }
