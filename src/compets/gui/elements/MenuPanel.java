@@ -188,7 +188,7 @@ public class MenuPanel extends JPanel {
 				scrollPane.setPreferredSize(new Dimension(MENU_DIMENSION.width, 2 * MENU_DIMENSION.height / 3));
 				JOptionPane.showMessageDialog(MenuPanel.this, scrollPane);
 			} catch (IOException exception) {
-				JOptionPane.showMessageDialog(MenuPanel.this, "Impossible d'afficher l'aide (données non trouvées)", "Erreur", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(MenuPanel.this, "Cannot open help : impossible to find " + filename, "Error", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}

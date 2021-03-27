@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.util.LinkedList;
+import java.util.ResourceBundle;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -30,9 +31,10 @@ import compets.engine.process.GameManager;
 import compets.engine.process.animal.AnimalManager;
 
 public class StatsPanel extends JPanel {
-	public static final Dimension GAUGE_PANEL_DIMENSION = new Dimension(GamePanel.INFOS_PANEL_DIMENSION.width / 7, GamePanel.INFOS_PANEL_DIMENSION.height);
+	public static final Dimension GAUGE_PANEL_DIMENSION = new Dimension(GamePanel.INFOS_PANEL_DIMENSION.width / 6, GamePanel.INFOS_PANEL_DIMENSION.height);
 
 	private InfosPanel infosPanel;
+	private ResourceBundle resources;
 
 	// Gauges
 	private JPanel gaugePanel;
@@ -40,7 +42,7 @@ public class StatsPanel extends JPanel {
 	private GaugePanel healthGaugePanel;
 	private Gauge actionGauge;
 	private Gauge healthGauge;
-	
+
 	// Chart
 	private static final int TIME_INTERVAL = 150;
 	private JPanel graphPanel;
@@ -49,15 +51,17 @@ public class StatsPanel extends JPanel {
 	private LinkedList<Integer> actionHistorical = new LinkedList<Integer>();
 	private LinkedList<Integer> healthHistorical = new LinkedList<Integer>();
 
-	public StatsPanel(GameManager gameManager) {
+	public StatsPanel(InfosPanel infosPanel) {
 		super();
-		
+
+		this.infosPanel = infosPanel;
 		// Get behavior gauges
-		AnimalManager animalManager = gameManager.getAnimalManager();
+		AnimalManager animalManager = infosPanel.getContext().getAnimalManager();
+		resources = infosPanel.getContext().getResources();
 		Animal animal = animalManager.getAnimal();
 		actionGauge = animal.getBehavior().getActionGauge();
 		healthGauge = animal.getBehavior().getHealthGauge();
-		
+
 		setLayout(new BorderLayout());
 		setPreferredSize(GamePanel.STATS_PANEL_DIMENSION);
 		setBackground(Color.GRAY);
@@ -71,10 +75,10 @@ public class StatsPanel extends JPanel {
 		GridLayout gridLayout = new GridLayout(0, 1);
 		gridLayout.setHgap(5);
 		gaugePanel.setLayout(gridLayout);
-		
-		actionGaugePanel = new GaugePanel("Behavior", actionGauge);
-		healthGaugePanel = new GaugePanel("Well-being", healthGauge);
-		
+
+		actionGaugePanel = new GaugePanel(resources.getString("gauge_behavior"), actionGauge);
+		healthGaugePanel = new GaugePanel(resources.getString("gauge_well_being"), healthGauge);
+
 		gaugePanel.add(actionGaugePanel);
 		gaugePanel.add(healthGaugePanel);
 		gaugePanel.setPreferredSize(GAUGE_PANEL_DIMENSION);
@@ -82,14 +86,14 @@ public class StatsPanel extends JPanel {
 	}
 
 	private void initGraphPanel() {
-		actionDataSeries = new XYSeries("Behavior");
-		healthDataSeries = new XYSeries("Well-being");
+		actionDataSeries = new XYSeries(resources.getString("gauge_behavior"));
+		healthDataSeries = new XYSeries(resources.getString("gauge_well_being"));
 		XYSeriesCollection xySeriesCollection = new XYSeriesCollection();
 		xySeriesCollection.addSeries(actionDataSeries);
 		xySeriesCollection.addSeries(healthDataSeries);
-		JFreeChart xyChart = ChartFactory.createXYLineChart("Animal's behavior (historical)", "Behavior value", "Time", xySeriesCollection,
-				PlotOrientation.VERTICAL, true, false, false);
-		
+		JFreeChart xyChart = ChartFactory.createXYLineChart(resources.getString("chart_title"), resources.getString("chart_time_axis"),
+				resources.getString("chart_value_axis"), xySeriesCollection, PlotOrientation.VERTICAL, true, false, false);
+
 		XYPlot xyPlot = xyChart.getXYPlot();
 
 		// Set behavior value (y axis) from 0 to 100
@@ -109,11 +113,11 @@ public class StatsPanel extends JPanel {
 		renderer.setSeriesPaint(1, new Color(28, 148, 49));
 		xyPlot.setRenderer(renderer);
 
-		for(int index = 0; index <= TIME_INTERVAL; index++){
+		for (int index = 0; index <= TIME_INTERVAL; index++) {
 			actionHistorical.add(actionGauge.getValue());
 			healthHistorical.add(healthGauge.getValue());
 		}
-		
+
 		graphPanel = new ChartPanel(xyChart);
 		add(graphPanel, BorderLayout.CENTER);
 	}
@@ -121,22 +125,22 @@ public class StatsPanel extends JPanel {
 	private void updateHistorical() {
 		int actionValue = actionGauge.getValue();
 		int healthValue = healthGauge.getValue();
-		
+
 		actionHistorical.remove();
 		actionHistorical.addLast(actionValue);
 		actionDataSeries.clear();
-		
+
 		healthHistorical.remove();
 		healthHistorical.addLast(healthValue);
 		healthDataSeries.clear();
-		
+
 		fillSeries();
 	}
 
 	private void fillSeries() {
 		for (int index = 0; index <= TIME_INTERVAL; index++) {
-			actionDataSeries.add((double)index, (double)actionHistorical.get(index));
-			healthDataSeries.add((double)index, (double)healthHistorical.get(index));
+			actionDataSeries.add((double) index, (double) actionHistorical.get(index));
+			healthDataSeries.add((double) index, (double) healthHistorical.get(index));
 		}
 	}
 
