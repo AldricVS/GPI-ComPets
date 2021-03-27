@@ -2,6 +2,7 @@ package compets.gui.elements;
 
 import java.awt.CardLayout;
 import java.io.IOException;
+import java.util.Locale;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -27,8 +28,16 @@ public class MainGui extends JFrame{
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		switchToMenuPanel();
+		initLocale();
 	}
 	
+	private void initLocale() {
+		Locale locale = Locale.getDefault();
+		if(!locale.equals(Locale.FRANCE) || !locale.equals(Locale.UK)) {
+			Locale.setDefault(Locale.UK);
+		}
+	}
+
 	public void newGame(AnimalType animalType) {
 		switchToGamePanel();
 		GameManager gameManager = GameInitializer.createNewGame(animalType);

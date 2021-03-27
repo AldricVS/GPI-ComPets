@@ -1,12 +1,16 @@
 package compets.tests.manual;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 import compets.engine.data.behavior.AnimalBehaviorValuesRepository;
 import compets.engine.data.behavior.BehaviorValues;
 
 public class TestExplosion {
 	public static void main(String[] args) {
-		AnimalBehaviorValuesRepository repository = new AnimalBehaviorValuesRepository();
-		int i = repository.getValue(BehaviorValues.ACTION_BAD);
-		System.out.println(i);
+		ResourceBundle bundle = ResourceBundle.getBundle("menu/menu", Locale.FRENCH);
+		System.out.println(Locale.getDefault() == Locale.FRANCE);
+		String string = bundle.getString("button_new_game");
+		System.out.println(string);
 	}
 }

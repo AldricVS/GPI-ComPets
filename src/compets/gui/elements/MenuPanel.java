@@ -11,6 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -19,6 +21,7 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JEditorPane;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -35,11 +38,15 @@ public class MenuPanel extends JPanel {
 	private static final Dimension TITLE_PART_DIMENSION = new Dimension(MENU_DIMENSION.width, MENU_DIMENSION.height / 5);
 	private static final Dimension IMAGE_PART_DIMENSION = new Dimension(MENU_DIMENSION.width, MENU_DIMENSION.height);
 	public static final Dimension BUTTONS_PART_DIMENSION = new Dimension(MENU_DIMENSION.width, MENU_DIMENSION.height / 5);
+	
+	ResourceBundle resources = ResourceBundle.getBundle("menu/menu", Locale.getDefault());
 
-	JButton newGameButton = new JButton("New Game");
-	JButton continueButton = new JButton("Continue");
-	JButton helpButton = new JButton("Help");
-	JButton exitButton = new JButton("Exit");
+	JButton newGameButton = new JButton(resources.getString("button_new_game"));
+	JButton continueButton = new JButton(resources.getString("button_continue"));
+	JButton helpButton = new JButton(resources.getString("button_help"));
+	JButton exitButton = new JButton(resources.getString("button_exit"));
+	
+	JButton changeLanguageButton = new JButton("English");
 
 	private MainGui mainGui;
 
@@ -54,16 +61,27 @@ public class MenuPanel extends JPanel {
 		initTitlePanel();
 		initCenterPanel();
 		initButtonsPanel();
+		
+		
 	}
 
 	private void initTitlePanel() {
+		JLayeredPane layeredPane = new JLayeredPane();
 		JPanel titlePanel = new JPanel();
 		titlePanel.setLayout(new BorderLayout());
 		JLabel titleLabel = new JLabel("Compet's", SwingConstants.CENTER);
 		titleLabel.setFont(new Font("Arial", Font.BOLD, IMAGE_PART_DIMENSION.width / 10));
 		titlePanel.add(titleLabel, BorderLayout.CENTER);
-		titlePanel.setPreferredSize(TITLE_PART_DIMENSION);
-		this.add(titlePanel, BorderLayout.NORTH);
+		titlePanel.setBounds(0, 0, TITLE_PART_DIMENSION.width, TITLE_PART_DIMENSION.height);
+		layeredPane.setPreferredSize(TITLE_PART_DIMENSION);
+		
+		// change language button above the title screen
+		changeLanguageButton.setBounds(0, 0, 150, 50);
+		changeLanguageButton.setPreferredSize(new Dimension(150, 50));
+		layeredPane.add(changeLanguageButton);
+		layeredPane.add(titlePanel);
+		
+		this.add(layeredPane, BorderLayout.NORTH);
 	}
 
 	private void initCenterPanel() {
@@ -161,5 +179,14 @@ public class MenuPanel extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			System.exit(0);
 		}
+	}
+	
+	class ActionChangeLanguage implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			Locale.setDefault(Locale.UK);
+		}
+		
 	}
 }
