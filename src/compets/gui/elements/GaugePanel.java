@@ -21,7 +21,7 @@ public class GaugePanel extends JPanel {
 		setLayout(new BorderLayout());
 		this.gauge = gauge;
 		titleLabel = new JLabel("<html><strong>" + title + "</strong></html>", SwingConstants.CENTER);
-		titleLabel.setFont(new Font("arial", Font.PLAIN, StatsPanel.GAUGE_PANEL_DIMENSION.width / 6));
+		titleLabel.setFont(new Font("arial", Font.PLAIN, StatsPanel.GAUGE_PANEL_DIMENSION.width / 8));
 
 		add(titleLabel, BorderLayout.SOUTH);
 		add(progressBar, BorderLayout.CENTER);

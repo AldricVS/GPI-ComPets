@@ -16,7 +16,7 @@ public class InfosPanel extends JPanel {
 		super();
 		this.context = context;
 		actionsPanel = new ActionsPanel(this);
-		statsPanel = new StatsPanel(gameManager);
+		statsPanel = new StatsPanel(this);
 		setLayout(new BorderLayout());
 		setPreferredSize(GamePanel.INFOS_PANEL_DIMENSION);
 		add(statsPanel, BorderLayout.NORTH);

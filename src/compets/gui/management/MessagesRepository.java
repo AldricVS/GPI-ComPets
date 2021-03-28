@@ -1,6 +1,7 @@
 package compets.gui.management;
 
 import java.util.HashMap;
+import java.util.ResourceBundle;
 
 import compets.engine.data.behavior.BehaviorStatesEnum;
 
@@ -13,22 +14,18 @@ public class MessagesRepository {
 
 	private HashMap<BehaviorStatesEnum, String> messages = new HashMap<BehaviorStatesEnum, String>();
 
-	public MessagesRepository() {
+	public MessagesRepository(ResourceBundle resources) {
 		// a message for each of the messages states
-		messages.put(BehaviorStatesEnum.NO_MSG, "<html><p>Nothing to say....</p></html>");
-		messages.put(BehaviorStatesEnum.ANIMAL_PITIFUL, "<html><p style=\"color:red;\">The Animal is in pitiful state, are you doing it on purpose ?</p></html>");
-		messages.put(BehaviorStatesEnum.ANIMAL_VERY_BAD_HEALTH,
-				"<html><p style=\"color:red;\">The animal is in really bad shape, you must stop to mistreat him !</p></html>");
-		messages.put(BehaviorStatesEnum.ANIMAL_BAD_HEALTH, "<html><p style=\"color:red;\">The animal is in bad shape, be careful to not hurt him.</p></html>");
-		messages.put(BehaviorStatesEnum.ANIMAL_VERY_GOOD_HEALTH, "<html><p style=\"color:green;\">The animal is in very good shape, WONDERFUL !</p></html>");
-		messages.put(BehaviorStatesEnum.ANIMAL_GOOD_HEALTH, "<html><p style=\"color:green;\">The animal is in good shape, keep be nice with him !</p></html>");
-		messages.put(BehaviorStatesEnum.ANIMAL_GOOD_BEHAVIOR,
-				"<html><p style=\"color:green;\">Your animal is well behaved, all masters will want it !</p></html>");
-		messages.put(BehaviorStatesEnum.ANIMAL_BAD_BEHAVIOR, "<html><p style=\"color:red;\">Be careful with your animal, he could get mean...</p></html>");
-		messages.put(BehaviorStatesEnum.ANIMAL_VERY_BAD_BEHAVIOR,
-				"<html><p style=\"color:red;\">Your animal is a real demon ! You must do something NOW !</p></html>");
-		messages.put(BehaviorStatesEnum.ANIMAL_EXEMPLARY,
-				"<html><p style=\"color:green;\">Your animal is the most exemplary in the world, awesome !</p></html>");
+		messages.put(BehaviorStatesEnum.NO_MSG, resources.getString("message_no_msg"));
+		messages.put(BehaviorStatesEnum.ANIMAL_PITIFUL, resources.getString("message_pitiful"));
+		messages.put(BehaviorStatesEnum.ANIMAL_VERY_BAD_HEALTH, resources.getString("message_very_bad_health"));
+		messages.put(BehaviorStatesEnum.ANIMAL_BAD_HEALTH, resources.getString("message_bad_health"));
+		messages.put(BehaviorStatesEnum.ANIMAL_VERY_GOOD_HEALTH, resources.getString("message_very_good_health"));
+		messages.put(BehaviorStatesEnum.ANIMAL_GOOD_HEALTH, resources.getString("message_good_health"));
+		messages.put(BehaviorStatesEnum.ANIMAL_GOOD_BEHAVIOR, resources.getString("message_good_behavior"));
+		messages.put(BehaviorStatesEnum.ANIMAL_BAD_BEHAVIOR, resources.getString("message_bad_behavior"));
+		messages.put(BehaviorStatesEnum.ANIMAL_VERY_BAD_BEHAVIOR, resources.getString("message_very_bad_behavior"));
+		messages.put(BehaviorStatesEnum.ANIMAL_EXEMPLARY, resources.getString("message_exemplary"));
 	}
 
 	/**
@@ -39,9 +36,9 @@ public class MessagesRepository {
 	 */
 	public String getAnimalStateMessage(BehaviorStatesEnum currentState) {
 		String message = messages.get(currentState);
-		if(message == null) {
+		if (message == null) {
 			return "";
-		}else {
+		} else {
 			return message;
 		}
 	}

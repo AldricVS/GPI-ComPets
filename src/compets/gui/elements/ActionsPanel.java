@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ResourceBundle;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -33,20 +34,23 @@ public class ActionsPanel extends JPanel{
 			);
 	private static final int PADDING_WIDTH = (int) (GamePanel.BUTTONS_PANEL_DIMENSION.getWidth() / 10);
 	private static final int PADDING_HEIGHT = (int) (GamePanel.BUTTONS_PANEL_DIMENSION.getHeight() / 10);
-	private static final Font FONT = new Font("arial", Font.BOLD, PADDING_HEIGHT);
+	private static final Font FONT = new Font("arial", Font.BOLD, 2 * PADDING_HEIGHT / 3);
 	
-	private JButton punishButton = new JButton("Punish");
-	private JButton rewardButton = new JButton("Reward");
+	private JButton punishButton = new JButton();
+	private JButton rewardButton = new JButton();
 	
 	private JPanel buttonsPanel = new JPanel();
 	private JPanel messagesPanel = new JPanel();
 	private JLabel messageLabel;
 	
-	private MessagesRepository messagesRepository = new MessagesRepository();
+	private MessagesRepository messagesRepository;
+	private ResourceBundle resources;
 
 	public ActionsPanel(InfosPanel infosPanel) {
 		super();
 		this.infosPanel = infosPanel;
+		resources = infosPanel.getContext().getResources();
+		messagesRepository = new MessagesRepository(resources);
 		animalStateHandler = infosPanel.getContext().getAnimalStateHandler();
 		setLayout(new GridLayout(1, 2));
 		initMessagesPanel();
@@ -55,6 +59,9 @@ public class ActionsPanel extends JPanel{
 	}
 	
 	private void initButtonsPanel() {
+		punishButton.setText(resources.getString("button_punish"));
+		rewardButton.setText(resources.getString("button_reward"));
+		
 		GridLayout gridLayout = new GridLayout(2, 1);
 		gridLayout.setHgap(PADDING_WIDTH);
 		gridLayout.setVgap(PADDING_HEIGHT);
@@ -77,18 +84,8 @@ public class ActionsPanel extends JPanel{
 		messagesPanel.add(titleLabel, BorderLayout.NORTH);
 		messageLabel = new JLabel("", SwingConstants.CENTER);
 		messageLabel.setFont(new Font("Arial", Font.PLAIN, GamePanel.BUTTONS_PANEL_DIMENSION.width / 30));
-		changeMessageLabel("Nothing to say...", false);
 		messagesPanel.add(messageLabel, BorderLayout.CENTER);
 		add(messagesPanel);
-	}
-	
-	public void changeMessageLabel(String newMessage, boolean isBadMessage) {
-		if(isBadMessage) {
-			messageLabel.setText("<html><p style=\"color:red;\">" + newMessage + "</p></html>");
-		}else {
-			messageLabel.setText("<html><p>" + newMessage + "</p></html>");
-		}
-		
 	}
 
 	public void setButtonsEnabled(boolean enabled) {
@@ -110,9 +107,9 @@ public class ActionsPanel extends JPanel{
 			GamePanel context = infosPanel.getContext();
 			context.pause();
 			if(context.rewardAnimal()) {
-				message = "Animal is happy to have done a good thing";
+				message = resources.getString("user_reward_right");
 			}else {
-				message = "That was not a good thing to reward the animal";
+				message = resources.getString("user_reward_wrong");;
 			}
 			JOptionPane.showMessageDialog(ActionsPanel.this, message);
 			context.play();
@@ -126,9 +123,9 @@ public class ActionsPanel extends JPanel{
 			GamePanel context = infosPanel.getContext();
 			context.pause();
 			if(context.punishAnimal()) {
-				message = "He understood that it was a bad thing";
+				message = resources.getString("user_punish_right");
 			}else {
-				message = "That was not a good thing to punish the animal";
+				message = resources.getString("user_punish_wrong");;
 			}
 			JOptionPane.showMessageDialog(ActionsPanel.this, message);
 			context.play();
