@@ -9,12 +9,14 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -48,15 +50,36 @@ public class MenuPanel extends JPanel {
 	JButton helpButton = new JButton(resources.getString("button_help"));
 	JButton exitButton = new JButton(resources.getString("button_exit"));
 
-	JButton changeLanguageButton = new JButton("English");
+	JButton changeLanguageButton = new JButton();
+	Icon englishIcon;
+	Icon frenchIcon;
 
 	private MainGui mainGui;
 
 	public MenuPanel(MainGui mainGui) {
 		this.mainGui = mainGui;
+		initIcons();
 		setLayout(new BorderLayout());
 		setPreferredSize(MENU_DIMENSION);
+		updateLanguageButton();
 		init();
+	}
+
+	private void initIcons() {
+		englishIcon = initButtonIcon("images/misc/english_flag.png");
+		frenchIcon = initButtonIcon("images/misc/french_flag.png");
+	}
+
+	private ImageIcon initButtonIcon(String filename) {
+		try {
+			File file = new File(filename);
+			BufferedImage image = ImageIO.read(file);
+			Image scaledImage = image.getScaledInstance(2 * BUTTON_LANGUAGE_DIMENSION.width / 3, 2 * BUTTON_LANGUAGE_DIMENSION.height / 3, Image.SCALE_SMOOTH);
+			return new ImageIcon(scaledImage);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	private void init() {
@@ -78,7 +101,7 @@ public class MenuPanel extends JPanel {
 		changeLanguageButton.setBounds(0, 0, BUTTON_LANGUAGE_DIMENSION.width, BUTTON_LANGUAGE_DIMENSION.height);
 		changeLanguageButton.setPreferredSize(new Dimension(BUTTON_LANGUAGE_DIMENSION.width, BUTTON_LANGUAGE_DIMENSION.height));
 		changeLanguageButton.addActionListener(new ActionChangeLanguage());
-		
+
 		layeredPane.add(changeLanguageButton);
 		layeredPane.add(imagePanel);
 		this.add(layeredPane, BorderLayout.CENTER);
@@ -181,12 +204,12 @@ public class MenuPanel extends JPanel {
 			}
 		}
 	}
-	
+
 	private void updateLanguageButton() {
 		if (Locale.getDefault().equals(Locale.FRANCE)) {
-			changeLanguageButton.setText("English");
+			changeLanguageButton.setIcon(englishIcon);
 		} else {
-			changeLanguageButton.setText("Français");
+			changeLanguageButton.setIcon(frenchIcon);
 		}
 	}
 
@@ -212,7 +235,7 @@ public class MenuPanel extends JPanel {
 			} else {
 				Locale.setDefault(Locale.FRANCE);
 			}
-			
+
 			updateLanguageBasedOnLocale();
 		}
 	}
