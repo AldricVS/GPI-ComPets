@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 
 import compets.engine.process.GameManager;
+import compets.gui.management.animal_drawing.AnimalImageUtility;
 
 public class InfosPanel extends JPanel {
 
@@ -12,10 +13,10 @@ public class InfosPanel extends JPanel {
 	private ActionsPanel actionsPanel;
 	private StatsPanel statsPanel;
 
-	public InfosPanel(GamePanel context, GameManager gameManager) {
+	public InfosPanel(GamePanel context, AnimalImageUtility animalImageUtility) {
 		super();
 		this.context = context;
-		actionsPanel = new ActionsPanel(this);
+		actionsPanel = new ActionsPanel(this, animalImageUtility);
 		statsPanel = new StatsPanel(this);
 		setLayout(new BorderLayout());
 		setPreferredSize(GamePanel.INFOS_PANEL_DIMENSION);

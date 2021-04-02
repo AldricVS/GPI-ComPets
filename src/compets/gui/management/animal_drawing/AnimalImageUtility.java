@@ -8,6 +8,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import compets.engine.data.animal.Animal;
+import compets.engine.data.animal.AnimalState;
 import compets.engine.data.animal.Cat;
 import compets.engine.data.animal.Dog;
 
@@ -27,8 +28,8 @@ public class AnimalImageUtility {
 		animalImagesRepository = animal.accept(animalVisitor);
 	}
 	
-	public Image getCorrespondingImage(Animal animal) {
-		switch (animal.getState()) {
+	public Image getCorrespondingImage(AnimalState animalState) {
+		switch (animalState) {
 		case GOOD_ACTION:
 			return animalImagesRepository.getImageGoodState();
 		case BAD_ACTION:

@@ -6,11 +6,14 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
 
 import javax.swing.BorderFactory;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -18,11 +21,16 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import compets.engine.data.animal.AnimalState;
+import compets.engine.data.animal.AnimalType;
 import compets.engine.data.behavior.BehaviorStatesEnum;
 import compets.engine.process.animal.AnimalStateHandler;
 import compets.gui.management.MessagesRepository;
+import compets.gui.management.animal_drawing.AnimalImageUtility;
 
 public class ActionsPanel extends JPanel{
+
+	private static final int ICON_SIDE_LENGTH = 64;
 
 	private InfosPanel infosPanel;
 	
@@ -45,10 +53,18 @@ public class ActionsPanel extends JPanel{
 	
 	private MessagesRepository messagesRepository;
 	private ResourceBundle resources;
+	private AnimalImageUtility animalImageUtility;
+	
+	private Icon badActionIcon;
+	private Icon goodActionIcon;
 
-	public ActionsPanel(InfosPanel infosPanel) {
+	public ActionsPanel(InfosPanel infosPanel, AnimalImageUtility animalImageUtility) {
 		super();
 		this.infosPanel = infosPanel;
+		this.animalImageUtility = animalImageUtility;
+		
+		initIcons(animalImageUtility);
+		
 		resources = infosPanel.getContext().getResources();
 		messagesRepository = new MessagesRepository(resources);
 		animalStateHandler = infosPanel.getContext().getAnimalStateHandler();
@@ -56,6 +72,17 @@ public class ActionsPanel extends JPanel{
 		initMessagesPanel();
 		initButtonsPanel();
 		//initFont();
+	}
+
+	private void initIcons(AnimalImageUtility animalImageUtility) {
+		// Scale images for being small icons
+		Image badActionImage = animalImageUtility.getCorrespondingImage(AnimalState.BAD_ACTION);
+		Image badActionResized = badActionImage.getScaledInstance(ICON_SIDE_LENGTH, ICON_SIDE_LENGTH, Image.SCALE_DEFAULT);
+		Image goodActionImage = animalImageUtility.getCorrespondingImage(AnimalState.GOOD_ACTION);
+		Image goodActionResized = goodActionImage.getScaledInstance(ICON_SIDE_LENGTH, ICON_SIDE_LENGTH, Image.SCALE_DEFAULT);
+		// Retrieve images for pop ups
+		badActionIcon = new ImageIcon(badActionResized);
+		goodActionIcon = new ImageIcon(goodActionResized);
 	}
 	
 	private void initButtonsPanel() {
@@ -104,14 +131,17 @@ public class ActionsPanel extends JPanel{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String message = "";
+			Icon iconToUse;
 			GamePanel context = infosPanel.getContext();
 			context.pause();
 			if(context.rewardAnimal()) {
 				message = resources.getString("user_reward_right");
+				iconToUse = goodActionIcon;
 			}else {
-				message = resources.getString("user_reward_wrong");;
+				message = resources.getString("user_reward_wrong");
+				iconToUse = badActionIcon;
 			}
-			JOptionPane.showMessageDialog(ActionsPanel.this, message);
+			JOptionPane.showMessageDialog(ActionsPanel.this, message, "", JOptionPane.INFORMATION_MESSAGE, iconToUse);
 			context.play();
 		}
 	}
@@ -120,14 +150,17 @@ public class ActionsPanel extends JPanel{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String message = "";
+			Icon iconToUse;
 			GamePanel context = infosPanel.getContext();
 			context.pause();
 			if(context.punishAnimal()) {
 				message = resources.getString("user_punish_right");
+				iconToUse = goodActionIcon;
 			}else {
-				message = resources.getString("user_punish_wrong");;
+				message = resources.getString("user_punish_wrong");
+				iconToUse = badActionIcon;
 			}
-			JOptionPane.showMessageDialog(ActionsPanel.this, message);
+			JOptionPane.showMessageDialog(ActionsPanel.this, message, "", JOptionPane.INFORMATION_MESSAGE, iconToUse);
 			context.play();
 		}
 	}

@@ -52,6 +52,10 @@ public class MapPanel extends JPanel {
 		setBackground(Color.BLACK);
 	}
 
+	public AnimalImageUtility getAnimalImageUtility() {
+		return animalImageUtility;
+	}
+
 	public GamePanel getContext() {
 		return context;
 	}
@@ -107,7 +111,7 @@ public class MapPanel extends JPanel {
 
 	private void drawAnimal(Graphics g) {
 		Position position = animal.getPosition();
-		Image image = animalImageUtility.getCorrespondingImage(animal);
+		Image image = animalImageUtility.getCorrespondingImage(animal.getState());
 		//if cannot find the images, draw the old oval instead
 		if(image == null) {
 			g.setColor(ColorConstants.ANIMAL_COLOR);

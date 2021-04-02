@@ -72,8 +72,8 @@ public class GamePanel extends JPanel implements Runnable{
 		map = animalManager.getMap();
 		animal = animalManager.getAnimal();
 		animalStateHandler = gameManager.getAnimalStateHandler();
-		infosPanel = new InfosPanel(this, gameManager);
 		mapPanel = new MapPanel(this);
+		infosPanel = new InfosPanel(this, mapPanel.getAnimalImageUtility());
 		setLayout(new BorderLayout());
 		add(mapPanel, BorderLayout.CENTER);
 		add(infosPanel, BorderLayout.EAST);
