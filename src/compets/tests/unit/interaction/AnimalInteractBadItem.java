@@ -2,11 +2,13 @@ package compets.tests.unit.interaction;
 
 import static org.junit.Assert.*;
 
-import org.junit.Before;
+import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import compets.engine.data.animal.Dog;
+import compets.engine.data.animal.Fox;
+import compets.engine.data.animal.Cat;
 import compets.engine.data.animal.Gauge;
 import compets.engine.data.behavior.BehaviorValues;
 import compets.engine.data.animal.Animal;
@@ -32,13 +34,9 @@ public class AnimalInteractBadItem {
 
 		position = new Position(0, 0);
 		map.getMap()[position.getX()][position.getY()] = new BadItem(position);
-
-		animal = new Dog(position);
-		manager = new AnimalManager(animal, map);
 	}
 
-	@Before
-	public void resetGaugeAndInteract() {
+	private void resetGaugeAndInteract() {
 		animal.getBehavior().getActionGauge().setValue(Gauge.MIN_GAUGE);
 		animal.getBehavior().getHealthGauge().setValue(Gauge.DEFAULT_GAUGE);
 		manager.resetAnimalState();
@@ -46,21 +44,43 @@ public class AnimalInteractBadItem {
 	}
 
 	@Test
-	public void behaviorChangedByInteraction() {
-		assertEquals(AnimalState.BAD_ACTION, animal.getState());
+	public void testDogInteraction() {
+		animal = new Dog(position);
+		manager = new AnimalManager(animal, map);
 	}
 
 	@Test
+	public void testCatInteraction() {
+		animal = new Cat(position);
+		manager = new AnimalManager(animal, map);
+	}
+
+	@Test
+	public void testFoxInteraction() {
+		animal = new Fox(position);
+		manager = new AnimalManager(animal, map);
+	}
+
+	@After
+	public void behaviorChangedByInteraction() {
+		resetGaugeAndInteract();
+		assertEquals(AnimalState.BAD_ACTION, animal.getState());
+	}
+
+	@After
 	public void dontGetReward() {
+		resetGaugeAndInteract();
 		assertFalse(manager.reward());
 		assertEquals(Gauge.MIN_GAUGE, animal.getBehavior().getActionGauge().getValue());
 		assertEquals(Gauge.DEFAULT_GAUGE, animal.getBehavior().getHealthGauge().getValue());
 	}
 
-	@Test
+	@After
 	public void getPunish() {
+		resetGaugeAndInteract();
 		assertTrue(manager.punish());
-		assertEquals(Gauge.MIN_GAUGE + manager.getRepoValue(BehaviorValues.ACTION_BAD_PUNISHED), animal.getBehavior().getActionGauge().getValue());
+		assertEquals(Gauge.MIN_GAUGE + manager.getRepoValue(BehaviorValues.ACTION_BAD_PUNISHED),
+				animal.getBehavior().getActionGauge().getValue());
 		assertEquals(Gauge.DEFAULT_GAUGE, animal.getBehavior().getHealthGauge().getValue());
 	}
 }
