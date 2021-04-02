@@ -4,64 +4,74 @@
     <meta charset='utf-8'>
     <meta name='author' content='admin' >
     </head>
-    <!--#87b3bf-->
-<body style = "background-color :#c7d0d8 ;">
+    <!--#87b3bf   #c7d0d8 -->
+<body style = "background-color :#D4F7FF;">
 <center><table>
-	<td> <a href="../images/Animal/Animal_GOOD.png"><img src="../images/Animal/Animal_GOOD.png" width="75" height="75"></td>
-	<td><h1 style="font-size: 250%">Compet's</h1></td>
-	<td> <a href="../images/Animal/Animal_BAD.png"><img src="../images/Animal/Animal_BAD.png" width="75" height="75"></td>
+	<td><img src="../images/Animal/Animal_GOOD.png" width="75" height="75"></td>
+	<td><h1 style="font-size: 250%">Tuto Compet's</h1></td>
+	<td><img src="../images/Animal/Animal_BAD.png" width="75" height="75"></td>
 	</table>
 </center>
 </table>
 	
-		<p>The goal of this simulation is to train an animal. L’animal peut interagir avec les cases de couleur rouge, orange et verte. Les cases grises sont de simples cases où l’animal ne peut que se déplacer, les cases noirs sont des murs. Une case rouge est une case où l’animal peut faire une mauvaise action, une case verte est une case où l’animal peut faire une bonne action et une case orange est celle où il peut faire une bonne action ou une mauvaise.</p>
-		<p> <br/>Vous pouvez soit récompenser l’animal soit le punir à l’aide se boutons. </p>
-		<p><br/>Vous pouvez observer l’évolution de l’apprentissage de l’animal grâce à la jauge d’obéissance, et à l’aide du graphique de l’historique des dernière action de l’animal. Mais attention à la jauge de bien être de votre animal.</p>
+		
+		<p>The purpose of this simulation is to train an animal.The animal can interact with the red, orange and green boxes. The gray squares are simple squares where the animal can only move, the black squares are walls.A red square is a square where the animal can do a bad action, a green square is a square where the animal can do a good action and an orange square is where it can do a good or bad action.</p>
+		<p> <br/>You can either reward the animal or punish it with buttons. </p>
+		<p><br/>You can observe the evolution of your pet's learning with the obedience gauge, and with the help of the graph of the pet's last action history. But pay attention to the pet's well being gauge.</p>
+	
 		
 		
 	<table>
 	
 	
 		<td>
-			<h2>Jauge d’obéissance</h2>
+			<h2>Obedience gauge:</h2>
 				<ul>			
-					<li><u>décrémentation lorsque</u>:</li>
+					<li><u>Decrease when</u>:</li>
 						<ul>
-							<li> l’animal est puni alors qu’il ne fait rien</li>
-							<li> l’animal est puni alors qu’il fait une bonne action</li>
-							<li> l’animal fait une mauvaise action et qu’il n’est pas puni</li>
+							<li> the animal is punished when it does nothing</li>
+							<li> the animal is punished when it does a good deed</li>
+							<li> the animal does a bad deed and is not punished</li>
 						</ul>
-					<li><u>incrémentation lorsque</u>:</li>
+					<li><u>Increment when</u>:</li>
 						<ul>
-							<li> l’animal est récompensé pour une bonne action</li>
-							<li> l’animal fait une mauvaise action et est puni</li>
-							<li> l’animal fait de bonne action mais qu’il n’est pas récompensé</li>
-						</ul>
-				</ul></td>
-		<td>
-			<div>
-				<h2>Jauge de bien être</h2>
-				<ul>
-					<li><u>décrémentation lorsque</u>:</li>
-						<ul>
-							<li> l’animal est puni alors qu’il ne fait rien</li>
-							<li> l’animal est puni alors qu’il fait une bonne action</li>
-							<li> l’animal fait de bonne action mais qu’il n’est pas récompensé</li>
-						</ul>
-					<li><u>incrémentation lorsque</u>:</li>
-						<ul>
-							<li> l’animal est récompensé pour une bonne action</li>
-							<li> quand l’animal ne fait rien</li>
+							<li> the animal is rewarded for a good deed</li>
+							<li> the animal does a bad deed and is punished</li>
+							<li> the animal does a good deed but is not rewarded</li>
 						</ul>
 				</ul>
-			
-		</div>
 		</td>
 		<td>
 			<div>		
-				<a href="compets_schema.png"><img src="compets_schema.png" width="450" height="455.5"></a>
+				<img src="./regles_UX_images/obeissance_2.png" width="50%" height="50%"></a>
 			</div>	
-	</td>
+		</td>		
+		
+	</table>		
+		
+	<table>
+		<td>
+			<h2>Well-being gauge:</h2>
+				<ul>			
+					<li><u>Decrease when</u>:</li>
+						<ul>
+							<li> the animal is punished when it does nothing</li>
+							<li> the animal is punished while doing a good deed</li>
+							<li> the animal does good deeds but is not rewarded</li>
+						</ul>
+					<li><u>Increment when</u>:</li>
+						<ul>
+							<li> the animal is rewarded for a good deed</li>
+							<li> the animal does nothing</li>
+						</ul>
+				</ul>
+		</td>
+		<td>
+			<div>		
+				<img src="./regles_UX_images/bien_etre_2.png" width="50%" height="50%"></a>
+			</div>	
+		</td>
+		
 	</table>
 			
 </body>
