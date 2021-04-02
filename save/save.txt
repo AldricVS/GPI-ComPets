@@ -1,4 +1,4 @@
-5
-5
-100
-80
+animalType:CAT
+position:7,8
+actionGauge:28
+healthGauge:80
