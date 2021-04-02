@@ -53,7 +53,6 @@ public class ActionsPanel extends JPanel{
 	
 	private MessagesRepository messagesRepository;
 	private ResourceBundle resources;
-	private AnimalImageUtility animalImageUtility;
 	
 	private Icon badActionIcon;
 	private Icon goodActionIcon;
@@ -61,7 +60,6 @@ public class ActionsPanel extends JPanel{
 	public ActionsPanel(InfosPanel infosPanel, AnimalImageUtility animalImageUtility) {
 		super();
 		this.infosPanel = infosPanel;
-		this.animalImageUtility = animalImageUtility;
 		
 		initIcons(animalImageUtility);
 		
