@@ -75,9 +75,9 @@ public class ActionsPanel extends JPanel{
 	private void initIcons(AnimalImageUtility animalImageUtility) {
 		// Scale images for being small icons
 		Image badActionImage = animalImageUtility.getCorrespondingImage(AnimalState.BAD_ACTION);
-		Image badActionResized = badActionImage.getScaledInstance(ICON_SIDE_LENGTH, ICON_SIDE_LENGTH, Image.SCALE_DEFAULT);
+		Image badActionResized = badActionImage.getScaledInstance(ICON_SIDE_LENGTH, ICON_SIDE_LENGTH, Image.SCALE_SMOOTH);
 		Image goodActionImage = animalImageUtility.getCorrespondingImage(AnimalState.GOOD_ACTION);
-		Image goodActionResized = goodActionImage.getScaledInstance(ICON_SIDE_LENGTH, ICON_SIDE_LENGTH, Image.SCALE_DEFAULT);
+		Image goodActionResized = goodActionImage.getScaledInstance(ICON_SIDE_LENGTH, ICON_SIDE_LENGTH, Image.SCALE_SMOOTH);
 		// Retrieve images for pop ups
 		badActionIcon = new ImageIcon(badActionResized);
 		goodActionIcon = new ImageIcon(goodActionResized);
