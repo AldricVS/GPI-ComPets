@@ -35,8 +35,8 @@ import compets.gui.management.ImagePanel;
 public class MenuPanel extends JPanel {
 	public static final Dimension MENU_DIMENSION = new Dimension(GuiConfiguration.WIDTH, GuiConfiguration.HEIGHT);
 
-	private static final Dimension TITLE_PART_DIMENSION = new Dimension(MENU_DIMENSION.width, MENU_DIMENSION.height / 5);
-	private static final Dimension IMAGE_PART_DIMENSION = new Dimension(MENU_DIMENSION.width, MENU_DIMENSION.height);
+	private static final Dimension BUTTON_LANGUAGE_DIMENSION = new Dimension(MENU_DIMENSION.width / 9, MENU_DIMENSION.height / 9);
+	private static final Dimension IMAGE_PART_DIMENSION = new Dimension(MENU_DIMENSION.width, 4 * MENU_DIMENSION.height / 5);
 	public static final Dimension BUTTONS_PART_DIMENSION = new Dimension(MENU_DIMENSION.width, MENU_DIMENSION.height / 5);
 
 	private static final String RESOURCE_BUNDLE_NAME = "main_menu/menu";
@@ -60,39 +60,28 @@ public class MenuPanel extends JPanel {
 	}
 
 	private void init() {
-		initTitlePanel();
-		initCenterPanel();
+		initImagePanel();
 		initButtonsPanel();
 	}
 
-	private void initTitlePanel() {
+	private void initImagePanel() {
 		JLayeredPane layeredPane = new JLayeredPane();
-		JPanel titlePanel = new JPanel();
-		titlePanel.setLayout(new BorderLayout());
-		JLabel titleLabel = new JLabel("Compet's", SwingConstants.CENTER);
-		titleLabel.setFont(new Font("Arial", Font.BOLD, IMAGE_PART_DIMENSION.width / 10));
-		titlePanel.add(titleLabel, BorderLayout.CENTER);
-		titlePanel.setBounds(0, 0, TITLE_PART_DIMENSION.width, TITLE_PART_DIMENSION.height);
-		layeredPane.setPreferredSize(TITLE_PART_DIMENSION);
 
-		// change language button above the title screen
-		changeLanguageButton.setBounds(0, 0, 150, 50);
-		changeLanguageButton.setPreferredSize(new Dimension(150, 50));
-		changeLanguageButton.addActionListener(new ActionChangeLanguage());
-		layeredPane.add(changeLanguageButton);
-		layeredPane.add(titlePanel);
-
-		this.add(layeredPane, BorderLayout.NORTH);
-	}
-
-	private void initCenterPanel() {
-		ImagePanel centerPanel = new ImagePanel();
+		ImagePanel imagePanel = new ImagePanel();
+		imagePanel.setBounds(0, 0, IMAGE_PART_DIMENSION.width, IMAGE_PART_DIMENSION.height);
 		try {
-			centerPanel.setImage(ImageIO.read(new File("images/Animal/Animal_ALL.png")));
+			imagePanel.setImage(ImageIO.read(new File("images/misc/home.png")));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		this.add(centerPanel, BorderLayout.CENTER);
+		// change language button above the title screen
+		changeLanguageButton.setBounds(0, 0, BUTTON_LANGUAGE_DIMENSION.width, BUTTON_LANGUAGE_DIMENSION.height);
+		changeLanguageButton.setPreferredSize(new Dimension(BUTTON_LANGUAGE_DIMENSION.width, BUTTON_LANGUAGE_DIMENSION.height));
+		changeLanguageButton.addActionListener(new ActionChangeLanguage());
+		
+		layeredPane.add(changeLanguageButton);
+		layeredPane.add(imagePanel);
+		this.add(layeredPane, BorderLayout.CENTER);
 	}
 
 	private void initButtonsPanel() {
@@ -140,8 +129,8 @@ public class MenuPanel extends JPanel {
 				String options[] = new String[2];
 				options[0] = resources.getString("dialog_yes");
 				options[1] = resources.getString("dialog_no");
-				int answer = JOptionPane.showOptionDialog(MenuPanel.this, resources.getString("new_game_warning"), resources.getString("new_game_warning_title"), 0,
-						JOptionPane.INFORMATION_MESSAGE, null, options, null);
+				int answer = JOptionPane.showOptionDialog(MenuPanel.this, resources.getString("new_game_warning"),
+						resources.getString("new_game_warning_title"), 0, JOptionPane.INFORMATION_MESSAGE, null, options, null);
 				if (answer == 0) {
 					mainGui.newGame(animalType);
 				}
@@ -192,6 +181,20 @@ public class MenuPanel extends JPanel {
 			}
 		}
 	}
+	
+	private void updateLanguageButton() {
+		if (Locale.getDefault().equals(Locale.FRANCE)) {
+			changeLanguageButton.setText("English");
+		} else {
+			changeLanguageButton.setText("Français");
+		}
+	}
+
+	private void updateLanguageBasedOnLocale() {
+		updateLanguageButton();
+		resources = ResourceBundle.getBundle(RESOURCE_BUNDLE_NAME);
+		fillButtons();
+	}
 
 	class ActionExit implements ActionListener {
 		@Override
@@ -206,15 +209,11 @@ public class MenuPanel extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			if (Locale.getDefault().equals(Locale.FRANCE)) {
 				Locale.setDefault(Locale.UK);
-				changeLanguageButton.setText("Français");
 			} else {
 				Locale.setDefault(Locale.FRANCE);
-				changeLanguageButton.setText("English");
 			}
-
-			resources = ResourceBundle.getBundle(RESOURCE_BUNDLE_NAME);
-			fillButtons();
+			
+			updateLanguageBasedOnLocale();
 		}
-
 	}
 }
