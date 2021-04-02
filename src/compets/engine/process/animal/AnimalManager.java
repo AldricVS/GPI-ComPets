@@ -234,10 +234,10 @@ public class AnimalManager {
 	}
 
 	/**
-	 * Renvoi vrai si l'animal a été puni en faisant une mauvaise action. Renvoie
-	 * faux sinon.
+	 * Method launch when the user punish the animal
 	 * 
-	 * @return
+	 * @return True if the animal was punished when doing a bad action.
+	 * 		False otherwise.
 	 */
 	public boolean punish() {
 		Behavior bh = this.animal.getBehavior();
@@ -247,7 +247,7 @@ public class AnimalManager {
 
 		// Only with the animal state, we can know if he is doing something good or bad
 		// (no need to check on top of which Item he is)
-		
+
 		int actionValueChange = 0;
 		int healthValueChange = 0;
 
@@ -276,10 +276,10 @@ public class AnimalManager {
 	}
 
 	/**
-	 * Renvoi vrai si l'animal a été récompenser en faisant une bonne action.
-	 * Renvoie faux sinon. Le tout en implémentant le comportement de l'animal.
+	 * Method launch when the user reward the animal
 	 * 
-	 * @return
+	 * @return True if the animal was rewarded when doing a good action.
+	 * 		False otherwise.
 	 */
 	public boolean reward() {
 		Behavior bh = this.animal.getBehavior();
